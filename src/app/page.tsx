@@ -2,7 +2,7 @@
 import { ProgressBar } from "react-bootstrap"
 import { genBtn, genFrm, vp } from "./components/cssStyles"
 import { bgImg } from "./components/cssStyles"
-import { searchCircleOutline,checkmarkDone } from "ionicons/icons"
+import { searchCircleOutline, checkmarkDone } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
 import Marquee from "react-fast-marquee"
 
@@ -21,14 +21,14 @@ export default function Home() {
       <div className={vp}>
         <div className="row container ">
           <div className="col-sm">
-            <img src="https://voideawn.sirv.com/website/home_two.jpg" className="Sirv rounded"  alt="lady selling tomatoes" />
+            <img src="https://voideawn.sirv.com/website/home_two.jpg" className="Sirv rounded shadow" alt="lady selling tomatoes" />
           </div>
           <div className="col-sm text-center d-flex flex-column justify-content-center align-items-center ">
             <h1 >
               Connecting Small Markets
             </h1>
             <p>
-            Selling online is not just an increase in revenue, but a way to further connect with your audiences and expand your name. By growing your online presence, your business is no longer limited to a local customer base.
+              Selling online is not just an increase in revenue, but a way to further connect with your audiences and expand your name. By growing your online presence, your business is no longer limited to a local customer base.
             </p>
             <button className={genBtn}>Create Your Free listing!</button>
           </div>
@@ -38,110 +38,118 @@ export default function Home() {
         <Marquee>
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
-            <p>Aurora </p><IonIcon className="text-end" color="success" icon={checkmarkDone} />
+              <p>Aurora </p><IonIcon className="text-end" color="success" icon={checkmarkDone} />
             </div>
-            
+
             <hr />
             <p>IT Services and Management Systems</p>
-            <span className="me-2">5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
+            <span className="me-2">5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png" />
           </div>
           <div className="rounded shadow p-3 m-3 marq">
-          <div className="d-flex justify-content-between ">
-            <p>Bellprize PVT Limited</p>
-            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            <div className="d-flex justify-content-between ">
+              <p>Bellprize PVT Limited</p>
+              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
             </div>
             <hr />
             <p>Civil Engineering</p>
-            <span className="me-2">4.5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
+            <span className="me-2">4.5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png" />
           </div>
           <div className="rounded shadow p-3 m-3 marq">
-          <div className="d-flex justify-content-between ">
-            <p>Crown Connect</p>
-            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            <div className="d-flex justify-content-between ">
+              <p>Crown Connect</p>
+              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
             </div>
             <hr />
             <p>Finanacial Services Consultancy</p>
-            <span className="me-2">4.5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
+            <span className="me-2">4.5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png" />
           </div>
           <div className="rounded shadow p-3 m-3 marq">
-          <div className="d-flex justify-content-between ">
-            <p>Pamba</p>
-            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            <div className="d-flex justify-content-between ">
+              <p>Pamba</p>
+              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
             </div>
             <hr />
             <p>Food catering services</p>
-            <span className="me-2">5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
+            <span className="me-2">5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png" />
           </div>
           <div className="rounded shadow p-3 m-3 marq">
-          <div className="d-flex justify-content-between ">
-            <p>Shapiro Motors</p>
-            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            <div className="d-flex justify-content-between ">
+              <p>Shapiro Motors</p>
+              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
             </div>
             <hr />
             <p>Car repairs and inspection!</p>
-            <span className="me-2">4</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
+            <span className="me-2">4</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png" />
           </div>
 
         </Marquee>
         <Marquee direction="right">
           <div className="rounded shadow p-3 m-3 marq">
-          <div className="d-flex justify-content-between ">
-            <p>Amai Dee's</p>
-            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            <div className="d-flex justify-content-between ">
+              <p>Amai Dee's</p>
+              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
             </div>
             <hr />
             <p>ZIM traditional food</p>
-            <span className="me-2">3</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
+            <span className="me-2">3</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png" />
           </div>
           <div className="rounded shadow p-3 m-3 marq">
-          <div className="d-flex justify-content-between ">
-            <p>Montana grills</p>
-            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            <div className="d-flex justify-content-between ">
+              <p>Montana grills</p>
+              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
             </div>
             <hr />
             <p>Gochi gochi grills for the nation</p>
-            <span className="me-2">2</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
+            <span className="me-2">2</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png" />
           </div>
           <div className="rounded shadow p-3 m-3 marq">
-          <div className="d-flex justify-content-between ">
-            <p>Steelmate</p>
-            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            <div className="d-flex justify-content-between ">
+              <p>Steelmate</p>
+              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
             </div>
             <hr />
             <p>One stop shop for all your steel needs</p>
-            <span className="me-2">3.5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
+            <span className="me-2">3.5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png" />
           </div>
           <div className="rounded shadow p-3 m-3 marq">
-          <div className="d-flex justify-content-between ">
-            <p>Export Freight</p>
-            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            <div className="d-flex justify-content-between ">
+              <p>Export Freight</p>
+              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
             </div>
             <hr />
             <p>Shipping, transporting services</p>
-            <span className="me-2">1</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
+            <span className="me-2">1</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png" />
           </div>
           <div className="rounded shadow p-3 m-3 marq">
-          <div className="d-flex justify-content-between ">
-            <p>Shapiro Motors</p>
-            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            <div className="d-flex justify-content-between ">
+              <p>Shapiro Motors</p>
+              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
             </div>
             <hr />
             <p>Car repairs and inspection!</p>
-            <span className="me-2">4.7</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
+            <span className="me-2">4.7</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png" />
           </div>
 
         </Marquee>
-       
+
       </div>
       <div className={vp}>
-          <div className="row container">
-            <div className="col-sm">
-
-            </div>
-              <div className="col-sm">
-
-              </div>
+        <div className="row container">
+          <div className="col-sm d-flex flex-column justify-content-center align-items-center">
+            <h1>Benefits of Listing on ZSO</h1>
+            <ul>
+              <li>Low operating costs</li>
+              <li>Potential for high scalability</li>
+              <li>Large client and consumer base</li>
+              <li>Quality customer support</li>
+              <li>Marketing is made easy</li>
+            </ul>
+            <button className={genBtn}>Get your Free Listing</button>
           </div>
+          <div className="col-sm">
+            <img className="Sirv rounded shadow-lg" src="https://voideawn.sirv.com/website/home_three.jpg" alt="man painted with the Zimbabwean flag" />
+          </div>
+        </div>
       </div>
     </div>
   )
