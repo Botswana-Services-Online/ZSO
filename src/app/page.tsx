@@ -12,7 +12,7 @@ export default function Home() {
       {/* home page */}
       <div className={vp} style={bgImg("https://voideawn.sirv.com/website/home_one.jpg")}>
         <div className="input-group mb-3  container">
-          <input type="text" className="form-control shadow-lg rounded-start-pill  p-3" placeholder="What are you looking for...." />
+          <input type="text" className="form-control shadow-lg rounded-start-pill  p-3" placeholder="looking for...." />
           <input type="text" className="form-control rounded-end-pill p-3 me-1" placeholder="Location" />
           <button className="btn Bg text-white rounded-pill d-flex align-items-center"><IonIcon size="large" icon={searchCircleOutline} /></button>
         </div>
@@ -37,31 +37,46 @@ export default function Home() {
       <div>
         <Marquee>
           <div className="rounded shadow p-3 m-3 marq">
-            <p>Aurora</p>
+            <div className="d-flex justify-content-between ">
+            <p>Aurora </p><IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            </div>
+            
             <hr />
             <p>IT Services and Management Systems</p>
             <span className="me-2">5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
           </div>
           <div className="rounded shadow p-3 m-3 marq">
+          <div className="d-flex justify-content-between ">
             <p>Bellprize PVT Limited</p>
+            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            </div>
             <hr />
             <p>Civil Engineering</p>
             <span className="me-2">4.5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
           </div>
           <div className="rounded shadow p-3 m-3 marq">
+          <div className="d-flex justify-content-between ">
             <p>Crown Connect</p>
+            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            </div>
             <hr />
             <p>Finanacial Services Consultancy</p>
             <span className="me-2">4.5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
           </div>
           <div className="rounded shadow p-3 m-3 marq">
+          <div className="d-flex justify-content-between ">
             <p>Pamba</p>
+            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            </div>
             <hr />
             <p>Food catering services</p>
             <span className="me-2">5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
           </div>
           <div className="rounded shadow p-3 m-3 marq">
+          <div className="d-flex justify-content-between ">
             <p>Shapiro Motors</p>
+            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            </div>
             <hr />
             <p>Car repairs and inspection!</p>
             <span className="me-2">4</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
@@ -70,31 +85,46 @@ export default function Home() {
         </Marquee>
         <Marquee direction="right">
           <div className="rounded shadow p-3 m-3 marq">
+          <div className="d-flex justify-content-between ">
             <p>Amai Dee's</p>
+            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            </div>
             <hr />
             <p>ZIM traditional food</p>
             <span className="me-2">3</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
           </div>
           <div className="rounded shadow p-3 m-3 marq">
+          <div className="d-flex justify-content-between ">
             <p>Montana grills</p>
+            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            </div>
             <hr />
             <p>Gochi gochi grills for the nation</p>
             <span className="me-2">2</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
           </div>
           <div className="rounded shadow p-3 m-3 marq">
+          <div className="d-flex justify-content-between ">
             <p>Steelmate</p>
+            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            </div>
             <hr />
             <p>One stop shop for all your steel needs</p>
             <span className="me-2">3.5</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
           </div>
           <div className="rounded shadow p-3 m-3 marq">
+          <div className="d-flex justify-content-between ">
             <p>Export Freight</p>
+            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            </div>
             <hr />
             <p>Shipping, transporting services</p>
             <span className="me-2">1</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>
           </div>
           <div className="rounded shadow p-3 m-3 marq">
+          <div className="d-flex justify-content-between ">
             <p>Shapiro Motors</p>
+            <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+            </div>
             <hr />
             <p>Car repairs and inspection!</p>
             <span className="me-2">4.7</span><img className="mb-1" src="https://voideawn.sirv.com/website/star.png"/>

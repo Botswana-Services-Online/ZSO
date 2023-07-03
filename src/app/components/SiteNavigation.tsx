@@ -28,10 +28,10 @@ export const NavBar = () => {
                     </Nav>
                     <div className="d-flex flex-row flex-wrap justify-content-evenly ">
                         <div>
-                            <Button className="rounded-pill bg-light  Bg border-light text-white  d-flex align-items-center me-2" ><IonIcon color='light' icon={addCircleOutline} /><span>Add Listing</span></Button>
+                            <Button className="rounded-pill   border-light text-white  d-flex align-items-center me-2 bg-transparent" ><IonIcon color='light' icon={addCircleOutline} /><span>Add Listing</span></Button>
                         </div>
                         <div>
-                            <Button className='rounded-pill bg-light text-white Bg border-light d-flex align-items-center' ><IonIcon color="light" icon={personCircleOutline} /><span>Sign in</span></Button>
+                            <Button className='rounded-pill  text-white  border-light d-flex align-items-center bg-transparent ' ><IonIcon color="light" icon={personCircleOutline} /><span>Sign in</span></Button>
                         </div>
 
                     </div>
