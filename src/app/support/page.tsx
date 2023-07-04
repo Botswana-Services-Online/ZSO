@@ -20,6 +20,7 @@ export default function Support(){
         setBtn(loading)
         emailjs.sendForm('service_4ndlw3e', 'template_pvzzwgd', form.current, '-YPZq3rY5rHdD3NNk')
         .then((result) => {
+            setBtn("Send Message")
             setMessage("We received your message!")
             setHide(true)
         }, (error) => {
