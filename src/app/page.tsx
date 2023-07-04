@@ -1,6 +1,6 @@
 "use client"
 import { ProgressBar } from "react-bootstrap"
-import { genBtn, genFrm, vp } from "./components/cssStyles"
+import { genBtn, genFrm, mp, vp } from "./components/cssStyles"
 import { bgImg } from "./components/cssStyles"
 import { searchCircleOutline, checkmarkDone } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
@@ -8,12 +8,12 @@ import Marquee from "react-fast-marquee"
 
 export default function Home() {
   return (
-    <div className="container-fluid p-0 mt-5 ">
+    <div className={mp}>
       {/* home page */}
       <div className={vp} style={bgImg("https://voideawn.sirv.com/website/home_one.jpg")}>
         <div className="input-group mb-3  container">
           <input type="text" className="form-control shadow-lg rounded-start-pill  p-3" placeholder="looking for...." />
-          <input type="text" className="form-control rounded-end-pill p-3 me-1" placeholder="Location" />
+          <input type="text" className="form-control shadow-lg rounded-end-pill p-3 me-1" placeholder="Location" />
           <button className="btn Bg text-white rounded-pill d-flex align-items-center"><IonIcon size="large" icon={searchCircleOutline} /></button>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google'
 import { FooterBar, NavBar } from './components/SiteNavigation';
 import { setupIonicReact } from '@ionic/react';
 import Script from 'next/script';
+import { FloatingWhatsApp } from 'react-floating-whatsapp';
 
 setupIonicReact();
 const inter = Inter({ subsets: ['latin'] })
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NavBar/>
         {children}
+        <FloatingWhatsApp phoneNumber='+263788984320' accountName='Zim Services Online' avatar="https://voideawn.sirv.com/website/home_three.jpg"/>
         <FooterBar/>
         <Script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></Script>
         </body>
