@@ -1,13 +1,15 @@
 "use client"
 import { useRef,useState,useEffect } from "react";
-import { genBtn, genFrm, mp,vp } from "../components/cssStyles";
+import { genBtn, genFrm, mp,vp,loading } from "../components/cssStyles";
 import emailjs from "@emailjs/browser"
 import { IonAlert } from "@ionic/react";
 import { Alert } from "react-bootstrap";
 
+
 export default function Support(){
     const [message,setMessage]=useState<string>("Saved")
     const [hide,setHide]=useState<boolean>(false)
+    const [Btn,setBtn]=useState<any>("Send Message")
 
     useEffect(() => {
         localStorage.getItem("james") === '1';
@@ -15,6 +17,7 @@ export default function Support(){
     const form:any = useRef();
     const handleSubmit=(e:FormDataEvent)=>{
         e.preventDefault();
+        setBtn(loading)
         emailjs.sendForm('service_4ndlw3e', 'template_pvzzwgd', form.current, '-YPZq3rY5rHdD3NNk')
         .then((result) => {
             setMessage("We received your message!")
@@ -47,7 +50,7 @@ export default function Support(){
                         <textarea name="message" required placeholder="Your Message..." className="form-control shadow-lg rounded bg-white " rows={7}></textarea>
                     </div>
                     <div>
-                        <button type="submit" className={genBtn}>Send Message</button>
+                        <button type="submit" className={genBtn}>{Btn}</button>
                     </div>
                </form>
           
