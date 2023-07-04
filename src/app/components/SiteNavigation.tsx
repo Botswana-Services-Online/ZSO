@@ -45,7 +45,7 @@ export const NavBar = () => {
 export const FooterBar = () => {
     return (
        <footer className="Bg p-5 text-center text-white">
-        <div className="row container text-center">
+        <div className="row container d-flex justify-content-center ">
             <div className="col-sm">
                 <p><b>Support</b></p>
                 <br/>

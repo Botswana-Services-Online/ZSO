@@ -44,7 +44,7 @@ h1 {
   color:var(--white) !important;
   width:var(--width);
   height: var(--height);
-  font-size: xx-large;
+  font-size: large;
 }
 
 .buttonGeneral:hover{
