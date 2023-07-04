@@ -22,7 +22,7 @@ export const NavBar = () => {
                     >
                         <Nav.Link className="text-white" href="#action1">Home</Nav.Link>
                         <Nav.Link className="text-white" href="#action1">Listings</Nav.Link>
-                        <Nav.Link className="text-white" href="#action1">Pricing</Nav.Link>
+                        <Nav.Link className="text-white" href="pricing">Pricing</Nav.Link>
                         <Nav.Link className="text-white" href="#action1">Blog</Nav.Link>
                         <Nav.Link className="text-white" href="#action1">Support</Nav.Link>
                     </Nav>
@@ -44,6 +44,33 @@ export const NavBar = () => {
 
 export const FooterBar = () => {
     return (
-        <div></div>
+       <footer className="Bg p-5 text-center text-white">
+        <div className="row container text-center">
+            <div className="col-sm">
+                <p><b>Support</b></p>
+                <br/>
+                <p><a href="mailto:" className='text-white text-decoration-none '>support@zimservicesonline.co.zw</a></p>
+                <p><a href="tel:" className='text-white text-decoration-none '>+263 78 898 4320</a></p>
+               
+                
+            </div>
+            <div className="col-sm">
+                <p><b>Socials</b></p>
+                <br />
+                <p><a href="" className='text-white text-decoration-none ' target="_blank">Facebook</a></p>
+                <p><a href="" className='text-white text-decoration-none' target="_blank">Instagram</a></p>
+                <p><a href="" className='text-white text-decoration-none' target="_blank">LinkedIn</a></p>
+                <p><a href="" className='text-white text-decoration-none' target="_blank">Whatsapp</a></p>
+               <br/>
+               <p>Love the site visit <a className='text-white' target="_blank" href='https://aurorasystems.co.zw'>Aurora</a></p>
+            </div>
+            <div className="col-sm">
+                <p><b>© {new Date().getFullYear()} Zimbabwe Services Online</b></p>
+                <br/>
+                <p>Privacy and Security</p>
+                <p>Terms and Conditions</p>
+            </div>
+        </div>
+       </footer>
     )
 }

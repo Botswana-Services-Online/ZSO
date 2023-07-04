@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '@ionic/react/css/core.css';
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { NavBar } from './components/SiteNavigation';
+import { FooterBar, NavBar } from './components/SiteNavigation';
 import { setupIonicReact } from '@ionic/react';
 
 setupIonicReact();
@@ -25,6 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NavBar/>
         {children}
+        <FooterBar/>
         <script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></script>
         </body>
     </html>

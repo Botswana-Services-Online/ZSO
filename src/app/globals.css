@@ -25,9 +25,15 @@ body{
 }
 
 .page{
-  height: 100vh;
+  min-height: 100vh;
 }
 
+h1 {
+  font-size: 72px;
+  background: var(--pColor);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 .bshadow{
   box-shadow:  1rem 3rem rgba(lightgreen, .175)

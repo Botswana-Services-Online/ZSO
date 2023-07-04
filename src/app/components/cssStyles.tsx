@@ -1,3 +1,4 @@
+export const mp = "container-fluid p-0 mt-5"
 export const vp = "page d-flex flex-row flex-wrap justify-content-center align-items-center"
 export const genFrm = "rounded-pill form-control shadow-lg formGeneral mt-5"
 export const genBtn = "btn buttonGeneral rounded-pill shadow-lg"

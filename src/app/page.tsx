@@ -20,8 +20,9 @@ export default function Home() {
       {/* home two */}
       <div className={vp}>
         <div className="row container ">
-          <div className="col-sm">
+          <div className="col-sm mb-3">
             <img src="https://voideawn.sirv.com/website/home_two.jpg" className="Sirv rounded shadow" alt="lady selling tomatoes" />
+          
           </div>
           <div className="col-sm text-center d-flex flex-column justify-content-center align-items-center ">
             <h1 >
@@ -135,7 +136,7 @@ export default function Home() {
       </div>
       <div className={vp}>
         <div className="row container">
-          <div className="col-sm d-flex flex-column justify-content-center align-items-center">
+          <div className="col-sm d-flex flex-column justify-content-center align-items-center mb-3">
             <h1>Benefits of Listing on ZSO</h1>
             <ul>
               <li>Low operating costs</li>
