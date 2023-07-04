@@ -22,7 +22,7 @@ export default function Support(){
             <div className="text-center container mb-5">
             <h1 className="mt-5 mb-3 ">Support</h1>
             <p className="mt-2">Get in touch with us!</p>
-            <form ref={form} className="container">
+            <form ref={form} className="container" onSubmit={(e:any)=>handleSubmit(e)}>
             
                     <div className="row text-center mb-3">
                         <div className="col-sm">
@@ -36,7 +36,7 @@ export default function Support(){
                         </div>
                     </div>
                     <div className="mb-3">
-                        <textarea name="message " placeholder="Your Message..." className="form-control shadow-lg rounded bg-white " rows={7}></textarea>
+                        <textarea name="message" placeholder="Your Message..." className="form-control shadow-lg rounded bg-white " rows={7}></textarea>
                     </div>
                     <div>
                         <button className={genBtn}>Send Message</button>
