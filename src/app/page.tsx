@@ -87,7 +87,7 @@ export default function Home() {
         <Marquee direction="right">
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
-              <p>Amai Dee's</p>
+              <p>Amai Dees</p>
               <IonIcon className="text-end" color="success" icon={checkmarkDone} />
             </div>
             <hr />

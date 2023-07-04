@@ -5,6 +5,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { FooterBar, NavBar } from './components/SiteNavigation';
 import { setupIonicReact } from '@ionic/react';
+import Script from 'next/script';
 
 setupIonicReact();
 const inter = Inter({ subsets: ['latin'] })
@@ -26,7 +27,7 @@ export default function RootLayout({
         <NavBar/>
         {children}
         <FooterBar/>
-        <script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></script>
+        <Script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></Script>
         </body>
     </html>
   )
