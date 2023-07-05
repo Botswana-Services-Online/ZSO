@@ -22,7 +22,7 @@ export const NavBar = () => {
                         navbarScroll
                     >
                         <Nav.Link className="text-white" href="/">Home</Nav.Link>
-                        <Nav.Link className="text-white" href="#action1">Listings</Nav.Link>
+                        <Nav.Link className="text-white" href="listings">Listings</Nav.Link>
                         <Nav.Link className="text-white" href="pricing">Pricing</Nav.Link>
                         <Nav.Link className="text-white" href="#action1">Blog</Nav.Link>
                         <Nav.Link className="text-white" href="support">Support</Nav.Link>
@@ -45,7 +45,7 @@ export const NavBar = () => {
 
 export const FooterBar = () => {
     return (
-       <footer className="Bg text-center text-white  d-flex  flex-wrap  justify-content-center p-3">
+       <footer className="Bg text-center text-white   d-flex  flex-wrap  justify-content-center p-3">
         <div className="row container ">
             <div className="col-sm text-center">
                 <p><b>Support</b></p>
