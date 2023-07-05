@@ -143,7 +143,7 @@ export default function Home() {
       <Fade direction="down">
       <div className={vp}>
         <div className="row container">
-          <div className="col-sm d-flex flex-column justify-content-center align-items-center mb-3">
+          <div className="col-sm d-flex flex-column text-center justify-content-center align-items-center mb-3">
             <h1>Benefits of Listing on ZSO</h1>
             <ul>
               <li>Low operating costs</li>
