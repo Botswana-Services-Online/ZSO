@@ -27,7 +27,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NavBar/>
         {children}
-        <FloatingWhatsApp phoneNumber='+263788984320' accountName='Zim Services Online' avatar="https://voideawn.sirv.com/website/home_three.jpg"/>
+        <FloatingWhatsApp statusMessage='Typically replies in 2 minutes' phoneNumber='+263788984320' accountName='Zim Services Online' avatar="https://voideawn.sirv.com/website/home_three.jpg"/>
         <FooterBar/>
         <Script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></Script>
         </body>

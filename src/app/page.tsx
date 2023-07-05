@@ -1,10 +1,11 @@
 "use client"
-import { ProgressBar } from "react-bootstrap"
-import { genBtn, genFrm, mp, vp } from "./components/cssStyles"
+
+import { genBtn, mp, vp } from "./components/cssStyles"
 import { bgImg } from "./components/cssStyles"
 import { searchCircleOutline, checkmarkDone } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
 import Marquee from "react-fast-marquee"
+import { Fade } from "react-awesome-reveal"
 
 export default function Home() {
   return (
@@ -17,11 +18,14 @@ export default function Home() {
           <button className="btn Bg text-white rounded-pill d-flex align-items-center"><IonIcon size="large" icon={searchCircleOutline} /></button>
         </div>
       </div>
+      <br/>
       {/* home two */}
+      <Fade direction="down">
       <div className={vp}>
+       
         <div className="row container ">
           <div className="col-sm mb-3">
-            <img src="https://voideawn.sirv.com/website/home_two.jpg" className="Sirv rounded shadow" alt="lady selling tomatoes" />
+            <img loading="eager" src="https://voideawn.sirv.com/website/home_two.jpg" className="Sirv img-fluid rounded shadow-lg" alt="lady selling tomatoes" />
           
           </div>
           <div className="col-sm text-center d-flex flex-column justify-content-center align-items-center ">
@@ -34,7 +38,9 @@ export default function Home() {
             <button className={genBtn}>Create Your Free listing!</button>
           </div>
         </div>
+        
       </div>
+      </Fade>
       <div>
         <Marquee>
           <div className="rounded shadow p-3 m-3 marq">
@@ -134,6 +140,7 @@ export default function Home() {
         </Marquee>
 
       </div>
+      <Fade direction="down">
       <div className={vp}>
         <div className="row container">
           <div className="col-sm d-flex flex-column justify-content-center align-items-center mb-3">
@@ -148,10 +155,11 @@ export default function Home() {
             <button className={genBtn}>Get your Free Listing</button>
           </div>
           <div className="col-sm">
-            <img className="Sirv rounded shadow-lg" src="https://voideawn.sirv.com/website/home_three.jpg" alt="man painted with the Zimbabwean flag" />
+            <img className="Sirv rounded shadow-lg img-fluid" src="https://voideawn.sirv.com/website/home_three.jpg" alt="man painted with the Zimbabwean flag" />
           </div>
         </div>
       </div>
+      </Fade>
     </div>
   )
 }

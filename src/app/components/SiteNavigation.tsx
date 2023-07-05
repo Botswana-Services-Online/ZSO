@@ -4,16 +4,17 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { IonIcon } from '@ionic/react';
-import { addCircleOutline, personCircleOutline } from "ionicons/icons"
+import { addCircleOutline, callOutline, locationOutline, mailOutline, personCircleOutline } from "ionicons/icons"
+import { alignIcon } from './cssStyles';
 
 
 
 export const NavBar = () => {
     return (
-        <Navbar expand="lg" className="Bg p-2 position-fixed " fixed="top" >
+        <Navbar data-bs-theme="dark" expand="lg" className="Bg p-2 position-fixed " fixed="top" >
             <Container fluid>
                 <Navbar.Brand className='text-white' href="#">ZSO</Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll" />
+                <Navbar.Toggle aria-controls="navbarScroll text-white bg-light" color='light'/>
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
                         className="me-auto my-2 my-lg-0 text-white"
@@ -46,12 +47,12 @@ export const FooterBar = () => {
     return (
        <footer className="Bg text-center text-white  d-flex  flex-wrap  justify-content-center p-3">
         <div className="row container ">
-            <div className="col-sm">
+            <div className="col-sm text-center">
                 <p><b>Support</b></p>
                 <br/>
-                <p><a href="mailto:" className='text-white text-decoration-none '>support@zimservicesonline.co.zw</a></p>
-                <p><a href="tel:" className='text-white text-decoration-none '>+263 78 898 4320</a></p>
-               
+                <p className={alignIcon}><IonIcon icon={mailOutline}/>&nbsp;<a href="mailto:" className='text-white text-decoration-none '>support@zimservicesonline.co.zw</a></p>
+                <p className={alignIcon}><IonIcon icon={callOutline}/>&nbsp;<a href="tel:" className='text-white text-decoration-none '>+263 78 898 4320</a></p>
+               <p className={alignIcon}><IonIcon icon={locationOutline}/>&nbsp;Plot 22211 Phase 4 Gaborone</p>
                 
             </div>
             <div className="col-sm">
