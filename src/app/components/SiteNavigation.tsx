@@ -29,7 +29,7 @@ export const NavBar = () => {
                     </Nav>
                     <div className="d-flex flex-row flex-wrap justify-content-evenly ">
                         <div>
-                           <a href="User/Auth"><Button className="rounded-pill   border-light text-white  d-flex align-items-center me-2 bg-transparent" ><IonIcon color='light' icon={addCircleOutline} /><span>Add Listing</span></Button></a>
+                           <a href="/User/Auth" className='text-decoration-none'><Button className="rounded-pill   border-light text-white  d-flex align-items-center me-2 bg-transparent" ><IonIcon color='light' icon={addCircleOutline} /><span>Add Listing</span></Button></a>
                         </div>
                         <div>
                             <Button className='rounded-pill  text-white  border-light d-flex align-items-center bg-transparent ' ><IonIcon color="light" icon={personCircleOutline} /><span>Sign in</span></Button>
