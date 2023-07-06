@@ -55,6 +55,7 @@ h1 {
 
 .formGeneral{
   height: var(--height);
+
 }
 
 .formGeneral:hover{
