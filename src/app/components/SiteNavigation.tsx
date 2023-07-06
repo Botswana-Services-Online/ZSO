@@ -22,10 +22,10 @@ export const NavBar = () => {
                         navbarScroll
                     >
                         <Nav.Link className="text-white" href="/">Home</Nav.Link>
-                        <Nav.Link className="text-white" href="listings">Listings</Nav.Link>
-                        <Nav.Link className="text-white" href="pricing">Pricing</Nav.Link>
+                        <Nav.Link className="text-white" href="/listings">Listings</Nav.Link>
+                        <Nav.Link className="text-white" href="/pricing">Pricing</Nav.Link>
                         <Nav.Link className="text-white" href="#action1">Blog</Nav.Link>
-                        <Nav.Link className="text-white" href="support">Support</Nav.Link>
+                        <Nav.Link className="text-white" href="/support">Support</Nav.Link>
                     </Nav>
                     <div className="d-flex flex-row flex-wrap justify-content-evenly ">
                         <div>
