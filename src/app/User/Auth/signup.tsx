@@ -1,11 +1,11 @@
 "use Client"
-import { genBtn, genFrm } from "@/app/components/cssStyles";
+import { genBtn, genFrm,loading } from "@/app/components/cssStyles";
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword,sendEmailVerification } from "firebase/auth"
 import { useRouter } from "next/navigation";
 import { app } from "@/app/api/firebase"
 import { Alert } from "react-bootstrap";
-import { loading } from "@/app/components/cssStyles";
+// import { loading } from "@/app/components/cssStyles";
 export default function Signup() {
     const router = useRouter()
     const auth:any = getAuth(app)
@@ -15,6 +15,7 @@ export default function Signup() {
     const [disableBtn, setDisableBtn] = useState(true)
     const [warn, setWarn] = useState(true)
     const [hide, setHide] = useState(false)
+    const [btnTxt,setBtnTxt] = useState<any>("Sign Up")
 
     // const checkPassword=()=>{
 
@@ -23,6 +24,7 @@ export default function Signup() {
     const handleSubmit = (e: FormDataEvent) => {
         e.preventDefault()
         if (password === repeatPassword) {
+            setBtnTxt(loading)
             setWarn(true)
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
@@ -30,20 +32,18 @@ export default function Signup() {
                     sendEmailVerification(auth.currentUser).then(res=>{
                         setTimeout(()=>router.push("/User/Auth/verify"),5000)
                     }).catch(err=>{
-                        setHide(true)
+                        setTimeout(()=>router.push("/User/Auth/verify"),5000)
                     })
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     setHide(true)
+                    setBtnTxt("Sign Up")
                     // ..
                 });
         } else {
-
-
             setWarn(false)
-
         }
     }
 
@@ -70,7 +70,7 @@ export default function Signup() {
                     </div>
 
 
-                    <button type="submit" className={genBtn} style={{ width: "280px" }}  >Sign Up</button>
+                    <button type="submit" className={genBtn} style={{ width: "280px" }}  >{btnTxt}</button>
                     <div>
 
                     </div>
