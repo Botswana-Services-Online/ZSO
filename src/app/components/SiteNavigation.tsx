@@ -6,10 +6,41 @@ import Navbar from 'react-bootstrap/Navbar';
 import { IonIcon } from '@ionic/react';
 import { addCircleOutline, callOutline, locationOutline, mailOutline, personCircleOutline } from "ionicons/icons"
 import { alignIcon } from './cssStyles';
-
-
+import { useRouter } from 'next/navigation';
+import { checkAcc } from './checkAcc';
+import { useEffect,useState } from 'react';
+import { getAuth } from 'firebase/auth';
+import { app } from '../api/firebase';
+import { Dropdown } from 'react-bootstrap';
 
 export const NavBar = () => {
+    const route =  useRouter();
+    const authUser = getAuth(app)
+    const [imgFile,setImgFile] = useState<any>("")
+    const [hide,setHide]=useState({
+        hideReg:false,
+        hideHas:true
+    })
+    
+    useEffect(()=>{
+       
+        if(authUser.currentUser!==null){
+            let data = authUser.currentUser
+            setImgFile(data?.photoURL)
+            setHide({...hide,hideReg:true,hideHas:false})
+        }else{
+            setHide({...hide,hideReg:false,hideHas:true})
+        }
+    },[])
+    
+    const logout=()=>{
+        authUser.signOut().then(res=>{
+            route.push("/")
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+
     return (
         <Navbar data-bs-theme="dark" expand="lg" className="Bg p-2 position-fixed " fixed="top" >
             <Container fluid>
@@ -29,12 +60,22 @@ export const NavBar = () => {
                     </Nav>
                     <div className="d-flex flex-row flex-wrap justify-content-evenly ">
                         <div>
-                           <a href="/User/Auth" className='text-decoration-none'><Button className="rounded-pill   border-light text-white  d-flex align-items-center me-2 bg-transparent" ><IonIcon color='light' icon={addCircleOutline} /><span>Add Listing</span></Button></a>
+                          <Button onClick={()=>{localStorage.setItem("log","0"); route.push("/User/Auth/")}} className="rounded-pill   border-light text-white  d-flex align-items-center me-2 bg-transparent" ><IonIcon color='light' icon={addCircleOutline} /><span>Add Listing</span></Button>
                         </div>
-                        <div>
-                            <Button className='rounded-pill  text-white  border-light d-flex align-items-center bg-transparent ' ><IonIcon color="light" icon={personCircleOutline} /><span>Sign in</span></Button>
+                        <div hidden={hide.hideReg}>
+                            <Button onClick={()=>{localStorage.setItem("log","1"); route.push("/User/Auth/")}} className='rounded-pill  text-white  border-light d-flex align-items-center bg-transparent ' ><IonIcon color="light" icon={personCircleOutline} /><span>Sign in</span></Button>
                         </div>
-
+                        <div  hidden={hide.hideHas} className='me-5'>
+                        <Dropdown className='container'>
+                            <Dropdown.Toggle  className={`bg-transparent border-0 d-flex p-0 ${alignIcon}`}>
+                            <img className="rounded-pill mt-1" src={imgFile} width={30} alt="user " onClick={()=>{localStorage.setItem("log","1"); }}/>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu className='Bg '>
+                                <Dropdown.Item  className='text-white' onClick={()=>route.push("/User/Dashboard/")}>Dashboard</Dropdown.Item>
+                                <Dropdown.Item  className='text-white' onClick={()=>logout()}>Logout</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
                     </div>
 
                 </Navbar.Collapse>

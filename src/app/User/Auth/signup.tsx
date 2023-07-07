@@ -1,7 +1,7 @@
 "use Client"
 import { alignIcon, genBtn, genFrm,loading } from "@/app/components/cssStyles";
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword,sendEmailVerification,signInWithPopup,GoogleAuthProvider } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword,sendEmailVerification,signInWithPopup,GoogleAuthProvider,FacebookAuthProvider } from "firebase/auth"
 import { useRouter } from "next/navigation";
 import { app } from "@/app/api/firebase"
 import { Alert } from "react-bootstrap";
@@ -58,6 +58,15 @@ export default function Signup() {
         })
     }
 
+    const FacebookAuth=()=>{
+        const provider = new FacebookAuthProvider();
+        signInWithPopup(auth,provider).then(res=>{
+            setTimeout(()=>router.push("/User/Auth/verify"),2000)
+        }).catch(err=>{
+            setWarn(false)
+        })
+    }
+
     return (
         <div className="container rounded shadow-lg p-3 bg-white text-center  " style={{ width: "350px" }}>
             <h1>Sign Up</h1>
@@ -87,10 +96,10 @@ export default function Signup() {
                         <button onClick={()=>GoogleAuth()} className={`btn btn-primary m-1 p-2 rounded-pill  ${alignIcon}`}><IonIcon icon={logoGoogle}/></button>
 
                         </div>
-                        <div>
-                        <button className={`btn btn-primary rounded-pill m-1 p-2 ${alignIcon}`}><IonIcon icon={logoFacebook}/></button>
+                        {/* <div>
+                        <button onClick={()=>FacebookAuth()} className={`btn btn-primary rounded-pill m-1 p-2 ${alignIcon}`}><IonIcon icon={logoFacebook}/></button>
 
-                        </div>
+                        </div> */}
                     </div>
 
                 </div>

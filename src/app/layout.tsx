@@ -24,7 +24,7 @@ export default function RootLayout({
   
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className} >
         <NavBar/>
         {children}
         <FloatingWhatsApp statusMessage='Typically replies in 2 minutes' phoneNumber='+263788984320' accountName='Zim Services Online' avatar="https://voideawn.sirv.com/website/home_three.jpg"/>

@@ -1,10 +1,12 @@
 "use Client"
-import { genBtn, genFrm,loading } from "@/app/components/cssStyles";
+import { alignIcon, genBtn, genFrm,loading } from "@/app/components/cssStyles";
 import { useState } from "react";
-import { getAuth,sendEmailVerification,signInWithEmailAndPassword } from "firebase/auth"
+import { GoogleAuthProvider, getAuth,sendEmailVerification,signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { useRouter } from "next/navigation";
 import { app } from "@/app/api/firebase"
 import { Alert } from "react-bootstrap";
+import { IonIcon } from "@ionic/react";
+import { logoGoogle } from "ionicons/icons";
 // import { loading } from "@/app/components/cssStyles";
 export default function Login() {
     const router = useRouter()
@@ -28,13 +30,8 @@ export default function Login() {
             setWarn(true)
            signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    console.log(auth.currentUser)
-                    console.log(auth.currentUser)
-                    // sendEmailVerification(auth.currentUser).then(res=>{
-                    //     setTimeout(()=>router.push("/User/Auth/verify"),5000)
-                    // }).catch(err=>{
-                    //     setTimeout(()=>router.push("/User/Auth/verify"),5000)
-                    // })
+                
+                    setTimeout(()=>router.push("/User/Dashboard/"),5000)
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -46,8 +43,17 @@ export default function Login() {
        
     }
 
+    const GoogleAuth=()=>{
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth,provider).then(res=>{
+            setTimeout(()=>router.push("/User/Dashboard"),2000)
+        }).catch(err=>{
+            setWarn(false)
+        })
+    }
+
     return (
-        <div className="container rounded shadow-lg p-3 bg-white text-center  " style={{ width: "350px" }}>
+        <div className="container rounded shadow-lg p-3 bg-white text-center  " style={{ width: "350px", minHeight:"60vh" }}>
             <h1>Sign In</h1>
             <form onSubmit={(e: any) => handleSubmit(e)} autoComplete="none">
                 <div className="row  d-flex  justify-content-center ">
@@ -60,10 +66,11 @@ export default function Login() {
 
                     <input type="password" className={genFrm} style={{ width: "280px" }} placeholder="Password" min={6} onChange={(e) => setPassword(e.target.value)} required />
 
-                    <button type="submit" className={genBtn} style={{ width: "280px" }}  >{btnTxt}</button>
-                    <div>
-
-                    </div>
+                    <button type="submit" className={`${genBtn} mt-3`} style={{ width: "280px" }}  >{btnTxt}</button>
+                        <div className="container d-flex justify-content-center m-2">
+                        <button onClick={()=>GoogleAuth()} className={` btn rounded-pill m-3 p-2 btn-primary ${alignIcon} `}><IonIcon icon={logoGoogle}/></button>
+                        </div>
+                    
 
                 </div>
 

@@ -1,6 +1,6 @@
 "use client"
 import { mp, vp, bgImg } from "@/app/components/cssStyles";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Signup from "./signup";
 import Login from "./login";
 
@@ -10,8 +10,17 @@ export default function Auth() {
     const [hide, setHide] = useState({
         hideLogin: true,
         hideSignup: false,
-
     })
+
+    useEffect(()=>{
+        const result = localStorage.getItem("log");
+        if(result==="0"){
+            setHide({ ...hide, hideLogin: true, hideSignup: false })
+        }else{
+          
+            setHide({ ...hide, hideLogin: false, hideSignup: true })
+        }
+    },[])
 
     const switchAuth = () => {
         if (hide.hideLogin === true) {
