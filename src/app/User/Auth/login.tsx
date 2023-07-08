@@ -15,9 +15,6 @@ export default function Login() {
     const auth:any = getAuth(app)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [repeatPassword, setRepeatPassword] = useState("")
-    const [disableBtn, setDisableBtn] = useState(true)
-    const [warn, setWarn] = useState(true)
     const [hide, setHide] = useState(false)
     const [btnTxt,setBtnTxt] = useState<any>("Sign In")
 
@@ -29,7 +26,6 @@ export default function Login() {
         e.preventDefault()
        
             setBtnTxt(loading)
-            setWarn(true)
            signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     if(auth.currentUser?.emailVerified){
@@ -43,8 +39,6 @@ export default function Login() {
                     }
                 })
                 .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
                     setHide(true)
                     setBtnTxt("Sign In")
                     // ..
@@ -59,7 +53,7 @@ export default function Login() {
             setTimeout(()=>router.push("/User/Dashboard"),2000)
         }).catch(err=>{
             setAccess(false)
-            setWarn(false)
+            setHide(false)
         })
     }
 
