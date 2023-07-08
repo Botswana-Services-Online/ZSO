@@ -1,14 +1,16 @@
 "use Client"
 import { alignIcon, genBtn, genFrm,loading } from "@/app/components/cssStyles";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { GoogleAuthProvider, getAuth,sendEmailVerification,signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { useRouter } from "next/navigation";
 import { app } from "@/app/api/firebase"
 import { Alert } from "react-bootstrap";
 import { IonIcon } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
+import { Authorized } from "@/app/components/contexts";
 // import { loading } from "@/app/components/cssStyles";
 export default function Login() {
+    const {access,setAccess} = useContext(Authorized)
     const router = useRouter()
     const auth:any = getAuth(app)
     const [email, setEmail] = useState("");
@@ -46,8 +48,10 @@ export default function Login() {
     const GoogleAuth=()=>{
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth,provider).then(res=>{
+            setAccess(true)
             setTimeout(()=>router.push("/User/Dashboard"),2000)
         }).catch(err=>{
+            setAccess(false)
             setWarn(false)
         })
     }

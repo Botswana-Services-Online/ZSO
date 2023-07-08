@@ -8,12 +8,15 @@ import { addCircleOutline, callOutline, locationOutline, mailOutline, personCirc
 import { alignIcon } from './cssStyles';
 import { useRouter } from 'next/navigation';
 import { checkAcc } from './checkAcc';
-import { useEffect,useState } from 'react';
+import { useEffect,useState,useContext } from 'react';
 import { getAuth } from 'firebase/auth';
 import { app } from '../api/firebase';
 import { Dropdown } from 'react-bootstrap';
+import { Authorized } from './contexts';
+
 
 export const NavBar = () => {
+    const {access,setAccess} =useContext(Authorized)
     const route =  useRouter();
     const authUser = getAuth(app)
     const [imgFile,setImgFile] = useState<any>("")
@@ -23,18 +26,18 @@ export const NavBar = () => {
     })
     
     useEffect(()=>{
-       
-        if(authUser.currentUser!==null){
-            let data = authUser.currentUser
-            setImgFile(data?.photoURL)
-            setHide({...hide,hideReg:true,hideHas:false})
+       if(access!==false){
+        let data = authUser.currentUser
+        setImgFile(data?.photoURL)
+        setHide({...hide,hideReg:true,hideHas:false})  
         }else{
             setHide({...hide,hideReg:false,hideHas:true})
         }
-    },[])
+    },[access])
     
     const logout=()=>{
         authUser.signOut().then(res=>{
+            setAccess(false)
             route.push("/")
         }).catch(err=>{
             console.log(err)

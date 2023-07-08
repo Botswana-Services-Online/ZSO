@@ -7,6 +7,8 @@ import { FooterBar, NavBar } from './components/SiteNavigation';
 import { setupIonicReact } from '@ionic/react';
 import Script from 'next/script';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
+import { useContext,useState } from 'react';
+import { Authorized, userAuth } from './components/contexts';
 
 setupIonicReact();
 const inter = Inter({ subsets: ['latin'] })
@@ -21,14 +23,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  const [access,setAccess] = useState(false)
   
   return (
     <html lang="en">
       <body className={inter.className} >
+      <Authorized.Provider value={{access,setAccess}}>
         <NavBar/>
         {children}
         <FloatingWhatsApp statusMessage='Typically replies in 2 minutes' phoneNumber='+263788984320' accountName='Zim Services Online' avatar="https://voideawn.sirv.com/website/home_three.jpg"/>
         <FooterBar/>
+        </Authorized.Provider>
         <Script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></Script>
         </body>
     </html>
