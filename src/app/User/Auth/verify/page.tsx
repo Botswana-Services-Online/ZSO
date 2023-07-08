@@ -7,7 +7,7 @@ export default function Verify(){
                 <h1>
                     Check Your Inbox For The Verification Link We Sent You!
                 </h1>
-                <p>If you can't find us in your primary mail box check spam!</p>
+                <p>If you can&apos;t find us in your primary mail box check spam!</p>
             </div>
         </div>
     )
