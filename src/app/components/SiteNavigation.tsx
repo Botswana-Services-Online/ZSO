@@ -13,6 +13,7 @@ import { getAuth } from 'firebase/auth';
 import { app } from '../api/firebase';
 import { Dropdown } from 'react-bootstrap';
 import { Authorized } from './contexts';
+import Link from 'next/link';
 
 
 export const NavBar = () => {
@@ -55,11 +56,11 @@ export const NavBar = () => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link className="text-white" href="/">Home</Nav.Link>
-                        <Nav.Link className="text-white" href="/listings">Listings</Nav.Link>
-                        <Nav.Link className="text-white" href="/pricing">Pricing</Nav.Link>
+                        <Nav.Link className="text-white" href="/"><Link className="text-decoration-none text-white" href="/">Home</Link></Nav.Link>
+                        <Nav.Link className="text-white" ><Link href="/listings" className="text-decoration-none text-white">Listings</Link></Nav.Link>
+                        <Nav.Link className="text-white" ><Link className="text-decoration-none text-white" href="/pricing">Pricing</Link></Nav.Link>
                         <Nav.Link className="text-white" href="#action1">Blog</Nav.Link>
-                        <Nav.Link className="text-white" href="/support">Support</Nav.Link>
+                        <Nav.Link className="text-white" ><Link className="text-decoration-none text-white" href="/support">Support</Link></Nav.Link>
                     </Nav>
                     <div className="d-flex flex-row flex-wrap justify-content-evenly ">
                         <div>
