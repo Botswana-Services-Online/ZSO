@@ -32,8 +32,15 @@ export default function Login() {
             setWarn(true)
            signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                
+                    if(auth.currentUser?.emailVerified){
                     setTimeout(()=>router.push("/User/Dashboard/"),5000)
+                    }else{
+                        sendEmailVerification(auth.currentUser).then(res=>{
+                            setTimeout(()=>router.push("/User/Dashboard/"),5000)
+                        }).catch(err=>{
+                            setHide(true)
+                        })
+                    }
                 })
                 .catch((error) => {
                     const errorCode = error.code;
