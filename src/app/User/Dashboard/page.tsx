@@ -7,7 +7,9 @@ export default function Dashboard(){
     console.log(getAuth(app).currentUser)
     return(
         <div className={mp}>
-            <div className={vp}></div>
+            <div className={vp}>
+                
+            </div>
         </div>
     )
 }
