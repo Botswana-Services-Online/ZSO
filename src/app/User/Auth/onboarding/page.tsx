@@ -4,6 +4,9 @@ import { Blob } from "buffer";
 import { useState } from "react";
 import { Alert, ProgressBar } from "react-bootstrap";
 import { IonBadge } from "@ionic/react";
+import { industries } from "@/app/components/categories";
+import { loading } from "@/app/components/cssStyles";
+import { search } from "ss-search";
 export default function Register() {
 
     const [name, setName] = useState("")
@@ -21,6 +24,7 @@ export default function Register() {
     const [warn, setWarning] = useState<boolean>(false)
     const [progress, SetProgress] = useState<number>(33)
     const [btnState,setBtnState] = useState<any>("Next")
+    const [industryData,setIndustryData] = useState<Array<any>>()
 
 
     const submitFirst = (e:FormDataEvent) => {
@@ -45,6 +49,17 @@ export default function Register() {
         }else{
             setHide({ ...hide, hideOne: true, hideTwo: false, hideThree: true })
         }
+    }
+
+    const searchIndustry=(value:string)=>{
+        const data = search(industries,["name"],value)
+        set
+    }
+
+    const submitAll=(e:FormDataEvent)=>{
+        e.preventDefault();
+        setBtnState(loading);
+
     }
 
 
@@ -106,8 +121,16 @@ export default function Register() {
                     </div>
                     <div className="col-sm">
                        
-                        <input type="text" className={genFrm} placeholder="Industry*" />
-
+                        <input type="text" className={genFrm} placeholder="Industry*" onChange={(e)=>searchIndustry(e.target.value)}/>
+                        <div>
+                            {
+                                industryData?.map((item:any,index:number) =>{
+                                    return(
+                                        <p className="m-2 pointer" key={index}>{item}</p>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
                 <div className=" text-center d-flex justify-content-evenly w-100  m-3">
