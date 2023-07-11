@@ -56,11 +56,11 @@ export const NavBar = () => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link className="text-white" href="/"><Link className="text-decoration-none text-white" href="/">Home</Link></Nav.Link>
-                        <Nav.Link className="text-white" ><Link href="/listings" className="text-decoration-none text-white">Listings</Link></Nav.Link>
-                        <Nav.Link className="text-white" ><Link className="text-decoration-none text-white" href="/pricing">Pricing</Link></Nav.Link>
-                        <Nav.Link className="text-white" href="#action1">Blog</Nav.Link>
-                        <Nav.Link className="text-white" ><Link className="text-decoration-none text-white" href="/support">Support</Link></Nav.Link>
+                        <Link className="text-decoration-none text-white m-2" href="/">Home</Link>
+                        <Link href="/listings" className="text-decoration-none text-white m-2">Listings</Link>
+                        <Link className="text-decoration-none text-white m-2" href="/pricing">Pricing</Link>
+                        <Link className="text-decoration-none text-white m-2" href="/support">Blog</Link>
+                        <Link className="text-decoration-none text-white m-2" href="/support">Support</Link>
                     </Nav>
                     <div className="d-flex flex-row flex-wrap justify-content-evenly ">
                         <div>
