@@ -1,31 +1,42 @@
 "use client"
-import { genBtn, genFrm, mp, vp } from "@/app/components/cssStyles";
-import { Blob } from "buffer";
+import {  genFrm, mp } from "@/app/components/cssStyles";
+
 import { useState } from "react";
-import { Alert, ProgressBar } from "react-bootstrap";
-import { IonBadge } from "@ionic/react";
+import { useRouter } from "next/navigation";
 import { industries } from "@/app/components/categories";
 import { loading } from "@/app/components/cssStyles";
 import { search } from "ss-search";
+import { getDownloadURL,ref,uploadBytes } from "firebase/storage";
+import {addDoc,collection} from "firebase/firestore"
+import { getAuth } from "firebase/auth";
+import { app,db,storage } from "@/app/api/firebase";
+import {v4} from "uuid"
+import moment from "moment";
+import { Alert } from "react-bootstrap";
 export default function Register() {
-
+    const route = useRouter()
     const [name, setName] = useState("")
     const [phone, setPhone] = useState("")
     const [doc, setDoc] = useState<any>()
     const [address, setAddress] = useState("")
     const [employees, setNumEmployees] = useState<any>(0)
-    const [industry, setIndustry] = useState<Array<string>>([])
+    const [industry, setIndustry] = useState<string>("")
     const [tax, setTax] = useState<any>()
     const [hide, setHide] = useState({
         hideOne: false,
         hideTwo: true,
         hideThree: true
     })
-    const [warn, setWarning] = useState<boolean>(false)
+
     const [progress, SetProgress] = useState<number>(33)
     const [btnState,setBtnState] = useState<any>("Next")
     const [industryData,setIndustryData] = useState<Array<any>>()
+    const [hideIndustry,setHideIndustry] = useState<boolean>(true)
+    const [industryPlace,setIndustryPlace] = useState<string>("")
 
+    const [docR,setDocR]=useState<string>("")
+    const [taxR,setTaxR]=useState<string>("")
+    const [warning,setWarning]=useState<boolean>(false)
 
     const submitFirst = (e:FormDataEvent) => {
         e.preventDefault()
@@ -39,7 +50,38 @@ export default function Register() {
     }
     const submitThird = (e:FormDataEvent) => {
         e.preventDefault()
-       
+        console.log("helo")
+        setBtnState(loading)
+        const DocRef = ref(storage,`doc/${v4()}`)
+        const TaxRef = ref(storage,`tax/${v4()}`)
+        console.log("helo")
+        console.log(DocRef)
+        console.log(TaxRef)
+        uploadBytes(DocRef,doc).then((res) =>{
+            getDownloadURL(res.ref).then(res=>{
+                console.log(res)
+                setDocR(res)
+                uploadBytes(TaxRef,doc).then((r) =>{
+                    getDownloadURL(r.ref).then(res=>{
+                        console.log(res)
+                        setTaxR(res)
+                        submitAll()
+                    }).catch((err) =>{
+                        console.log(err)
+                        setBtnState("Next")})
+                }).catch(err=>{
+                    console.log(err)
+                    setBtnState("Next")})
+            }).catch((err) =>{
+                console.log(err)
+                setBtnState("Next")})
+        }).catch(err=>{
+            console.log(err)
+            setBtnState("Next")})
+        
+
+        
+        
     }
   
 
@@ -52,14 +94,43 @@ export default function Register() {
     }
 
     const searchIndustry=(value:string)=>{
+        if(value.length>0){
         const data = search(industries,["name"],value)
-        set
+
+        setIndustryData(data)
+        setHideIndustry(false)
+        }else{
+            setHideIndustry(true)
+        }
     }
 
-    const submitAll=(e:FormDataEvent)=>{
-        e.preventDefault();
-        setBtnState(loading);
+    const submitAll=()=>{
+        const owner = getAuth(app).currentUser?.email
+        const createdAt = moment().locale()
+       const data ={
+        Cert:docR,
+        Tax:taxR,  
+        name,
+        address,
+        phone,
+        numEmployees:employees,
+        email:owner,
+        createdAt:createdAt
+       }
 
+       addDoc(collection(db,"users"),data).then(res=>{
+        route.push("/User/Dashboard/")
+       }).catch(err=>{
+        console.log(err.message)
+        setBtnState("Next")
+        setWarning(true)
+       })
+    }
+
+    const selectIndustry =(item:string)=>{
+            setIndustry(item)
+            setIndustryPlace(item)
+            setHideIndustry(true)
     }
 
 
@@ -71,10 +142,8 @@ export default function Register() {
                 <div className="text-center mb-3">
                     <h1 >Onboarding</h1>
                     <p>Please fill in the necessary details to complete account registration!</p>
+                    <Alert show={warning}>Failed To save your information, please try again!</Alert>
                 </div>
-                {/* <Alert show={warn} variant="danger">
-                    Please fill in all information to complete account registration!
-                </Alert> */}
                 <form onSubmit={(e:any)=>submitFirst(e)} hidden={hide.hideOne}>
                     <div className="row container" >
 
@@ -89,8 +158,6 @@ export default function Register() {
                         </div>
                     </div>
                     <div className=" text-center d-flex justify-content-evenly w-100  m-3">
-                        {/* <button className="btn Bg rounded-pill text-white">Back</button> */}
-
                         <button type="submit" className="btn Bg rounded-pill text-white">Next</button>
                     </div>
                 </form>
@@ -119,14 +186,15 @@ export default function Register() {
                 <div className="col-sm">
                         <input type="number" className={genFrm} placeholder="Number of Employees*" onChange={(e) => setNumEmployees(e.target.value)} required />
                     </div>
-                    <div className="col-sm">
+                    <div className="col-sm ">
                        
-                        <input type="text" className={genFrm} placeholder="Industry*" onChange={(e)=>searchIndustry(e.target.value)}/>
-                        <div>
+                        <input type="text" value={industryPlace} className={genFrm} placeholder="Industry*" onChange={(e)=>{setIndustryPlace(e.target.value);searchIndustry(e.target.value)}}/>
+                        <div className="shadow-lg  rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{maxHeight:"20vh",width:"50vh"}} hidden={hideIndustry}>
                             {
                                 industryData?.map((item:any,index:number) =>{
+                                   
                                     return(
-                                        <p className="m-2 pointer" key={index}>{item}</p>
+                                        <p className="m-2 pointer" key={index} onClick={()=>selectIndustry(item.name)}>{item.name}</p>
                                     )
                                 })
                             }
