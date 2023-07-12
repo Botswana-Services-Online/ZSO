@@ -30,8 +30,12 @@
     "react-dom": "18.2.0",
     "react-fast-marquee": "^1.6.0",
     "react-floating-whatsapp": "^5.0.8",
+    "react-pdf": "^7.1.2",
     "ss-search": "^1.7.0",
     "typescript": "5.1.6",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0"
   }
 }

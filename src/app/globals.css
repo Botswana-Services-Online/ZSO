@@ -28,8 +28,12 @@ body{
   min-height: 100vh;
 }
 
-h1 {
+
+h1{
   font-size: 60px;
+}
+h1,h3 {
+ 
   background: var(--pColor);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

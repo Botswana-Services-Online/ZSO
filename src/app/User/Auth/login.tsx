@@ -50,7 +50,7 @@ export default function Login() {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth,provider).then(res=>{
             setAccess(true)
-            setTimeout(()=>router.push("/User/Auth/onboarding"),2000)
+            setTimeout(()=>router.push("/User/Dashboard"),2000)
         }).catch(err=>{
             setAccess(false)
             setHide(false)
