@@ -10,9 +10,4 @@ export const fetchData = (email:string)=>{
    return getDocs(q)
 }
 
-const user:any = localStorage.getItem('userData')
-export const getUserData = ()=>{
-   const data:userData = JSON.parse(user);   
-   return data
-}
 
