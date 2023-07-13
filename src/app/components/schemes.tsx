@@ -6,5 +6,8 @@ export interface userData{
     Cert:string,
     Tax:string,
     phone:string,
-    description:string
+    description:string,
+    header:string,
+    images:Array<string>,
+    listings:Array<string>
 }

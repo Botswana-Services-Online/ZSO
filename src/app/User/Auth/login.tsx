@@ -1,7 +1,7 @@
 "use Client"
 import { alignIcon, genBtn, genFrm,loading } from "@/app/components/cssStyles";
 import { useState,useContext } from "react";
-import { GoogleAuthProvider, getAuth,sendEmailVerification,signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
+import { GoogleAuthProvider,setPersistence,browserLocalPersistence, getAuth,sendEmailVerification,signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { useRouter } from "next/navigation";
 import { app } from "@/app/api/firebase"
 import { Alert } from "react-bootstrap";
@@ -48,12 +48,17 @@ export default function Login() {
 
     const GoogleAuth=()=>{
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth,provider).then(res=>{
-            setAccess(true)
-            setTimeout(()=>router.push("/User/Dashboard"),2000)
+        setPersistence(auth,browserLocalPersistence).then((res)=>{
+            console.log(res)
+            signInWithPopup(auth,provider).then(res=>{
+                setAccess(true)
+                setTimeout(()=>router.push("/User/Dashboard"),2000)
+            }).catch(err=>{
+                setAccess(false)
+                setHide(false)
+            })
         }).catch(err=>{
-            setAccess(false)
-            setHide(false)
+            console.log(err)
         })
     }
 

@@ -8,7 +8,7 @@ import { addCircleOutline, callOutline, locationOutline, mailOutline, personCirc
 import { alignIcon } from './cssStyles';
 import { useRouter } from 'next/navigation';
 import { checkAcc } from './checkAcc';
-import { useEffect,useState,useContext } from 'react';
+import { useLayoutEffect,useState,useContext } from 'react';
 import { getAuth } from 'firebase/auth';
 import { app } from '../api/firebase';
 import { Dropdown } from 'react-bootstrap';
@@ -26,10 +26,12 @@ export const NavBar = () => {
         hideHas:true
     })
     
-    useEffect(()=>{
-       if(access!==false){
+    useLayoutEffect(()=>{
+        console.log(access)
+       if(access===true){
         let data = authUser.currentUser
         setImgFile(data?.photoURL)
+        console.log(data?.photoURL)
         setHide({...hide,hideReg:true,hideHas:false})  
         }else{
             setHide({...hide,hideReg:false,hideHas:true})

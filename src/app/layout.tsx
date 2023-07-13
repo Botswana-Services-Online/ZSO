@@ -7,8 +7,10 @@ import { FooterBar, NavBar } from './components/SiteNavigation';
 import { setupIonicReact } from '@ionic/react';
 import Script from 'next/script';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
-import { useContext,useState } from 'react';
-import { Authorized, userAuth } from './components/contexts';
+import { useContext,useState,useLayoutEffect } from 'react';
+import { Authorized } from './components/contexts';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { app } from './api/firebase';
 
 setupIonicReact();
 const inter = Inter({ subsets: ['latin'] })
@@ -24,8 +26,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-  const [access,setAccess] = useState(false)
-  
+  const [access,setAccess] = useState<boolean>(false)
+  const auth =getAuth(app)
+  useLayoutEffect(()=>{
+   onAuthStateChanged(auth,(user)=>{
+    console.log(user)
+    if(user){
+      setAccess(true)
+    }else{
+      setAccess(false)
+    }
+   })
+  },[access])
   return (
     <html lang="en">
       <body className={inter.className} >
