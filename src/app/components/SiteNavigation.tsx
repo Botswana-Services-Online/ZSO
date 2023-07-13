@@ -36,7 +36,7 @@ export const NavBar = () => {
         }else{
             setHide({...hide,hideReg:false,hideHas:true})
         }
-    },[access])
+    },[])
     
     const logout=()=>{
         authUser.signOut().then(res=>{

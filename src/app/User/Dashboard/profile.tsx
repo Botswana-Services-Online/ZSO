@@ -108,7 +108,7 @@ const Profile = () => {
                 </div>
                 <div className="mb-5 shadow-lg rounded p-2">
                     <h3>Company Documents</h3>
-                    <div className="d-flex justify-content-center container">
+                    <div className="d-flex justify-content-center ">
                         <ViewDocs doc={[data.Cert, data.Tax]} />
                     </div>
                 </div>
