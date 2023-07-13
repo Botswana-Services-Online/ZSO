@@ -7,7 +7,7 @@ import { FooterBar, NavBar } from './components/SiteNavigation';
 import { setupIonicReact } from '@ionic/react';
 import Script from 'next/script';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
-import { useContext,useState,useLayoutEffect } from 'react';
+import { useContext,useState,useEffect } from 'react';
 import { Authorized } from './components/contexts';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from './api/firebase';
@@ -42,7 +42,7 @@ export default function RootLayout({
     header:""
   })
   const auth =getAuth(app)
-  useLayoutEffect(()=>{
+  useEffect(()=>{
    onAuthStateChanged(auth,(user:any)=>{
     console.log(user)
     if(user){
