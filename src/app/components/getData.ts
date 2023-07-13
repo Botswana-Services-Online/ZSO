@@ -4,6 +4,12 @@ import { app } from "../api/firebase";
 import { db } from "../api/firebase";
 import { userData } from "./schemes";
 
+export const fetchData = (email:string)=>{
+    const refUser = collection(db,"users")
+    const q = query(refUser,where("email","==",`${email}`))
+   return getDocs(q)
+}
+
 const user:any = localStorage.getItem('userData')
 export const getUserData = ()=>{
    const data:userData = JSON.parse(user);   

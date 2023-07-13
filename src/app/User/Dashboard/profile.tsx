@@ -4,11 +4,13 @@ import { collection, getDocs, limit, query, where } from "firebase/firestore"
 import { app, db } from "@/app/api/firebase"
 import { getAuth } from "firebase/auth"
 import { userData } from "@/app/components/schemes"
-import { useState, useLayoutEffect } from "react"
+import { useState, useLayoutEffect, useContext } from "react"
 import ViewDocs from "@/app/components/viewDocs"
+import { Authorized } from "@/app/components/contexts"
 
 
 const Profile = () => {
+    const {access,setAccess} = useContext(Authorized)
     const [data, setData] = useState<userData>({
         name: "",
         address: "",
@@ -40,25 +42,28 @@ const Profile = () => {
     }, [data])
     return (
         <div className="container">
-            <div style={{...bgImg(""),height:"40vh",}}>
-                    <div>
+            
+                    <div className="d-flex ">
                         <img src={""} alt="Profile pic"/>
                     </div>
-            </div>
+           
             <div className="mb-3">
+                <h1>{access.name}</h1>
+            </div>
+            <div className="mb-5 shadow-lg rounded p-2">
                 <h3>Listings</h3>
                 <div>
                     {/* map listings */}
                 </div>
             </div>
-            <div className="mb-3">
-                <div>
+            <div >
+                <div className="mb-5 shadow-lg rounded p-2">
 
                     <h3>
                         Description
                     </h3>
-                    <div>
-                        <div className="mb-3">
+                    <div className="container">
+                        <div className="mb-3 mb-3">
                             <textarea className="form-control" value={data.description}>
 
                             </textarea>
@@ -69,7 +74,7 @@ const Profile = () => {
 
                     </div>
                 </div>
-                <div className="mb-3">
+                <div className="mb-5 shadow-lg rounded p-2">
                     <h3>General Details</h3>
                     <form>
 
@@ -77,22 +82,23 @@ const Profile = () => {
                         <div className="row">
                             <div className="col-sm mb-3  ">
                                 <p className="m-2">Email</p>
-                                <input type="text" className={genFrm} size={50} value={data.email} />
+                                <input type="text" className="form-control rounded-pill  shadow-lg"  value={data.email} />
                             </div>
                             <div className="col-sm mb-3 ">
                                 <p className="m-2">Phone Number</p>
-                                <input type="text" className={genFrm} value={data.phone} />
+                                <input type="text" className="form-control rounded-pill  shadow-lg" value={data.phone} />
                             </div>
                             <div className="col-sm mb-3">
-                                <p className="m-2">Address</p>
-                                <input type="text" className={genFrm} value={data.address} />
+                            <p className="m-2 ">Number of Employees</p>
+                                <input type="text" className="form-control rounded-pill  shadow-lg" value={data.numEmployees} />
                             </div>
+                            
 
                         </div>
                         <div className="row">
-                            <div className="col-sm mb-3">
-                            <p className="m-2 ">Number of Employees</p>
-                                <input type="text" className={genFrm} value={data.numEmployees} />
+                        <div className="col-sm mb-3">
+                                <p className="m-2">Address</p>
+                                <input type="text" className="form-control rounded-pill  shadow-lg" value={data.address} />
                             </div>
                         </div>
                         <div className="mb-3">
@@ -100,13 +106,13 @@ const Profile = () => {
                         </div>
                     </form>
                 </div>
-                <div className="mb-3 ">
+                <div className="mb-5 shadow-lg rounded p-2">
                     <h3>Company Documents</h3>
-                    <div className="d-flex justify-content-center ">
+                    <div className="d-flex justify-content-center container">
                         <ViewDocs doc={[data.Cert, data.Tax]} />
                     </div>
                 </div>
-                <div>
+                <div className="mb-5 shadow-lg rounded p-2">
                     <h3>Gallery</h3>
                     <div className="row">
                         <div className="col-sm"></div>

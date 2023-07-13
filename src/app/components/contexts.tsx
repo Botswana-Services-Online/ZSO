@@ -5,4 +5,4 @@ import { app } from "../api/firebase";
 export interface userAuth{
     access:boolean,
 }
-export const Authorized = createContext<any>(getAuth(app).currentUser?true:false);
+export const Authorized = createContext<any>(null);

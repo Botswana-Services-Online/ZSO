@@ -28,7 +28,7 @@ export const NavBar = () => {
     
     useLayoutEffect(()=>{
         console.log(access)
-       if(access===true){
+       if(access.email.length > 0){
         let data = authUser.currentUser
         setImgFile(data?.photoURL)
         console.log(data?.photoURL)
