@@ -53,7 +53,7 @@ export default function RootLayout({
       })
     }
    })
-  },[access])
+  },[])
   return (
     <html lang="en">
       <body className={inter.className} >
