@@ -9,5 +9,21 @@ export interface userData{
     description:string,
     header:string,
     images:Array<string>,
-    listings:Array<string>
+    listings:Array<string>,
+    log:boolean
+}
+
+export const userDataDefault={
+    name:"",
+    address:"",
+    email:"",
+    numEmployees:"",
+    Cert:"",
+    Tax:"",
+    phone:"",
+    description:"",
+    header:"",
+    images:[],
+    listings:[],
+    log:false
 }

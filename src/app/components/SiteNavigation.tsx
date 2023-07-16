@@ -14,6 +14,7 @@ import { app } from '../api/firebase';
 import { Dropdown } from 'react-bootstrap';
 import { Authorized } from './contexts';
 import Link from 'next/link';
+import { userDataDefault } from './schemes';
 
 
 export const NavBar = () => {
@@ -40,6 +41,7 @@ export const NavBar = () => {
     
     const logout=()=>{
         authUser.signOut().then(res=>{
+            setAccess(userDataDefault)
             route.push("/")
         }).catch(err=>{
             console.log(err)
