@@ -1,16 +1,16 @@
 "use client"
 import { bgImg, genBtn, mp, vp } from "@/app/components/cssStyles";
 import Profile from "./profile";
-import {useLayoutEffect,useState,useContext} from "react"
+import {useEffect,useState,useContext} from "react"
 import checkAuth from "@/app/components/checkAuth";
 import { Authorized } from "@/app/components/contexts";
 export default function Dashboard(){
     const {access,setAccess} = useContext(Authorized)
     const [headerImg,setHeaderImg] = useState<string>("")
 
-    useLayoutEffect(()=>{
+    useEffect(()=>{
         checkAuth()
-        if(access.header.length>0){
+        if(access.log){
             setHeaderImg(access.header);
         }else{
             setHeaderImg("https://voideawn.sirv.com/website/Untitled%20design.png")

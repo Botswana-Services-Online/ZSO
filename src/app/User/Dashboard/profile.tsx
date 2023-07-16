@@ -22,7 +22,8 @@ const Profile = () => {
         description: "",
         images:[],
         listings:[],
-        header:""
+        header:"",
+        log:false
     })
 
     const getUserData = () => {
@@ -39,7 +40,7 @@ const Profile = () => {
 
     useLayoutEffect(() => {
         getUserData()
-    }, [data])
+    }, [])
     return (
         <div className="container">
             
@@ -64,7 +65,7 @@ const Profile = () => {
                     </h3>
                     <div className="container">
                         <div className="mb-3 mb-3">
-                            <textarea className="form-control" value={data.description}>
+                            <textarea className="form-control" value={data.description} readOnly>
 
                             </textarea>
                         </div>
@@ -82,15 +83,15 @@ const Profile = () => {
                         <div className="row">
                             <div className="col-sm mb-3  ">
                                 <p className="m-2">Email</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg"  value={data.email} />
+                                <input type="text" className="form-control rounded-pill  shadow-lg"  value={data.email} readOnly/>
                             </div>
                             <div className="col-sm mb-3 ">
                                 <p className="m-2">Phone Number</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" value={data.phone} />
+                                <input type="text" className="form-control rounded-pill  shadow-lg" value={data.phone}  readOnly/>
                             </div>
                             <div className="col-sm mb-3">
                             <p className="m-2 ">Number of Employees</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" value={data.numEmployees} />
+                                <input type="text" className="form-control rounded-pill  shadow-lg" value={data.numEmployees} readOnly/>
                             </div>
                             
 
@@ -98,7 +99,7 @@ const Profile = () => {
                         <div className="row">
                         <div className="col-sm mb-3">
                                 <p className="m-2">Address</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" value={data.address} />
+                                <input type="text" className="form-control rounded-pill  shadow-lg" value={data.address} readOnly/>
                             </div>
                         </div>
                         <div className="mb-3">

@@ -8,6 +8,7 @@ import { Alert } from "react-bootstrap";
 import { IonIcon } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
 import { Authorized } from "@/app/components/contexts";
+import { fetchData } from "@/app/components/getData";
 // import { loading } from "@/app/components/cssStyles";
 export default function Login() {
     const {access,setAccess} = useContext(Authorized)
@@ -51,10 +52,9 @@ export default function Login() {
         setPersistence(auth,browserLocalPersistence).then((res)=>{
             console.log(res)
             signInWithPopup(auth,provider).then(res=>{
-                setAccess(true)
+                fetchData(auth.currentUser)
                 setTimeout(()=>router.push("/User/Dashboard"),2000)
             }).catch(err=>{
-                setAccess(false)
                 setHide(false)
             })
         }).catch(err=>{

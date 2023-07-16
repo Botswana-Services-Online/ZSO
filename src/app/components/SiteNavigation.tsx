@@ -28,7 +28,7 @@ export const NavBar = () => {
     
     useLayoutEffect(()=>{
         console.log(access)
-       if(access.email.length > 0){
+       if(access.log){
         let data = authUser.currentUser
         setImgFile(data?.photoURL)
         console.log(data?.photoURL)
@@ -36,11 +36,10 @@ export const NavBar = () => {
         }else{
             setHide({...hide,hideReg:false,hideHas:true})
         }
-    },[])
+    },[access])
     
     const logout=()=>{
         authUser.signOut().then(res=>{
-            setAccess(false)
             route.push("/")
         }).catch(err=>{
             console.log(err)

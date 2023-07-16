@@ -39,7 +39,8 @@ export default function RootLayout({
     description: "",
     images:[],
     listings:[],
-    header:""
+    header:"",
+    log:false
   })
   const auth =getAuth(app)
   useEffect(()=>{
@@ -47,7 +48,8 @@ export default function RootLayout({
     console.log(user)
     if(user){
       fetchData(user.email).then((data:any)=>{
-        setAccess(data.docs[0].data())
+        setAccess({...data.docs[0].data(),log:true})
+        console.log(access)
       }).catch(error=>{
         console.log(error)
       })
