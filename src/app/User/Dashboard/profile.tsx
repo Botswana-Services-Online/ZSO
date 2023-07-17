@@ -1,12 +1,14 @@
 "use client"
-import { bgImg, genFrm, nomBtn, vp } from "@/app/components/cssStyles"
+import { nomBtn,  } from "@/app/components/cssStyles"
 import { collection, getDocs, limit, query, where } from "firebase/firestore"
 import { app, db } from "@/app/api/firebase"
 import { getAuth } from "firebase/auth"
 import { userData } from "@/app/components/schemes"
-import { useState, useLayoutEffect, useContext } from "react"
+import { useState, useEffect, useContext } from "react"
 import ViewDocs from "@/app/components/viewDocs"
 import { Authorized } from "@/app/components/contexts"
+import { addCircle, images } from "ionicons/icons"
+import { IonIcon } from "@ionic/react"
 
 
 const Profile = () => {
@@ -38,9 +40,10 @@ const Profile = () => {
         }))
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         getUserData()
-    }, [])
+        console.log("check leackage")
+    }, [access])
     return (
         <div className="container">
             
@@ -53,9 +56,17 @@ const Profile = () => {
             </div>
             <div className="mb-5 shadow-lg rounded p-2">
                 <h3>Listings</h3>
-                <div>
-                    {/* map listings */}
-                </div>
+                <div className="row m-3" >
+                        <div className="col-sm d-flex flex-column align-items-center justify-content-center border rounded" style={{maxWidth:"20vh",height:"45vh"}}>
+                           <IonIcon color="success" icon={addCircle}/>
+                           <br/>
+                            <small className="specialText text-decoration-underline "><strong>New Listing</strong></small>
+                        </div>
+                        <div className="col-sm"></div>
+                        {
+                            // map out images
+                        }
+                    </div>
             </div>
             <div >
                 <div className="mb-5 shadow-lg rounded p-2">
@@ -115,7 +126,12 @@ const Profile = () => {
                 </div>
                 <div className="mb-5 shadow-lg rounded p-2">
                     <h3>Gallery</h3>
-                    <div className="row">
+                    <div className="row m-3" >
+                        <div className="col-sm d-flex flex-column align-items-center justify-content-center border rounded" style={{maxWidth:"20vh",height:"45vh"}}>
+                            <IonIcon color="success" icon={images}/>
+                            <br/>
+                            <small className="specialText"><strong>Add Pictures</strong></small>
+                        </div>
                         <div className="col-sm"></div>
                         {
                             // map out images
