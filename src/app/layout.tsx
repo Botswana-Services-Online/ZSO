@@ -12,7 +12,7 @@ import { Authorized } from './components/contexts';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from './api/firebase';
 import { fetchData } from './components/getData';
-import { userData } from './components/schemes';
+import { userData, userDataDefault } from './components/schemes';
 
 setupIonicReact();
 const inter = Inter({ subsets: ['latin'] })
@@ -28,27 +28,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-  const [access,setAccess] = useState<userData>({
-    name: "",
-    address: "",
-    phone: "",
-    email: "",
-    Tax: "",
-    Cert: "",
-    numEmployees: 0,
-    description: "",
-    images:[],
-    listings:[],
-    header:"",
-    log:false
-  })
+  const [access,setAccess] = useState<userData>(userDataDefault)
   const auth =getAuth(app)
   useEffect(()=>{
    onAuthStateChanged(auth,(user:any)=>{
     console.log(user)
     if(user){
       fetchData(user.email).then((data:any)=>{
-        setAccess({...data.docs[0].data(),log:true})
+        console.log(data.docs[0].id)
+        setAccess({...data.docs[0].data(),log:true,id:data.docs[0].id})
         console.log(access)
       }).catch(error=>{
         console.log(error)

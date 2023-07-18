@@ -51,7 +51,7 @@ export const NavBar = () => {
     return (
         <Navbar data-bs-theme="dark" expand="lg" className="Bg p-2 position-fixed " fixed="top" >
             <Container fluid>
-                <Navbar.Brand className='text-white' href="#">ZSO</Navbar.Brand>
+                <Navbar.Brand className='text-white' href="#"><img src="https://voideawn.sirv.com/website/logo.png" width={40} alt="Zimbabwe Services Online"/> </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll text-white bg-light" color='light'/>
                 <Navbar.Collapse id="navbarScroll">
                     <Nav

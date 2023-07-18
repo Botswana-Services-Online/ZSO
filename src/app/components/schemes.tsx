@@ -10,14 +10,15 @@ export interface userData{
     header:string,
     images:Array<string>,
     listings:Array<string>,
-    log:boolean
+    log:boolean,
+    id:string
 }
 
-export const userDataDefault={
+export const userDataDefault:userData={
     name:"",
     address:"",
     email:"",
-    numEmployees:"",
+    numEmployees:0,
     Cert:"",
     Tax:"",
     phone:"",
@@ -25,5 +26,6 @@ export const userDataDefault={
     header:"",
     images:[],
     listings:[],
-    log:false
+    log:false,
+    id:""
 }

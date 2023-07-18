@@ -14,7 +14,8 @@ export default function ViewDocs(props: { doc: Array<string> }) {
                                     <embed src={item} type="application/pdf" />
                                     </div>
                                     <div>
-                                    <a href={item} target="_blank"><button className={nomBtn}>View</button></a>
+                                    <a href={item} target="_blank"><button className=" btn fw-bold text-success btn-transparent"><u>View</u></button></a>
+                                    <a href={item} target="_blank"><button className=" btn fw-bold text-success btn-transparent"><u>Update</u></button></a>
                                     </div>       
                                 </div>
                             )
