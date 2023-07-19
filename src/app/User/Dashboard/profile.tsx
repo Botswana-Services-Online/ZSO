@@ -4,13 +4,15 @@ import { getAuth } from "firebase/auth"
 import { useState, useEffect, useContext } from "react"
 import ViewDocs from "@/app/components/viewDocs"
 import { Authorized } from "@/app/components/contexts"
-import { addCircle, images, personCircle } from "ionicons/icons"
+import { addCircle, close, eye, images, personCircle, trash } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
 import { storage } from "@/app/api/firebase"
-import {ref, getDownloadURL,uploadBytes } from "firebase/storage"
+import {ref,getDownloadURL,uploadBytes, deleteObject } from "firebase/storage"
 import { v4 } from "uuid"
 import { updateUser } from "@/app/components/updateInfo"
-import { bgImg } from "@/app/components/cssStyles"
+import { alignIcon, bgImg } from "@/app/components/cssStyles"
+import { Modal } from "react-bootstrap"
+
 
 
 const Profile = () => {
@@ -19,6 +21,10 @@ const Profile = () => {
     const [msg, setMsg] = useState({
         gallery: "Add Pictures"
     })
+    const [hide,setHide] = useState({
+        showGalleryView:false
+    })
+    const [viewSelected,setViewSelected] = useState<string>("")
 
     useEffect(() => {
 
@@ -35,6 +41,22 @@ const Profile = () => {
                 updateUser(data).then(res=>{
                    window.location.reload()
                 }).catch(err=>{})
+            }).catch(err=>{})
+        }).catch(err=>{})
+    }
+
+    const viewImage=(imageUrl:string)=>{
+        setViewSelected(imageUrl);
+        setHide({...hide, showGalleryView:true})
+    }
+
+    const deleteImage=(imageUrl:string)=>{
+        const imgRef = ref(storage,imageUrl)
+        deleteObject(imgRef).then(res=>{
+            const newData = access.images.filter((item:string)=>item!==imageUrl)
+            const data = {...access,images:newData}
+            updateUser(data).then(res=>{
+                window.location.reload()
             }).catch(err=>{})
         }).catch(err=>{})
     }
@@ -136,8 +158,14 @@ const Profile = () => {
                         {
                             access.images.map((item:string,index:number)=>{
                                 return(
-                                    <div className="col-sm m-2 border rounded" key={index} style={{...bgImg(item), maxWidth: "20vh", height: "45vh" }}>
+                                    <div className="col-sm m-2 d-flex flex-row justify-content-center align-items-center border rounded" key={index} style={{...bgImg(item), maxWidth: "20vh", height: "45vh" }}>
+
+                                            <button className={`btn btn-success shadow-lg rounded-pill m-2 ${alignIcon}`} onClick={()=>viewImage(item)}> <IonIcon size="small" icon={eye}/></button>
+                                            <button className={`btn btn-success shadow-l rounded-pill m-2 ${alignIcon}`} onClick={()=>deleteImage(item)}><IonIcon size="small" icon={trash}/></button>
+                                           
                                         
+                                       
+
                                     </div>
                                 )
                             })
@@ -146,6 +174,14 @@ const Profile = () => {
                 </div>
 
             </div>
+            <Modal size="lg" show={hide.showGalleryView}>
+                        <Modal.Header><button className={`btn btn-danger rounded-pill ${alignIcon}`} onClick={()=>setHide({...hide,showGalleryView:false})}><IonIcon icon={close}/></button></Modal.Header>
+                    <Modal.Body >
+                        <div >
+                            <img className="img-fluid" src={viewSelected}/>
+                        </div>
+                    </Modal.Body>
+            </Modal>
         </div>
     )
 }
