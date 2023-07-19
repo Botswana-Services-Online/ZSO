@@ -14,8 +14,12 @@ export default function ViewDocs(props: { doc: Array<string> }) {
                                     <embed src={item} type="application/pdf" />
                                     </div>
                                     <div>
-                                    <a href={item} target="_blank"><button className=" btn fw-bold text-success btn-transparent"><u>View</u></button></a>
-                                    <a href={item} target="_blank"><button className=" btn fw-bold text-success btn-transparent"><u>Update</u></button></a>
+                                    <a href={item} target="_blank"><button className=" btn  text-success btn-transparent"><u>View</u></button></a>
+                                    <label aria-For={`${index}`} className="text-success pointer">
+                                        <input accept="application/pdf" id={`${index}`} type="file" style={{display:"none"}}/>
+                                      <u >Update</u>
+                                    </label>
+                                    
                                     </div>       
                                 </div>
                             )
