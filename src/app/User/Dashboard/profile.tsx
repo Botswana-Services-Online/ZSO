@@ -9,6 +9,8 @@ import { IonIcon } from "@ionic/react"
 import { storage } from "@/app/api/firebase"
 import {ref, getDownloadURL,uploadBytes } from "firebase/storage"
 import { v4 } from "uuid"
+import { updateUser } from "@/app/components/updateInfo"
+import { bgImg } from "@/app/components/cssStyles"
 
 
 const Profile = () => {
@@ -18,16 +20,25 @@ const Profile = () => {
         gallery: "Add Pictures"
     })
 
-
     useEffect(() => {
 
         console.log("check leackage")
     }, [access])
 
-
-    const AddToGallery = () => {
+    const AddToGallery = (image:any) => {
         const galleryRef = ref(storage,`gallery/${v4()}`)
+        uploadBytes(galleryRef,image).then(res=>{
+            getDownloadURL(res.ref).then(url =>{
+                const newImg = [...access.images,url]
+                const data = {...access,images:newImg}
+                console.log(data)
+                updateUser(data).then(res=>{
+                   window.location.reload()
+                }).catch(err=>{})
+            }).catch(err=>{})
+        }).catch(err=>{})
     }
+
     return (
         <div className="container">
 
@@ -52,7 +63,7 @@ const Profile = () => {
                     }
                 </div>
             </div>
-            <div >
+            <div>
                 <div className="mb-5 shadow-lg rounded p-2">
 
                     <h3>
@@ -110,20 +121,26 @@ const Profile = () => {
                 </div>
                 <div className="mb-5 shadow-lg rounded p-2">
                     <h3>Gallery</h3>
-                    <div className="row m-3" >
-                        <div className="col-sm pointer d-flex flex-column align-items-center justify-content-center border rounded" style={{ maxWidth: "20vh", height: "45vh" }}>
+                    <div className="row m-3 flex-wrap" >
+                        <div className="col-sm m-2 pointer d-flex flex-column align-items-center justify-content-center border rounded" style={{ maxWidth: "20vh", height: "45vh" }}>
                             <div className=" text-center">
                                 <IonIcon color="success" icon={images} />
                                 <br />
 
                                 <label aria-for="gallery" className="specialText pointer">
-                                    <input type="file" id="gallery" accept="imga/jpeg image/png" style={{ display: "none" }} />
+                                    <input type="file" id="gallery" accept="imga/jpeg image/png" onChange={(e:any)=>AddToGallery(e.target.files[0])} style={{ display: "none" }} />
                                     <small><strong>{msg.gallery}</strong></small></label>
                             </div>
                         </div>
-                        <div className="col-sm"></div>
+                        
                         {
-                            // map out images
+                            access.images.map((item:string,index:number)=>{
+                                return(
+                                    <div className="col-sm m-2 border rounded" key={index} style={{...bgImg(item), maxWidth: "20vh", height: "45vh" }}>
+                                        
+                                    </div>
+                                )
+                            })
                         }
                     </div>
                 </div>
