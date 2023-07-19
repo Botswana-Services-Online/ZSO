@@ -11,7 +11,8 @@ export interface userData{
     images:Array<string>,
     listings:Array<string>,
     log:boolean,
-    id:string
+    id:string,
+    registered:false
 }
 
 export const userDataDefault:userData={
@@ -27,5 +28,6 @@ export const userDataDefault:userData={
     images:[],
     listings:[],
     log:false,
-    id:""
+    id:"",
+    registered:false
 }

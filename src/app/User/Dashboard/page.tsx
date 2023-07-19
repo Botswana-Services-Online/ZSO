@@ -10,15 +10,20 @@ import { storage } from "@/app/api/firebase";
 import { updateUser } from "@/app/components/updateInfo";
 import { pencil } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard(){
-   
+    const route = useRouter()
     const {access,setAccess} = useContext(Authorized)
     const [headerImg,setHeaderImg] = useState<string>("")
     
 
     useEffect(()=>{
+
         checkAuth()
+        if(access.registered===false){
+            route.push("/User/Auth/onboarding")
+        }
        
         
     },[headerImg])
