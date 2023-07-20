@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth"
 import { useState, useEffect, useContext } from "react"
 import ViewDocs from "@/app/components/viewDocs"
 import { Authorized } from "@/app/components/contexts"
-import { addCircle, close, eye, images, personCircle, trash } from "ionicons/icons"
+import { addCircle, close, eye, images, informationCircle, personCircle, trash } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
 import { storage } from "@/app/api/firebase"
 import {ref,getDownloadURL,uploadBytes, deleteObject } from "firebase/storage"
@@ -27,6 +27,9 @@ const Profile = () => {
     })
     const [viewSelected,setViewSelected] = useState<string>("")
     const [description,setDescription] = useState<string>(access.Description)
+    const [phone,setPhone] = useState<string>(access.phone)
+    const [address,setAddress] = useState<string>(access.address)
+    const [numEmployees,setNumEmployees] = useState<number>(access.numEmployees)
 
     useEffect(() => {
 
@@ -68,6 +71,19 @@ const Profile = () => {
         updateUser(newData).then(res=>{
             window.location.reload()
         }).catch(err=>{})
+    }
+
+    const updateGeneralDetails=()=>{
+        const newData={
+            ...access,
+            phone,
+            address,
+            numEmployees
+        }
+        updateUser(newData).then(res=>{
+            window.location.reload()
+        }).catch(err=>{})
+        
     }
 
     
@@ -121,16 +137,16 @@ const Profile = () => {
 
                         <div className="row">
                             <div className="col-sm mb-3  ">
-                                <p className="m-2">Email</p>
+                                <p className={`m-2 `}>Email <IonIcon  size="small" color="success" icon={informationCircle}/></p>
                                 <input type="text" className="form-control rounded-pill  shadow-lg" value={access.email} readOnly />
                             </div>
                             <div className="col-sm mb-3 ">
                                 <p className="m-2">Phone Number</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" value={access.phone} readOnly />
+                                <input type="text" className="form-control rounded-pill  shadow-lg" value={phone} onChange={(e)=>setPhone(e.target.value)} />
                             </div>
                             <div className="col-sm mb-3">
                                 <p className="m-2 ">Number of Employees</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" value={access.numEmployees} readOnly />
+                                <input type="number" className="form-control rounded-pill  shadow-lg" value={numEmployees} onChange={(e:any)=>setNumEmployees(e.target.value)} />
                             </div>
 
 
@@ -138,11 +154,11 @@ const Profile = () => {
                         <div className="row">
                             <div className="col-sm mb-5">
                                 <p className="m-2">Address</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" value={access.address} readOnly />
+                                <input type="text" className="form-control rounded-pill  shadow-lg" value={address} onChange={(e)=>setAddress(e.target.value)}/>
                             </div>
                         </div>
                         <div className="mb-3">
-                            <button className="btn btn-transparent border-none fw-bold text-success"><u>Update</u></button>
+                            <button className="btn btn-transparent border-none fw-bold text-success" onClick={()=>updateGeneralDetails()}><u>Update</u></button>
                         </div>
                     </form>
                 </div>
