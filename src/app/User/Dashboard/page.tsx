@@ -19,13 +19,7 @@ export default function Dashboard(){
     
 
     useEffect(()=>{
-
         checkAuth()
-        if(access.registered===false){
-            route.push("/User/Auth/onboarding")
-        }
-       
-        
     },[headerImg])
     const changeHeader=(file:any)=>{
         console.log(file)
