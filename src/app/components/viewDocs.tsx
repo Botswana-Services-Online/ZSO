@@ -13,7 +13,7 @@ export default function ViewDocs(props: { doc: Array<string> }) {
         const imageRef = ref(storage, `Tax/${v4()}`)
         uploadBytes(imageRef, document).then(res => {
             getDownloadURL(res.ref).then(url => {
-                const newData = { ...access, tax: url }
+                const newData = { ...access, Tax: url }
                 updateUser(newData).then(user => {
                     window.location.reload()
                 })
@@ -25,7 +25,7 @@ export default function ViewDocs(props: { doc: Array<string> }) {
         const imageRef = ref(storage, `Doc/${v4()}`)
         uploadBytes(imageRef, document).then(res => {
             getDownloadURL(res.ref).then(url => {
-                const newData = { ...access, tax: url }
+                const newData = { ...access, Cert: url }
                 updateUser(newData).then(user => {
                     window.location.reload()
                 })
@@ -55,7 +55,7 @@ export default function ViewDocs(props: { doc: Array<string> }) {
                                     </div>
                                     <div>
                                         <a href={item} target="_blank"><button className=" btn  text-success btn-transparent"><u>View</u></button></a>
-                                        <label aria-For={`${index}`} className="text-success pointer">
+                                        <label htmlFor={`${index}`} className="text-success pointer">
                                             <input accept="application/pdf" id={`${index}`} type="file" onChange={(e:any)=>{
                                                 checkUpdate(e.target.files[0])
                                             }} style={{ display: "none" }} />

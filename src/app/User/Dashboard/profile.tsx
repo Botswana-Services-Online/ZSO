@@ -151,14 +151,14 @@ const Profile = () => {
                                 <IonIcon color="success" icon={images} />
                                 <br />
 
-                                <label aria-for="gallery" className="specialText pointer">
+                                <label htmlFor="gallery" className="specialText pointer">
                                     <input type="file" id="gallery" accept="imga/jpeg image/png" onChange={(e:any)=>AddToGallery(e.target.files[0])} style={{ display: "none" }} />
                                     <small><strong>{msg.gallery}</strong></small></label>
                             </div>
                         </div>
                         
                         {
-                            access.images.map((item:string,index:number)=>{
+                            access.images?.map((item:string,index:number)=>{
                                 return(
                                     <div className="col-sm m-2 d-flex flex-row justify-content-center align-items-center border rounded" key={index} style={{...bgImg(item), maxWidth: "20vh", height: "45vh" }}>
 
