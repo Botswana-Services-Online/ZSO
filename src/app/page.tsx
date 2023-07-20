@@ -25,7 +25,7 @@ export default function Home() {
        
         <div className="row container ">
           <div className="col-sm mb-3">
-            <img loading="eager" src="https://voideawn.sirv.com/website/home_two.jpg" className="Sirv img-fluid rounded shadow-lg" alt="lady selling tomatoes" />
+            <img loading="eager" src="https://voideawn.sirv.com/website/home_two.jpg" className=" img-fluid rounded shadow-lg" alt="lady selling tomatoes" />
           
           </div>
           <div className="col-sm text-center d-flex flex-column justify-content-center align-items-center ">

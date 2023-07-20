@@ -5,9 +5,8 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { FooterBar, NavBar } from './components/SiteNavigation';
 import { setupIonicReact } from '@ionic/react';
-import Script from 'next/script';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
-import { useContext,useState,useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import { Authorized } from './components/contexts';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from './api/firebase';
@@ -53,7 +52,6 @@ export default function RootLayout({
         <FloatingWhatsApp statusMessage='Typically replies in 2 minutes' phoneNumber='+263788984320' accountName='Zim Services Online' avatar="https://voideawn.sirv.com/website/home_three.jpg"/>
         <FooterBar/>
         </Authorized.Provider>
-        {/* <Script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></Script> */}
         </body>
     </html>
   )
