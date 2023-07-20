@@ -17,6 +17,7 @@ import { Modal } from "react-bootstrap"
 
 const Profile = () => {
     const { access, setAccess } = useContext(Authorized)
+    
     const profilePicture = getAuth(app).currentUser?.photoURL || personCircle
     const [msg, setMsg] = useState({
         gallery: "Add Pictures"
@@ -25,6 +26,7 @@ const Profile = () => {
         showGalleryView:false
     })
     const [viewSelected,setViewSelected] = useState<string>("")
+    const [description,setDescription] = useState<string>(access.Description)
 
     useEffect(() => {
 
@@ -58,6 +60,13 @@ const Profile = () => {
             updateUser(data).then(res=>{
                 window.location.reload()
             }).catch(err=>{})
+        }).catch(err=>{})
+    }
+
+    const updateDescription=()=>{
+        const newData = {...access,Description:description}
+        updateUser(newData).then(res=>{
+            window.location.reload()
         }).catch(err=>{})
     }
 
@@ -95,12 +104,12 @@ const Profile = () => {
                     </h3>
                     <div className="container">
                         <div className="mb-3 mb-3">
-                            <textarea className="form-control" value={access.Description} rows={5} readOnly>
-
+                            <textarea className="form-control" value={description} rows={5} onChange={(e)=>setDescription(e.target.value)}>
+                            
                             </textarea>
                         </div>
                         <div className="mb-3">
-                            <button className="btn btn-transparent border-none fw-bold text-success"><u>Update</u></button>
+                            <button className="btn btn-transparent border-none fw-bold text-success" onClick={()=>{updateDescription()}}><u>Update</u></button>
                         </div>
 
                     </div>
