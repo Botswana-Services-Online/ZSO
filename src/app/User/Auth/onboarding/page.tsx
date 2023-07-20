@@ -58,14 +58,14 @@ export default function Register() {
         console.log(DocRef)
         console.log(TaxRef)
         uploadBytes(DocRef,doc).then((res) =>{
-            getDownloadURL(res.ref).then(res=>{
-                console.log(res)
-                setDocR(res)
+            getDownloadURL(res.ref).then(urlf=>{
+                console.log(urlf)
+                setDocR(urlf)
                 uploadBytes(TaxRef,doc).then((r) =>{
-                    getDownloadURL(r.ref).then(res=>{
-                        console.log(res)
-                        setTaxR(res)
-                        submitAll()
+                    getDownloadURL(r.ref).then(urls=>{
+                        console.log(urls)
+                        setTaxR(urls)
+                        submitAll(urlf,urls)
                     }).catch((err) =>{
                         console.log(err)
                         setBtnState("Next")})
@@ -104,12 +104,12 @@ export default function Register() {
         }
     }
 
-    const submitAll=()=>{
+    const submitAll=(urlf:string,urls:string)=>{
         const owner = getAuth(app).currentUser?.email
-        const createdAt = moment().locale()
+        const createdAt = moment().toLocaleString()
        const data ={
-        Cert:docR,
-        Tax:taxR,  
+        Cert:urlf,
+        Tax:urls,  
         name,
         address,
         phone,
