@@ -8,7 +8,7 @@ import { setupIonicReact } from '@ionic/react';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import { useState,useEffect } from 'react';
 import { Authorized } from './components/contexts';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, sendEmailVerification } from 'firebase/auth';
 import { app } from './api/firebase';
 import { fetchData } from './components/getData';
 import { userData, userDataDefault } from './components/schemes';
@@ -33,6 +33,7 @@ export default function RootLayout({
    onAuthStateChanged(auth,(user:any)=>{
     console.log(user)
     if(user){
+      if(user.emailVerified===true){
       fetchData(user.email).then((data:any)=>{
         console.log(data.docs[0].id)
         setAccess({...data.docs[0].data(),log:true,id:data.docs[0].id})
@@ -40,6 +41,13 @@ export default function RootLayout({
       }).catch(error=>{
         console.log(error)
       })
+    }else{
+      sendEmailVerification(user).then(res=>{
+       window.location.assign("/User/Auth/verify")
+      }).catch(err=>{
+        window.location.assign("/User/Auth/verify")
+      })
+    }
     }
    })
   },[])
