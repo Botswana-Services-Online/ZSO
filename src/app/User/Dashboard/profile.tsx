@@ -1,7 +1,7 @@
 "use client"
 import { app } from "@/app/api/firebase"
 import { getAuth } from "firebase/auth"
-import { useState, useEffect, useContext } from "react"
+import { useState, useLayoutEffect, useContext } from "react"
 import ViewDocs from "@/app/components/viewDocs"
 import { Authorized } from "@/app/components/contexts"
 import { addCircle, close, eye, images, informationCircle, personCircle, trash } from "ionicons/icons"
@@ -31,7 +31,7 @@ const Profile = () => {
     const [address,setAddress] = useState<string>(access.address)
     const [numEmployees,setNumEmployees] = useState<number>(access.numEmployees)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
 
         console.log("check leackage")
     }, [access])
@@ -138,15 +138,15 @@ const Profile = () => {
                         <div className="row">
                             <div className="col-sm mb-3  ">
                                 <p className={`m-2 `}>Email <IonIcon  size="small" color="success" icon={informationCircle}/></p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" value={access.email} readOnly />
+                                <input type="text" className="form-control rounded-pill  shadow-lg" placeholder={access.email} readOnly />
                             </div>
                             <div className="col-sm mb-3 ">
                                 <p className="m-2">Phone Number</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" value={phone} onChange={(e)=>setPhone(e.target.value)} />
+                                <input type="text" className="form-control rounded-pill  shadow-lg" placeholder={access.phone} onChange={(e)=>setPhone(e.target.value)} />
                             </div>
                             <div className="col-sm mb-3">
                                 <p className="m-2 ">Number of Employees</p>
-                                <input type="number" className="form-control rounded-pill  shadow-lg" value={numEmployees} onChange={(e:any)=>setNumEmployees(e.target.value)} />
+                                <input type="text" className="form-control rounded-pill  shadow-lg" placeholder={access.numEmployees} onChange={(e:any)=>setNumEmployees(e.target.value)} />
                             </div>
 
 
@@ -154,7 +154,7 @@ const Profile = () => {
                         <div className="row">
                             <div className="col-sm mb-5">
                                 <p className="m-2">Address</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" value={address} onChange={(e)=>setAddress(e.target.value)}/>
+                                <input type="text" className="form-control rounded-pill  shadow-lg" placeholder={access.address} onChange={(e)=>setAddress(e.target.value)}/>
                             </div>
                         </div>
                         <div className="mb-3">
