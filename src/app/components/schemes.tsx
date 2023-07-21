@@ -31,3 +31,15 @@ export const userDataDefault:userData={
     id:"",
     registered:false
 }
+export interface listingsData{
+    name:string,
+    description:string,
+    category:string,
+    userId:string,
+    price:number,
+    serviceLocation:string,
+    image:string,
+    call:string,
+    whatsapp:string,
+    email:string
+}

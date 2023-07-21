@@ -1,6 +1,4 @@
 import { useContext } from "react"
-import { nomBtn } from "./cssStyles"
-import { userData } from "./schemes"
 import { updateUser } from "./updateInfo"
 import { Authorized } from "./contexts"
 import { storage } from "../api/firebase"
@@ -40,7 +38,7 @@ export default function ViewDocs(props: { doc: Array<string> }) {
                 {
                     props.doc[0]?.length > 0 ?
                         props.doc?.map((item: string, index: number) => {
-                            console.log(index)
+                         
                             const checkUpdate=(data:any)=>{
                                 if(index===0){
                                     updateDoc(data)
