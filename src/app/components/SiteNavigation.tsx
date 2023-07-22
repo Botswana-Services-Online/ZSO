@@ -72,7 +72,7 @@ export const NavBar = () => {
                         <div hidden={hide.hideReg}>
                             <Button onClick={()=>{localStorage.setItem("log","1"); route.push("/User/Auth/")}} className='rounded-pill  text-white  border-light d-flex align-items-center bg-transparent ' ><IonIcon color="light" icon={personCircleOutline} /><span>Sign in</span></Button>
                         </div>
-                        <div  hidden={hide.hideHas} className='me-5'>
+                        <div  hidden={hide.hideHas} className=''>
                         <Dropdown className='container'>
                             <Dropdown.Toggle  className={`bg-transparent border-0 d-flex p-0 ${alignIcon}`}>
                             <img className="rounded-pill mt-1" src={imgFile} width={30} alt="user " onClick={()=>{localStorage.setItem("log","1"); }}/>
@@ -80,6 +80,18 @@ export const NavBar = () => {
                             <Dropdown.Menu className='Bg '>
                                 <Dropdown.Item  className='text-white' onClick={()=>route.push("/User/Dashboard/")}>Dashboard</Dropdown.Item>
                                 <Dropdown.Item  className='text-white' onClick={()=>logout()}>Logout</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        
+                    </div>
+                    <div>
+                    <Dropdown className='container'>
+                            <Dropdown.Toggle  className={`bg-transparent border-0 d-flex p-0 ${alignIcon}`}>
+                            <img className="rounded-pill mt-1" src="https://voideawn.sirv.com/website/zimbabwe.png" width={30} alt="user " onClick={()=>{localStorage.setItem("log","1"); }}/>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu className='Bg '>
+                                <Dropdown.Item  className='text-white' onClick={()=>window.location.replace("https://botswanaservices.com")}><img src="https://voideawn.sirv.com/website/botswana.png"/> </Dropdown.Item>
+                                
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>

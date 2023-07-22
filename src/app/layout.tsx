@@ -1,10 +1,8 @@
 "use client"
-import 'bootstrap/dist/css/bootstrap.css';
-import '@ionic/react/css/core.css';
-import './globals.css'
+
 import { Inter } from 'next/font/google'
 import { FooterBar, NavBar } from './components/SiteNavigation';
-import { setupIonicReact } from '@ionic/react';
+// import { setupIonicReact } from '@ionic/react';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import { useState,useEffect } from 'react';
 import { Authorized } from './components/contexts';
@@ -12,8 +10,11 @@ import { getAuth, onAuthStateChanged, sendEmailVerification } from 'firebase/aut
 import { app } from './api/firebase';
 import { fetchData } from './components/getData';
 import { userData, userDataDefault } from './components/schemes';
+import 'bootstrap/dist/css/bootstrap.css';
+import '@ionic/react/css/core.css';
+import './globals.css'
 
-setupIonicReact();
+
 const inter = Inter({ subsets: ['latin'] })
 
 // export const metadata = {
@@ -26,7 +27,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
+  // setupIonicReact();
   const [access,setAccess] = useState<userData>(userDataDefault)
   const auth =getAuth(app)
   useEffect(()=>{
@@ -53,6 +54,10 @@ export default function RootLayout({
   },[])
   return (
     <html lang="en">
+      <head>
+      <link rel='shortcut icon' href='https://voideawn.sirv.com/website/favicon.jpg'/>
+      <title>Zimbabwe Services Online</title>
+      </head>
       <body className={inter.className} >
       <Authorized.Provider value={{access,setAccess}}>
         <NavBar/>

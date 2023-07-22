@@ -40,7 +40,7 @@ export default function Dashboard(){
         <div className={mp}>
            
             <div className="d-flex  align-items-end  justify-content-end " style={{...bgImg(access.header), height:"40vh",backgroundColor:"grey"}}>
-                <label aria-for="fileUpload" className={`Bg rounded-pill shadow-lg pointer text-white m-2 p-2 ${alignIcon}`}>
+                <label htmlFor="fileUpload" className={`Bg rounded-pill shadow-lg pointer text-white m-2 p-2 ${alignIcon}`}>
                 <input type="file" accept="image/png image/jpeg" id="fileUpload" style={{display:"none"}} onChange={(e:any)=>{changeHeader(e.target.files[0])}}/>
                 <IonIcon  icon={pencil}/>
                 </label>

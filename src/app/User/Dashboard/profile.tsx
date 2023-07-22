@@ -10,11 +10,11 @@ import { storage } from "@/app/api/firebase"
 import { ref, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage"
 import { v4 } from "uuid"
 import { updateUser } from "@/app/components/updateInfo"
-import { alignIcon, bgImg, genBtn, genFrm } from "@/app/components/cssStyles"
+import { alignIcon, bgImg, genBtn, genFrm, outlineBtn } from "@/app/components/cssStyles"
 import { Modal } from "react-bootstrap"
 import { addDoc, collection } from "firebase/firestore"
 import { listingsData } from "@/app/components/schemes"
-import { categories,cities } from "@/app/components/categories"
+import { categories, cities } from "@/app/components/categories"
 import { search } from "ss-search"
 
 
@@ -29,24 +29,25 @@ const Profile = () => {
     const [hide, setHide] = useState({
         showGalleryView: false,
         showAddListing: false,
-        hideCategories:true,
-        hideCities:true
+        hideCategories: true,
+        hideCities: true
     })
     const [viewSelected, setViewSelected] = useState<string>("")
     const [description, setDescription] = useState<string>(access.Description)
     const [phone, setPhone] = useState<string>(access.phone)
     const [address, setAddress] = useState<string>(access.address)
     const [numEmployees, setNumEmployees] = useState<number>(access.numEmployees)
-    const [categoryList,setCategoryList] = useState<Array<any>>([])
-    const [citiesList,setCitiesList] = useState<Array<any>>([])
+    const [categoryList, setCategoryList] = useState<Array<any>>([])
+    const [citiesList, setCitiesList] = useState<Array<any>>([])
 
     //listing data
     const [name, setName] = useState<string>("")
-    const [category,setCategory] = useState<string>("")
+    const [category, setCategory] = useState<string>("")
     const [price, setPrice] = useState<number>(0)
     const [serviceLocation, setServiceLocation] = useState<string>("")
     const [descriptionNew, setDescriptionNew] = useState<string>("")
     const [imageListing, setImageListing] = useState<any>()
+    const [imagePreview, setImagePreview] = useState<string>("")
 
 
     useLayoutEffect(() => {
@@ -92,11 +93,18 @@ const Profile = () => {
     }
 
     const updateGeneralDetails = () => {
-        const newData = {
+        let newData = {
             ...access,
-            phone,
-            address,
-            numEmployees
+        }
+
+        if (phone.length > 0) {
+            newData = { ...newData, phone }
+        }
+        if (address.length > 0) {
+            newData = { ...newData, address }
+        }
+        if (numEmployees !== 0) {
+            newData = { ...newData, numEmployees }
         }
         updateUser(newData).then(res => {
             window.location.reload()
@@ -104,32 +112,32 @@ const Profile = () => {
 
     }
 
-    const searchCategories =(value:string)=>{
-        if(value.length>0){
-        const data = search(categories,["name"],value)
-        if(data.length > 0){
-            setCategoryList(data)
-            setHide({...hide,hideCategories:false})
-        }else{
-            setHide({...hide,hideCategories:true})
+    const searchCategories = (value: string) => {
+        if (value.length > 0) {
+            const data = search(categories, ["name"], value)
+            if (data.length > 0) {
+                setCategoryList(data)
+                setHide({ ...hide, hideCategories: false })
+            } else {
+                setHide({ ...hide, hideCategories: true })
+            }
+        } else {
+            setHide({ ...hide, hideCategories: true })
         }
-    }else{
-        setHide({...hide,hideCategories:true})
-    }
     }
 
-    const searchCities =(value:string)=>{
-        if(value.length>0){
-        const data = search(cities,["name"],value)
-        if(data.length > 0){
-            setCitiesList(data)
-            setHide({...hide,hideCities:false})
-        }else{
-            setHide({...hide,hideCities:true})
+    const searchCities = (value: string) => {
+        if (value.length > 0) {
+            const data = search(cities, ["name"], value)
+            if (data.length > 0) {
+                setCitiesList(data)
+                setHide({ ...hide, hideCities: false })
+            } else {
+                setHide({ ...hide, hideCities: true })
+            }
+        } else {
+            setHide({ ...hide, hideCities: true })
         }
-    }else{
-        setHide({...hide,hideCities:true})
-    }
     }
 
     const handleSubmit = (e: FormDataEvent) => {
@@ -144,8 +152,8 @@ const Profile = () => {
             image: "",
             category,
             userId: access.id,
-            call:access.phone,
-            whatsapp:`https://wa.me/${access.phone}`,
+            call: access.phone,
+            whatsapp: `https://wa.me/${access.phone}`,
             email: access.email
         }
 
@@ -157,6 +165,10 @@ const Profile = () => {
                 }).catch(err => { })
             }).catch(err => { })
         }).catch(err => { })
+    }
+
+    const previewImg = (image: any) => {
+        return URL.createObjectURL(image)
     }
 
 
@@ -177,7 +189,7 @@ const Profile = () => {
                     <div className="col-sm d-flex flex-column align-items-center justify-content-center border rounded" style={{ maxWidth: "20vh", height: "45vh" }}>
                         <IonIcon color="success" icon={addCircle} />
                         <br />
-                        <small className="specialText text-decoration-underline pointer" onClick={() => setHide({ ...hide, showAddListing: true })}><strong>New Listing</strong></small>
+                        <small className="text-success text-center text-decoration-underline pointer" onClick={() => setHide({ ...hide, showAddListing: true })}>New Listing</small>
                     </div>
                     <div className="col-sm"></div>
                     {
@@ -198,7 +210,7 @@ const Profile = () => {
                             </textarea>
                         </div>
                         <div className="mb-3">
-                            <button className="btn btn-transparent border-none fw-bold text-success" onClick={() => { updateDescription() }}><u>Update</u></button>
+                            <button className={outlineBtn} onClick={() => { updateDescription() }}>Update</button>
                         </div>
 
                     </div>
@@ -231,7 +243,7 @@ const Profile = () => {
                             </div>
                         </div>
                         <div className="mb-3">
-                            <button className="btn btn-transparent border-none fw-bold text-success" onClick={() => updateGeneralDetails()}><u>Update</u></button>
+                            <button className={outlineBtn} onClick={() => updateGeneralDetails()}>Update</button>
                         </div>
                     </form>
                 </div>
@@ -249,9 +261,9 @@ const Profile = () => {
                                 <IonIcon color="success" icon={images} />
                                 <br />
 
-                                <label htmlFor="gallery" className="specialText pointer">
+                                <label htmlFor="gallery" className="text-success pointer">
                                     <input type="file" id="gallery" accept="imga/jpeg image/png" onChange={(e: any) => AddToGallery(e.target.files[0])} style={{ display: "none" }} />
-                                    <small><strong>{msg.gallery}</strong></small></label>
+                                    <small><u>{msg.gallery}</u></small></label>
                             </div>
                         </div>
 
@@ -282,18 +294,23 @@ const Profile = () => {
                     </div>
                 </Modal.Body>
             </Modal>
-            <Modal size="lg" show={hide.showAddListing}>
+            <Modal size="xl" show={hide.showAddListing}>
                 <Modal.Header><h3>Create A New Listing</h3><button className={`btn btn-transparent rounded-pill ${alignIcon}`} onClick={() => setHide({ ...hide, showAddListing: false })}><IonIcon color="danger" icon={close} /></button></Modal.Header>
                 <Modal.Body >
                     <div >
                         <form onSubmit={(e: any) => handleSubmit(e)}>
-                            <div className="row d-flex align-items-center  text-center" style={{...bgImg(imageListing), height: "25vh" }}>
-                                <label htmlFor="newPicture" className="pointer">
-                                    <input type="file" id="newPicture" style={{ display: "none" }} accept="image/jpg image/png image/webp image/jpeg" />
-                                    <button type="button" className=" btn text-success btn-white rounded-pill"><u>Add Picture</u></button>
-                                </label>
-                            </div>
                             <div className="row">
+                                <div className="col-sm">
+                                    <div className="row d-flex align-items-center  text-center" style={{ ...bgImg(imagePreview),height:"50vh"}}>
+
+                                        <label htmlFor="newPicture" className="pointer">
+                                            <input type="file" id="newPicture" style={{ display: "none" }} accept="image/jpg image/png image/webp image/jpeg" onChange={(e: any) =>{ setImagePreview(previewImg(e.target.files[0]));setImageListing(e.target.files[0])}} />
+                                            <p className=" btn bg-white btn-outline-success  outlineHover btn-white rounded-pill">Add Picture</p>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="col-sm">
+                                <div className="row">
                                 <div className="col-sm mb-3">
                                     <input type="text" className={genFrm} placeholder="Product/Service Name" required/>
                                 </div>
@@ -303,7 +320,7 @@ const Profile = () => {
                                         {
                                             categoryList.map((item:{name:string},index:number)=>{
                                                 return(
-                                                    <p key={index} className="pointer">{item.name}</p>
+                                                    <p key={index} className="pointer" onClick={()=>setCategory(item.name)}>{item.name}</p>
                                                 )
                                             })
                                         }
@@ -313,11 +330,11 @@ const Profile = () => {
                             <div className="row">
                                 <div className="col-sm mb-3">
                                     <input type="text" className={genFrm} placeholder="Service Area" value={serviceLocation} onChange={(e)=>{setServiceLocation(e.target.value);searchCities(e.target.value);}} required/>
-                                    <div className="shadow-lg p-2 w-50 me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCategories} >
+                                    <div className="shadow-lg p-2 w-50 me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCities} >
                                         {
                                             citiesList.map((item:{name:string},index:number)=>{
                                                 return(
-                                                    <p key={index} className="pointer">{item.name}</p>
+                                                    <p key={index} className="pointer" onClick={()=>setServiceLocation(item.name)}>{item.name}</p>
                                                 )
                                             })
                                         }
@@ -332,9 +349,13 @@ const Profile = () => {
                                     <textarea required className="form-control rounded shadow-lg" placeholder="Description"></textarea>
                                 </div>
                             </div>
-                            <div>
+                            <div className="text-center">
                                 <button type="submit" className={genBtn}>Add Listing</button>
                             </div>
+                                </div>
+                            </div>
+
+
                         </form>
                     </div>
 

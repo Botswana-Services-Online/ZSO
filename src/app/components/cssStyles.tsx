@@ -6,6 +6,7 @@ export const nomBtn = " btn text-white Bg rounded-pill shadow-lg"
 export const loading = <div className="spinner-border text-success" role="status">
   <span className="visually-hidden"></span>
 </div>
+export const outlineBtn = "btn btn-outline-success rounded-pill bg-white"
 export const alignIcon="d-flex align-items-center justify-content-center" 
 
 
