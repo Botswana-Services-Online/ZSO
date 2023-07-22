@@ -295,7 +295,7 @@ const Profile = () => {
                 </Modal.Body>
             </Modal>
             <Modal size="xl" show={hide.showAddListing}>
-                <Modal.Header><h3>Create A New Listing</h3><button className={`btn btn-transparent rounded-pill ${alignIcon}`} onClick={() => setHide({ ...hide, showAddListing: false })}><IonIcon color="danger" icon={close} /></button></Modal.Header>
+                <Modal.Header><h3>Create A New Listing</h3><button className={`btn btn-transparent rounded-pill ${alignIcon}`} onClick={() =>{ setHide({ ...hide, showAddListing: false });setImagePreview("")}}><IonIcon color="danger" icon={close} /></button></Modal.Header>
                 <Modal.Body >
                     <div >
                         <form onSubmit={(e: any) => handleSubmit(e)}>
