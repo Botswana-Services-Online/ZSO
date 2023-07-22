@@ -182,7 +182,7 @@ const Profile = () => {
         <div className="container">
 
             <div className="d-flex position-relative" style={{ bottom: "40px" }}>
-                <img className="rounded-pill" src={profilePicture} alt="Profile pic" style={{ maxWidth: "100px" }} />
+                <img className="rounded-pill text-white  placeholder-waver bg-success" src={profilePicture} alt="Profile pic" style={{ maxWidth: "100px" }} />
             </div>
 
             <div className="mb-3">
