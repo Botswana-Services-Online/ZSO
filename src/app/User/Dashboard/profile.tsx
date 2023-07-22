@@ -10,7 +10,7 @@ import { storage } from "@/app/api/firebase"
 import { ref, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage"
 import { v4 } from "uuid"
 import { updateUser } from "@/app/components/updateInfo"
-import { alignIcon, bgImg, genBtn, genFrm, outlineBtn } from "@/app/components/cssStyles"
+import { alignIcon, bgImg, genBtn, genFrm, loading, outlineBtn } from "@/app/components/cssStyles"
 import { Modal } from "react-bootstrap"
 import { addDoc, collection } from "firebase/firestore"
 import { listingsData } from "@/app/components/schemes"
@@ -48,6 +48,10 @@ const Profile = () => {
     const [descriptionNew, setDescriptionNew] = useState<string>("")
     const [imageListing, setImageListing] = useState<any>()
     const [imagePreview, setImagePreview] = useState<string>("")
+    
+
+    //loaders
+    const [addListingLoad,setAddListingLoad] = useState<any>(<button type="submit" className={genBtn}>Add Listing</button>)
 
 
     useLayoutEffect(() => {
@@ -142,6 +146,7 @@ const Profile = () => {
 
     const handleSubmit = (e: FormDataEvent) => {
         e.preventDefault();
+        setAddListingLoad(loading)
         const listingRef = collection(db, "listings")
         const imageRef = ref(storage, `listings/${v4()}`)
         const data: listingsData = {
@@ -205,8 +210,8 @@ const Profile = () => {
                     </h3>
                     <div className="container">
                         <div className="mb-3 mb-3">
-                            <textarea className="form-control" value={description} rows={5} onChange={(e) => setDescription(e.target.value)}>
-
+                            <textarea className="form-control" placeholder={access.Description} rows={5} onChange={(e) => setDescription(e.target.value)}>
+                            
                             </textarea>
                         </div>
                         <div className="mb-3">
@@ -316,11 +321,11 @@ const Profile = () => {
                                 </div>
                                 <div className="col-sm mb-3">
                                     <input type="text" className={genFrm} placeholder="Category" value={category} onChange={(e)=>{setCategory(e.target.value);searchCategories(e.target.value);}} required/>
-                                    <div className="shadow-lg p-2 w-50 me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCategories} >
+                                    <div className="shadow-lg p-2 me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCategories} >
                                         {
                                             categoryList.map((item:{name:string},index:number)=>{
                                                 return(
-                                                    <p key={index} className="pointer" onClick={()=>setCategory(item.name)}>{item.name}</p>
+                                                    <p key={index} className="pointer" onClick={()=>{setCategory(item.name);setHide({...hide,hideCategories:true})}}>{item.name}</p>
                                                 )
                                             })
                                         }
@@ -330,27 +335,29 @@ const Profile = () => {
                             <div className="row">
                                 <div className="col-sm mb-3">
                                     <input type="text" className={genFrm} placeholder="Service Area" value={serviceLocation} onChange={(e)=>{setServiceLocation(e.target.value);searchCities(e.target.value);}} required/>
-                                    <div className="shadow-lg p-2 w-50 me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCities} >
+                                    <div className="shadow-lg p-2  me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCities} >
                                         {
                                             citiesList.map((item:{name:string},index:number)=>{
                                                 return(
-                                                    <p key={index} className="pointer" onClick={()=>setServiceLocation(item.name)}>{item.name}</p>
+                                                    <p key={index} className="pointer" onClick={()=>{setServiceLocation(item.name);setHide({...hide,hideCities:true})}}>{item.name}</p>
                                                 )
                                             })
                                         }
                                     </div>
                                 </div>
                                 <div className="col-sm mb-3">
-                                    <input type="text" className={genFrm} placeholder="Price" required/>
+                                    <input type="text" className={genFrm} placeholder="Price - Optional" />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-sm mb-3 m-2">
-                                    <textarea required className="form-control rounded shadow-lg" placeholder="Description"></textarea>
+                                    <textarea required className="form-control rounded shadow-lg" placeholder="Description" onChange={(e)=>setDescriptionNew(e.target.value)}></textarea>
                                 </div>
                             </div>
                             <div className="text-center">
-                                <button type="submit" className={genBtn}>Add Listing</button>
+                                <>
+                                {addListingLoad}
+                                </>
                             </div>
                                 </div>
                             </div>
