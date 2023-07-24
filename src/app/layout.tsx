@@ -2,7 +2,6 @@
 
 import { Inter } from 'next/font/google'
 import { FooterBar, NavBar } from './components/SiteNavigation';
-// import { setupIonicReact } from '@ionic/react';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import { useState,useEffect } from 'react';
 import { Authorized } from './components/contexts';
@@ -55,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      <link rel='shortcut icon' href='https://voideawn.sirv.com/website/favicon.jpg'/>
+      {/* <link rel='shortcut icon' href='https://voideawn.sirv.com/website/favicon.jpg'/> */}
       <title>Zimbabwe Services Online</title>
       </head>
       <body className={inter.className} >

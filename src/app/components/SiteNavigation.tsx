@@ -3,11 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { IonIcon } from '@ionic/react';
-import { addCircleOutline, callOutline, locationOutline, mailOutline, personCircleOutline } from "ionicons/icons"
 import { alignIcon } from './cssStyles';
 import { useRouter } from 'next/navigation';
-import { checkAcc } from './checkAcc';
 import { useLayoutEffect,useState,useContext } from 'react';
 import { getAuth } from 'firebase/auth';
 import { app } from '../api/firebase';
@@ -67,10 +64,10 @@ export const NavBar = () => {
                     </Nav>
                     <div className="d-flex flex-row flex-wrap justify-content-evenly ">
                         <div>
-                          <Button onClick={()=>{localStorage.setItem("log","0"); route.push("/User/Auth/")}} className="rounded-pill   border-light text-white  d-flex align-items-center me-2 bg-transparent" ><IonIcon color='light' icon={addCircleOutline} /><span>Add Listing</span></Button>
+                          <Button onClick={()=>{localStorage.setItem("log","0"); route.push("/User/Auth/")}} className="rounded-pill   border-light text-white  d-flex align-items-center me-2 bg-transparent" ><img className="imgWhite" src="https://voideawn.sirv.com/website/add-outline.svg" width="30" /><span>Add Listing</span></Button>
                         </div>
                         <div hidden={hide.hideReg}>
-                            <Button onClick={()=>{localStorage.setItem("log","1"); route.push("/User/Auth/")}} className='rounded-pill  text-white  border-light d-flex align-items-center bg-transparent ' ><IonIcon color="light" icon={personCircleOutline} /><span>Sign in</span></Button>
+                            <Button onClick={()=>{localStorage.setItem("log","1"); route.push("/User/Auth/")}} className='rounded-pill  text-white  border-light d-flex align-items-center bg-transparent ' ><img className="imgWhite" src="https://voideawn.sirv.com/website/person-circle-outline.svg" width="30" /><span>Sign in</span></Button>
                         </div>
                         <div  hidden={hide.hideHas} className=''>
                         <Dropdown className='container'>
@@ -110,9 +107,9 @@ export const FooterBar = () => {
             <div className="col-sm text-center">
                 <p><b>Support</b></p>
                 <br/>
-                <p className={alignIcon}><IonIcon icon={mailOutline}/>&nbsp;<a href="mailto:" className='text-white text-decoration-none '>support@zimservicesonline.co.zw</a></p>
-                <p className={alignIcon}><IonIcon icon={callOutline}/>&nbsp;<a href="tel:" className='text-white text-decoration-none '>+263 78 898 4320</a></p>
-               <p className={alignIcon}><IonIcon icon={locationOutline}/>&nbsp;Plot 22211 Phase 4 Gaborone</p>
+                <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/mail-outline.svg" width="30" />&nbsp;<a href="mailto:" className='text-white text-decoration-none '>support@zimservicesonline.co.zw</a></p>
+                <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/call-outline.svg" width="30" />&nbsp;<a href="tel:" className='text-white text-decoration-none '>+263 78 898 4320</a></p>
+               <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/location-outline.svg" width="30" />&nbsp;Plot 22211 Phase 4 Gaborone</p>
                 
             </div>
             <div className="col-sm">

@@ -1,13 +1,11 @@
 "use client"
-
 import { genBtn, mp, vp } from "./components/cssStyles"
 import { bgImg } from "./components/cssStyles"
-import { searchCircleOutline, checkmarkDone } from "ionicons/icons"
-import { IonIcon } from "@ionic/react"
 import Marquee from "react-fast-marquee"
 import { Fade } from "react-awesome-reveal"
 
 export default function Home() {
+  
   return (
     <div className={mp}>
       {/* home page */}
@@ -15,7 +13,7 @@ export default function Home() {
         <div className="input-group mb-3  container">
           <input type="text" className="form-control shadow-lg rounded-start-pill  p-3" placeholder="looking for...." />
           <input type="text" className="form-control shadow-lg rounded-end-pill p-3 me-1" placeholder="Location" />
-          <button className="btn Bg text-white rounded-pill d-flex align-items-center"><IonIcon size="large" icon={searchCircleOutline} /></button>
+          <button className="btn Bg text-white rounded-pill d-flex align-items-center"><img className="imgWhite" src="https://voideawn.sirv.com/website/search-circle-outline.svg" width="30" /></button>
         </div>
       </div>
       <br/>
@@ -45,7 +43,7 @@ export default function Home() {
         <Marquee>
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
-              <p>Aurora </p><IonIcon className="text-end" color="success" icon={checkmarkDone} />
+              <p>Aurora </p><img className="imgGreen text-end" src="https://voideawn.sirv.com/website/checkmark-done-outline.svg" width="25" />
             </div>
 
             <hr />
@@ -55,7 +53,7 @@ export default function Home() {
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
               <p>Bellprize PVT Limited</p>
-              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+              <img className="imgGreen text-end" src="https://voideawn.sirv.com/website/checkmark-done-outline.svg" width="25" />
             </div>
             <hr />
             <p>Civil Engineering</p>
@@ -64,7 +62,7 @@ export default function Home() {
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
               <p>Crown Connect</p>
-              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+              <img className="imgGreen text-end" src="https://voideawn.sirv.com/website/checkmark-done-outline.svg" width="25" />
             </div>
             <hr />
             <p>Finanacial Services Consultancy</p>
@@ -73,7 +71,7 @@ export default function Home() {
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
               <p>Pamba</p>
-              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+              <img className="imgGreen text-end" src="https://voideawn.sirv.com/website/checkmark-done-outline.svg" width="25" />
             </div>
             <hr />
             <p>Food catering services</p>
@@ -82,7 +80,7 @@ export default function Home() {
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
               <p>Shapiro Motors</p>
-              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+              <img className="imgGreen text-end" src="https://voideawn.sirv.com/website/checkmark-done-outline.svg" width="25" />
             </div>
             <hr />
             <p>Car repairs and inspection!</p>
@@ -94,7 +92,7 @@ export default function Home() {
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
               <p>Amai Dees</p>
-              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+              <img className="imgGreen text-end" src="https://voideawn.sirv.com/website/checkmark-done-outline.svg" width="25" />
             </div>
             <hr />
             <p>ZIM traditional food</p>
@@ -103,7 +101,7 @@ export default function Home() {
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
               <p>Montana grills</p>
-              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+              <img className="imgGreen text-end" src="https://voideawn.sirv.com/website/checkmark-done-outline.svg" width="25" />
             </div>
             <hr />
             <p>Gochi gochi grills for the nation</p>
@@ -112,7 +110,7 @@ export default function Home() {
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
               <p>Steelmate</p>
-              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+              <img className="imgGreen text-end" src="https://voideawn.sirv.com/website/checkmark-done-outline.svg" width="25" />
             </div>
             <hr />
             <p>One stop shop for all your steel needs</p>
@@ -121,7 +119,7 @@ export default function Home() {
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
               <p>Export Freight</p>
-              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+              <img className="imgGreen text-end" src="https://voideawn.sirv.com/website/checkmark-done-outline.svg" width="25" />
             </div>
             <hr />
             <p>Shipping, transporting services</p>
@@ -130,7 +128,7 @@ export default function Home() {
           <div className="rounded shadow p-3 m-3 marq">
             <div className="d-flex justify-content-between ">
               <p>Shapiro Motors</p>
-              <IonIcon className="text-end" color="success" icon={checkmarkDone} />
+              <img className="imgGreen text-end" src="https://voideawn.sirv.com/website/checkmark-done-outline.svg" width="25" />
             </div>
             <hr />
             <p>Car repairs and inspection!</p>

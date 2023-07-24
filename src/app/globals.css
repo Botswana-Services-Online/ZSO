@@ -100,4 +100,16 @@ li{
   background:var(--pColor);
 }
 
+.imgWhite{
+  filter:invert(1);
+}
+
+.imgGreen{
+  filter:invert(71%) sepia(50%) saturate(516%) hue-rotate(84deg) brightness(88%) contrast(93%);
+}
+
+.btnMenu>button{
+  background: none;
+  border:none;
+}
 

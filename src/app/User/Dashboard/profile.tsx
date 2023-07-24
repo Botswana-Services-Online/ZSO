@@ -16,6 +16,7 @@ import { addDoc, collection } from "firebase/firestore"
 import { listingsData } from "@/app/components/schemes"
 import { categories, cities } from "@/app/components/categories"
 import { search } from "ss-search"
+import { UserNavigation } from "./userNavigation"
 
 
 
@@ -181,8 +182,15 @@ const Profile = () => {
     return (
         <div className="container">
 
-            <div className="d-flex position-relative" style={{ bottom: "40px" }}>
-                <img className="rounded-pill text-white  placeholder-waver bg-success" src={profilePicture} alt="Profile pic" style={{ maxWidth: "100px" }} />
+            <div className="d-flex justify-content-between  position-relati" >
+                    <div className="position-relative " style={{ bottom: "40px" }}>
+                    <img className="rounded-pill text-white  placeholder-waver bg-success" src={profilePicture} alt="Profile pic" style={{ maxWidth: "100px" }} />
+
+                    </div>
+                    <div className="mt-2">
+                    <UserNavigation/>
+
+                    </div>
             </div>
 
             <div className="mb-3">
