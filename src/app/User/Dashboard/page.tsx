@@ -1,5 +1,5 @@
 "use client"
-import { alignIcon, bgImg, genBtn, mp, vp } from "@/app/components/cssStyles";
+import { alignIcon, bgImg,  mp } from "@/app/components/cssStyles";
 import Profile from "./profile";
 import {useEffect,useState,useContext} from "react"
 import checkAuth from "@/app/components/checkAuth";
