@@ -1,6 +1,8 @@
 "use client"
-
-import { Inter } from 'next/font/google'
+import 'bootstrap/dist/css/bootstrap.css';
+import '@ionic/react/css/core.css';
+import './globals.css'
+//import { Inter } from 'next/font/google'
 import { FooterBar, NavBar } from './components/SiteNavigation';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import { useState,useEffect } from 'react';
@@ -9,12 +11,9 @@ import { getAuth, onAuthStateChanged, sendEmailVerification } from 'firebase/aut
 import { app } from './api/firebase';
 import { fetchData } from './components/getData';
 import { userData, userDataDefault } from './components/schemes';
-import 'bootstrap/dist/css/bootstrap.css';
-import '@ionic/react/css/core.css';
-import './globals.css'
 
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 // export const metadata = {
 //   title: 'Zimbabwe Services Online',
@@ -57,7 +56,8 @@ export default function RootLayout({
       {/* <link rel='shortcut icon' href='https://voideawn.sirv.com/website/favicon.jpg'/> */}
       <title>Zimbabwe Services Online</title>
       </head>
-      <body className={inter.className} >
+      {/* <body className={inter.className} > */}
+      <body>
       <Authorized.Provider value={{access,setAccess}}>
         <NavBar/>
         {children}

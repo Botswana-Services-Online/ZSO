@@ -113,3 +113,6 @@ li{
   border:none;
 }
 
+img[src=""] {
+  display: none;
+}

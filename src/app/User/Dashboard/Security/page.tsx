@@ -1,10 +1,10 @@
+"use client"
 import { useState } from "react"
-import { reauthenticateWithCredential,getAuth,updatePassword,EmailAuthCredential, EmailAuthProvider } from "firebase/auth"
+import { reauthenticateWithCredential,getAuth,updatePassword, EmailAuthProvider } from "firebase/auth"
 import { app } from "@/app/api/firebase"
 import { logout } from "@/app/components/logout"
-import { JsxElement } from "typescript"
-import { loading } from "@/app/components/cssStyles"
-export const Security=()=>{
+import { genFrm, loading } from "@/app/components/cssStyles"
+export default function Security(){
     const user:any = getAuth(app).currentUser
     const [currentPassword,setCurrentPassword] = useState<string>("")
     const [newPassword,setNewPassword] = useState<string>("")
@@ -38,9 +38,9 @@ export const Security=()=>{
     }
 
     return(
-        <div >
+        <div className="container">
             <h3>Security</h3>
-            <div className="rounded shadow-lg">
+            <div className="rounded shadow-lg p-3">
                 <p>Change your password</p>
                 <form onSubmit={(e:any)=>handleSubmit(e)}>
                     <div className="alert alert-danger " hidden={warn.hide}>
@@ -48,17 +48,17 @@ export const Security=()=>{
                     </div>
                     <div className="row">
                         <div className="col-sm">
-                            <input type="password" placeholder="Current Password" value={currentPassword} onChange={(e)=>setCurrentPassword(e.target.value)} required min={6}/>
+                            <input type="password" className={genFrm} placeholder="Current Password" value={currentPassword} onChange={(e)=>setCurrentPassword(e.target.value)} required min={6}/>
                         </div>
                         <div className="col-sm">
-                            <input type="password" placeholder="New Password" value={newPassword} onChange={(e)=>setNewPassword(e.target.value)} required min={6}/>
+                            <input type="password" className={genFrm} placeholder="New Password" value={newPassword} onChange={(e)=>setNewPassword(e.target.value)} required min={6}/>
                         </div>
                         <div className="col-sm">
-                            <input type="password" placeholder="Repeat New Password" value={repeatPassword} onChange={(e)=>setRepeatPassword(e.target.value)} required min={6}/>
+                            <input type="password" className={genFrm} placeholder="Repeat New Password" value={repeatPassword} onChange={(e)=>setRepeatPassword(e.target.value)} required min={6}/>
                         </div>
                     </div>
                     <div>
-                        <button type="submit" className="btn btn-outline-success ">{btn}</button>
+                        <button type="submit" className="btn btn-outline-success rounded-pill">{btn}</button>
                     </div>
                 </form>
             </div>
