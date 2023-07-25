@@ -28,23 +28,19 @@ export default function Login() {
         e.preventDefault()
        
             setBtnTxt(loading)
+            setPersistence(auth,browserLocalPersistence).then(()=>{
            signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    if(auth.currentUser?.emailVerified){
-                    setTimeout(()=>router.push("/User/Dashboard/"),5000)
-                    }else{
-                        sendEmailVerification(auth.currentUser).then(res=>{
-                            setTimeout(()=>router.push("/User/Dashboard/"),5000)
-                        }).catch(err=>{
-                            setHide(true)
-                        })
-                    }
+                    checkBoarded()
                 })
                 .catch((error) => {
                     setHide(true)
                     setBtnTxt("Sign In")
                     // ..
                 });
+            }).catch(err=>{
+                console.log(err)
+            })
        
     }
 

@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { reauthenticateWithCredential,getAuth,updatePassword, EmailAuthProvider } from "firebase/auth"
 import { app } from "@/app/api/firebase"
 import { logout } from "@/app/components/logout"
@@ -24,36 +24,44 @@ export default function Security(){
                 updatePassword(user,newPassword).then(res=>{
                     logout();
                 }).catch(err=>{
+                    console.log(err)
                     setBtn("Update")
                     setWarn({...warn,message:"Its not you its us, please try again!!",hide:false})
                 })
             }).catch(err=>{
+                console.log(err)
                 setBtn("Update")
                 setWarn({...warn,message:"Its not you its us, please try again!",hide:false})
             })
         }else{
+            
             setBtn("Update")
             setWarn({...warn,message:"new pasword and the repeated password do not match",hide:false})
         }
     }
 
+    useEffect(()=>{
+        const user = getAuth(app).currentUser
+        console.log(user?.providerData)
+    },[])
+
     return(
         <div className="container">
             <h3>Security</h3>
-            <div className="rounded shadow-lg p-3">
+            <div className="rounded shadow-lg p-2 mb-5">
                 <p>Change your password</p>
                 <form onSubmit={(e:any)=>handleSubmit(e)}>
                     <div className="alert alert-danger " hidden={warn.hide}>
                         <p>{warn.message}</p>
                     </div>
                     <div className="row">
-                        <div className="col-sm">
+                        <div className="col-sm mb-3">
                             <input type="password" className={genFrm} placeholder="Current Password" value={currentPassword} onChange={(e)=>setCurrentPassword(e.target.value)} required min={6}/>
                         </div>
-                        <div className="col-sm">
+                        <div className="col-sm mb-3">
                             <input type="password" className={genFrm} placeholder="New Password" value={newPassword} onChange={(e)=>setNewPassword(e.target.value)} required min={6}/>
                         </div>
-                        <div className="col-sm">
+                        <div className="col-sm mb-3">
                             <input type="password" className={genFrm} placeholder="Repeat New Password" value={repeatPassword} onChange={(e)=>setRepeatPassword(e.target.value)} required min={6}/>
                         </div>
                     </div>
