@@ -1,19 +1,15 @@
 "use Client"
 import { alignIcon, genBtn, genFrm,loading } from "@/app/components/cssStyles";
-import { useState,useContext } from "react";
-import { GoogleAuthProvider,setPersistence,browserLocalPersistence, getAuth,sendEmailVerification,signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
-import { useRouter } from "next/navigation";
+import { useState} from "react";
+import { GoogleAuthProvider,setPersistence,browserLocalPersistence, getAuth,signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { app } from "@/app/api/firebase"
 import { Alert } from "react-bootstrap";
 import { IonIcon } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
-import { Authorized } from "@/app/components/contexts";
-import { fetchData } from "@/app/components/getData";
+
 import { checkBoarded } from "@/app/components/checkAcc";
 // import { loading } from "@/app/components/cssStyles";
 export default function Login() {
-    const {access,setAccess} = useContext(Authorized)
-    const router = useRouter()
     const auth:any = getAuth(app)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -30,10 +26,10 @@ export default function Login() {
             setBtnTxt(loading)
             setPersistence(auth,browserLocalPersistence).then(()=>{
            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
+                .then(() => {
                     checkBoarded()
                 })
-                .catch((error) => {
+                .catch(() => {
                     setHide(true)
                     setBtnTxt("Sign In")
                     // ..
