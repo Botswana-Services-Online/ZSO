@@ -70,7 +70,7 @@ export default function Profile() {
     useEffect(() => {
         getListingData()
         console.log("check leackages")
-    }, [access])
+    }, [])
 
     const AddToGallery = (image: any) => {
         const galleryRef = ref(storage, `gallery/${v4()}`)
@@ -179,7 +179,8 @@ export default function Profile() {
             getDownloadURL(res.ref).then(url => {
                 const uploadData = { ...data, image: url }
                 addDoc(listingRef, uploadData).then(res => {
-                    window.location.reload()
+                  getListingData()
+                  setHide({...hide,showAddListing:false})
                 }).catch(err => { })
             }).catch(err => { })
         }).catch(err => { })
@@ -198,29 +199,27 @@ export default function Profile() {
             </div>
             <div className="mb-5 shadow-lg rounded p-2">
                 <h3>Listings</h3>
-                <div className="row m-3" >
-                    <div className="col-sm d-flex flex-column align-items-center justify-content-center border rounded" style={{ maxWidth: "30vh", height: "45vh" }}>
+                <div className=" m-3 scrollHorizontal" >
+                    <div className="d-flex flex-column align-items-center justify-content-center border rounded me-2" style={{ minWidth: "30vw", maxWidth:"30vw",height: "30vh" }}>
                         <img className="imgGreen" src="https://voideawn.sirv.com/website/add-circle.svg" width="25" />
                         <br />
                         <small className="text-success text-center text-decoration-underline pointer" onClick={() => setHide({ ...hide, showAddListing: true })}>New Listing</small>
                     </div>
+                    
+                    
+                    
                    
                         {
                             listingData?.map((item: listingsData, index: number) => {
                                 return (
-                                    <div className="col-sm">
-                                        <div className="card" style={{maxWidth: "30vh", height: "45vh"}}>
-                                            <img src={item.image} loading="lazy" className="card-img-top" alt="..."/>
-                                                <div className="card-body">
-                                                    <h5 className="card-title">{item.name}</h5>
-                                                    <p className="card-text">{item.description}</p>
+                                    <div className="mb-3 me-2 pointer">
+                                        <div className="card" style={{minWidth: "30vw",maxWidth:"30vw", height: "30vh"}}>
+                                            <img src={item.image} loading="eager" style={{height:"20vh"}} className="rounded  m-2 img-fluid  fitImages" alt="..."/>
+                                                <div className=" text-center ">
+                                                    <p className="card-title"><small>{item.name}</small></p>
+                                                  
                                                     <div className="d-flex justify-content-between ">
-                                                        <button className={outlineBtn}>
-                                                            View
-                                                        </button>
-                                                        <button className={outlineBtn}>
-                                                            Edit
-                                                        </button>
+                                                        
                                                     </div>
                                                 </div>
                                         </div>
@@ -289,8 +288,8 @@ export default function Profile() {
                 </div>
                 <div className="mb-5 shadow-lg rounded p-2">
                     <h3>Gallery</h3>
-                    <div className="row m-3 flex-wrap" >
-                        <div className="col-sm m-2 pointer d-flex flex-column align-items-center justify-content-center border rounded" style={{ maxWidth: "20vh", height: "45vh" }}>
+                    <div className="scrollHorizontal m-3" >
+                        <div className=" m-2 pointer d-flex flex-column align-items-center justify-content-center border rounded p-3" style={{ minWidth: "30vw", maxWidth:"30vw",height: "30vh" }}>
                             <div className=" text-center">
                                 <img className="imgGreen" src="https://voideawn.sirv.com/website/images.svg" width="25" />
                                 <br />
@@ -304,7 +303,7 @@ export default function Profile() {
                         {
                             access.images?.map((item: string, index: number) => {
                                 return (
-                                    <div className="col-sm m-2 d-flex flex-row justify-content-center align-items-center border rounded" key={index} style={{ ...bgImg(item), maxWidth: "20vh", height: "45vh" }}>
+                                    <div className="m-2 d-flex flex-row justify-content-center align-items-center border rounded" key={index} style={{ ...bgImg(item), maxWidth: "30vh", minWidth:"30vh",height: "30vh" }}>
 
                                         <button className={`btn btn-success shadow-lg rounded-pill m-2 ${alignIcon}`} onClick={() => viewImage(item)}><img className="imgWhite" src="https://voideawn.sirv.com/website/eye.svg" width="25" /></button>
                                         <button className={`btn btn-success shadow-l rounded-pill m-2 ${alignIcon}`} onClick={() => deleteImage(item)}><img className="imgWhite" src="https://voideawn.sirv.com/website/trash.svg" width="25" /></button>
@@ -351,7 +350,7 @@ export default function Profile() {
                                 <div className="col-sm">
                                     <div className="row">
                                         <div className="col-sm mb-3">
-                                            <input type="text" className={genFrm} placeholder="Product/Service Name" required />
+                                            <input type="text" className={genFrm} placeholder="Product/Service Name" onChange={(e)=>setName(e.target.value)} required />
                                         </div>
                                         <div className="col-sm mb-3">
                                             <input type="text" className={genFrm} placeholder="Category" value={category} onChange={(e) => { setCategory(e.target.value); searchCategories(e.target.value); }} required />
