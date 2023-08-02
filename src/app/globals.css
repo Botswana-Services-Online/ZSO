@@ -38,10 +38,10 @@ h1,h3,.specialText {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
+/* 
 .bshadow{
   box-shadow:  1rem 3rem rgba(lightgreen, .175)
-}
+} */
 
 .buttonGeneral{
   background:var(--pColor);

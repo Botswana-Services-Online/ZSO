@@ -1,6 +1,6 @@
 "use client"
 import { db } from "@/app/api/firebase"
-import { useState, useLayoutEffect, useContext } from "react"
+import { useState, useLayoutEffect, useContext, useEffect } from "react"
 import ViewDocs from "@/app/components/viewDocs"
 import { Authorized } from "@/app/components/contexts"
 import { addCircle, close, eye, images, informationCircle, trash } from "ionicons/icons"
@@ -9,9 +9,9 @@ import { storage } from "@/app/api/firebase"
 import { ref, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage"
 import { v4 } from "uuid"
 import { updateUser } from "@/app/components/updateInfo"
-import { alignIcon, bgImg, genBtn, genFrm, loading, outlineBtn } from "@/app/components/cssStyles"
+import { alignIcon, bgImg, genBtn, genFrm, loading, nomBtn, outlineBtn } from "@/app/components/cssStyles"
 import { Modal } from "react-bootstrap"
-import { addDoc, collection } from "firebase/firestore"
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore"
 import { listingsData } from "@/app/components/schemes"
 import { categories, cities } from "@/app/components/categories"
 import { search } from "ss-search"
@@ -19,10 +19,10 @@ import { search } from "ss-search"
 
 
 
-export default function Profile(){
+export default function Profile() {
     const { access, setAccess } = useContext(Authorized)
 
-  
+
     const [msg, setMsg] = useState({
         gallery: "Add Pictures"
     })
@@ -39,6 +39,7 @@ export default function Profile(){
     const [numEmployees, setNumEmployees] = useState<number>(access.numEmployees)
     const [categoryList, setCategoryList] = useState<Array<any>>([])
     const [citiesList, setCitiesList] = useState<Array<any>>([])
+    const [listingData, setListingData] = useState<Array<listingsData>>()
 
     //listing data
     const [name, setName] = useState<string>("")
@@ -48,16 +49,28 @@ export default function Profile(){
     const [descriptionNew, setDescriptionNew] = useState<string>("")
     const [imageListing, setImageListing] = useState<any>()
     const [imagePreview, setImagePreview] = useState<string>("")
-    
+
 
     //loaders
-    const [addListingLoad,setAddListingLoad] = useState<any>(<button type="submit" className={genBtn}>Add Listing</button>)
+    const [addListingLoad, setAddListingLoad] = useState<any>(<button type="submit" className={genBtn}>Add Listing</button>)
 
+    const getListingData=()=>{
+        const id = localStorage.getItem("user")
+        const dbRef = collection(db,"listings")
+        const q = query(dbRef, where("userId","==",`${id}`))
+        getDocs(q).then(res=>{
+            const resData:any = []
+            res.docs.forEach(doc=>resData.push(doc.data()))
+            setListingData(resData)
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
 
-    useLayoutEffect(() => {
-
+    useEffect(() => {
+        getListingData()
         console.log("check leackages")
-    }, [])
+    }, [access])
 
     const AddToGallery = (image: any) => {
         const galleryRef = ref(storage, `gallery/${v4()}`)
@@ -186,15 +199,36 @@ export default function Profile(){
             <div className="mb-5 shadow-lg rounded p-2">
                 <h3>Listings</h3>
                 <div className="row m-3" >
-                    <div className="col-sm d-flex flex-column align-items-center justify-content-center border rounded" style={{ maxWidth: "20vh", height: "45vh" }}>
-                        <img className="imgGreen" src="https://voideawn.sirv.com/website/add-circle.svg" width="25"/>
+                    <div className="col-sm d-flex flex-column align-items-center justify-content-center border rounded" style={{ maxWidth: "30vh", height: "45vh" }}>
+                        <img className="imgGreen" src="https://voideawn.sirv.com/website/add-circle.svg" width="25" />
                         <br />
                         <small className="text-success text-center text-decoration-underline pointer" onClick={() => setHide({ ...hide, showAddListing: true })}>New Listing</small>
                     </div>
-                    <div className="col-sm"></div>
-                    {
-                        // map out images
-                    }
+                   
+                        {
+                            listingData?.map((item: listingsData, index: number) => {
+                                return (
+                                    <div className="col-sm">
+                                        <div className="card" style={{maxWidth: "30vh", height: "45vh"}}>
+                                            <img src={item.image} loading="lazy" className="card-img-top" alt="..."/>
+                                                <div className="card-body">
+                                                    <h5 className="card-title">{item.name}</h5>
+                                                    <p className="card-text">{item.description}</p>
+                                                    <div className="d-flex justify-content-between ">
+                                                        <button className={outlineBtn}>
+                                                            View
+                                                        </button>
+                                                        <button className={outlineBtn}>
+                                                            Edit
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                 
                 </div>
             </div>
             <div>
@@ -206,7 +240,7 @@ export default function Profile(){
                     <div className="container">
                         <div className="mb-3 mb-3">
                             <textarea className="form-control" placeholder={access.Description} rows={5} onChange={(e) => setDescription(e.target.value)}>
-                            
+
                             </textarea>
                         </div>
                         <div className="mb-3">
@@ -258,7 +292,7 @@ export default function Profile(){
                     <div className="row m-3 flex-wrap" >
                         <div className="col-sm m-2 pointer d-flex flex-column align-items-center justify-content-center border rounded" style={{ maxWidth: "20vh", height: "45vh" }}>
                             <div className=" text-center">
-                                <img className="imgGreen" src="https://voideawn.sirv.com/website/images.svg" width="25"/> 
+                                <img className="imgGreen" src="https://voideawn.sirv.com/website/images.svg" width="25" />
                                 <br />
 
                                 <label htmlFor="gallery" className="text-success pointer">
@@ -272,8 +306,8 @@ export default function Profile(){
                                 return (
                                     <div className="col-sm m-2 d-flex flex-row justify-content-center align-items-center border rounded" key={index} style={{ ...bgImg(item), maxWidth: "20vh", height: "45vh" }}>
 
-                                        <button className={`btn btn-success shadow-lg rounded-pill m-2 ${alignIcon}`} onClick={() => viewImage(item)}><img className="imgWhite" src="https://voideawn.sirv.com/website/eye.svg" width="25"/></button>
-                                        <button className={`btn btn-success shadow-l rounded-pill m-2 ${alignIcon}`} onClick={() => deleteImage(item)}><img className="imgWhite" src="https://voideawn.sirv.com/website/trash.svg" width="25"/></button>
+                                        <button className={`btn btn-success shadow-lg rounded-pill m-2 ${alignIcon}`} onClick={() => viewImage(item)}><img className="imgWhite" src="https://voideawn.sirv.com/website/eye.svg" width="25" /></button>
+                                        <button className={`btn btn-success shadow-l rounded-pill m-2 ${alignIcon}`} onClick={() => deleteImage(item)}><img className="imgWhite" src="https://voideawn.sirv.com/website/trash.svg" width="25" /></button>
 
 
 
@@ -288,9 +322,9 @@ export default function Profile(){
             <Modal size="lg" show={hide.showGalleryView}>
                 <Modal.Header>
                     <h3>View Image</h3>
-                    <button className={`btn btn-transparent rounded-pill ${alignIcon}`} onClick={() => setHide({ ...hide, showGalleryView: false })}> <img className="imgGreen" src="https://voideawn.sirv.com/website/close.svg" width="25"/></button>
+                    <button className={`btn btn-transparent rounded-pill ${alignIcon}`} onClick={() => setHide({ ...hide, showGalleryView: false })}> <img className="imgGreen" src="https://voideawn.sirv.com/website/close.svg" width="25" /></button>
                 </Modal.Header>
-                    <Modal.Body >
+                <Modal.Body >
                     <div>
                         <img className="img-fluid" src={viewSelected} />
                     </div>
@@ -299,66 +333,66 @@ export default function Profile(){
             <Modal size="xl" show={hide.showAddListing}>
                 <Modal.Header>
                     <h3>Create A New Listing</h3>
-                    <button className={`btn btn-transparent rounded-pill ${alignIcon}`} onClick={() =>{ setHide({ ...hide, showAddListing: false });setImagePreview("")}}> <img className="imgGreen" src="https://voideawn.sirv.com/website/close.svg" width="25"/></button>
+                    <button className={`btn btn-transparent rounded-pill ${alignIcon}`} onClick={() => { setHide({ ...hide, showAddListing: false }); setImagePreview("") }}> <img className="imgGreen" src="https://voideawn.sirv.com/website/close.svg" width="25" /></button>
                 </Modal.Header>
                 <Modal.Body >
                     <div >
                         <form onSubmit={(e: any) => handleSubmit(e)}>
                             <div className="row">
                                 <div className="col-sm">
-                                    <div className="row d-flex align-items-center  text-center" style={{ ...bgImg(imagePreview),height:"50vh"}}>
+                                    <div className="row d-flex align-items-center  text-center" style={{ ...bgImg(imagePreview), height: "50vh" }}>
 
                                         <label htmlFor="newPicture" className="pointer">
-                                            <input type="file" id="newPicture" style={{ display: "none" }} accept="image/jpg image/png image/webp image/jpeg" onChange={(e: any) =>{ setImagePreview(previewImg(e.target.files[0]));setImageListing(e.target.files[0])}} />
+                                            <input type="file" id="newPicture" style={{ display: "none" }} accept="image/jpg image/png image/webp image/jpeg" onChange={(e: any) => { setImagePreview(previewImg(e.target.files[0])); setImageListing(e.target.files[0]) }} />
                                             <p className=" btn bg-white btn-outline-success  outlineHover btn-white rounded-pill">Add Picture</p>
                                         </label>
                                     </div>
                                 </div>
                                 <div className="col-sm">
-                                <div className="row">
-                                <div className="col-sm mb-3">
-                                    <input type="text" className={genFrm} placeholder="Product/Service Name" required/>
-                                </div>
-                                <div className="col-sm mb-3">
-                                    <input type="text" className={genFrm} placeholder="Category" value={category} onChange={(e)=>{setCategory(e.target.value);searchCategories(e.target.value);}} required/>
-                                    <div className="shadow-lg p-2 me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCategories} >
-                                        {
-                                            categoryList.map((item:{name:string},index:number)=>{
-                                                return(
-                                                    <p key={index} className="pointer" onClick={()=>{setCategory(item.name);setHide({...hide,hideCategories:true})}}>{item.name}</p>
-                                                )
-                                            })
-                                        }
+                                    <div className="row">
+                                        <div className="col-sm mb-3">
+                                            <input type="text" className={genFrm} placeholder="Product/Service Name" required />
+                                        </div>
+                                        <div className="col-sm mb-3">
+                                            <input type="text" className={genFrm} placeholder="Category" value={category} onChange={(e) => { setCategory(e.target.value); searchCategories(e.target.value); }} required />
+                                            <div className="shadow-lg p-2 me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCategories} >
+                                                {
+                                                    categoryList.map((item: { name: string }, index: number) => {
+                                                        return (
+                                                            <p key={index} className="pointer" onClick={() => { setCategory(item.name); setHide({ ...hide, hideCategories: true }) }}>{item.name}</p>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-sm mb-3">
-                                    <input type="text" className={genFrm} placeholder="Service Area" value={serviceLocation} onChange={(e)=>{setServiceLocation(e.target.value);searchCities(e.target.value);}} required/>
-                                    <div className="shadow-lg p-2  me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCities} >
-                                        {
-                                            citiesList.map((item:{name:string},index:number)=>{
-                                                return(
-                                                    <p key={index} className="pointer" onClick={()=>{setServiceLocation(item.name);setHide({...hide,hideCities:true})}}>{item.name}</p>
-                                                )
-                                            })
-                                        }
+                                    <div className="row">
+                                        <div className="col-sm mb-3">
+                                            <input type="text" className={genFrm} placeholder="Service Area" value={serviceLocation} onChange={(e) => { setServiceLocation(e.target.value); searchCities(e.target.value); }} required />
+                                            <div className="shadow-lg p-2  me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCities} >
+                                                {
+                                                    citiesList.map((item: { name: string }, index: number) => {
+                                                        return (
+                                                            <p key={index} className="pointer" onClick={() => { setServiceLocation(item.name); setHide({ ...hide, hideCities: true }) }}>{item.name}</p>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="col-sm mb-3">
+                                            <input type="text" className={genFrm} placeholder="Price - Optional" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="col-sm mb-3">
-                                    <input type="text" className={genFrm} placeholder="Price - Optional" />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-sm mb-3 m-2">
-                                    <textarea required className="form-control rounded shadow-lg" placeholder="Description" onChange={(e)=>setDescriptionNew(e.target.value)}></textarea>
-                                </div>
-                            </div>
-                            <div className="text-center">
-                                
-                            <>{addListingLoad}</>
-                              
-                            </div>
+                                    <div className="row">
+                                        <div className="col-sm mb-3 m-2">
+                                            <textarea required className="form-control rounded shadow-lg" placeholder="Description" onChange={(e) => setDescriptionNew(e.target.value)}></textarea>
+                                        </div>
+                                    </div>
+                                    <div className="text-center">
+
+                                        <>{addListingLoad}</>
+
+                                    </div>
                                 </div>
                             </div>
                         </form>

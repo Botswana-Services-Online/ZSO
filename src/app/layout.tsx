@@ -36,6 +36,7 @@ export default function RootLayout({
       fetchData(user.email).then((data:any)=>{
         console.log(data.docs[0].id)
         setAccess({...data.docs[0].data(),log:true,id:data.docs[0].id})
+        localStorage.setItem("user",data.docs[0].id)
         console.log(access)
       }).catch(error=>{
         console.log(error)
