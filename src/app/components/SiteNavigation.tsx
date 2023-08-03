@@ -28,7 +28,7 @@ export const NavBar = () => {
         console.log(access)
        if(access.log){
         let data = authUser.currentUser
-        setImgFile(data?.photoURL)
+        setImgFile(localStorage.getItem("profilePicture"))
         console.log(data?.photoURL)
         setHide({...hide,hideReg:true,hideHas:false})  
         }else{
@@ -72,7 +72,7 @@ export const NavBar = () => {
                         <div  hidden={hide.hideHas} className=''>
                         <Dropdown className='container'>
                             <Dropdown.Toggle  className={`bg-transparent border-0 d-flex p-0 ${alignIcon}`}>
-                            <img className="rounded-pill mt-1" src={imgFile} width={30} alt="user " onClick={()=>{localStorage.setItem("log","1"); }}/>
+                            <img className="rounded-pill mt-1 imgWhite" src={imgFile} width={30} alt="user " onClick={()=>{localStorage.setItem("log","1"); }}/>
                             </Dropdown.Toggle>
                             <Dropdown.Menu className='Bg '>
                                 <Dropdown.Item  className='text-white' onClick={()=>route.push("/User/Dashboard/")}>Dashboard</Dropdown.Item>

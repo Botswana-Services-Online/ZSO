@@ -180,7 +180,7 @@ export default function Profile() {
                 const uploadData = { ...data, image: url }
                 addDoc(listingRef, uploadData).then(res => {
                   getListingData()
-                  setHide({...hide,showAddListing:false})
+                  setTimeout(()=>setHide({...hide,showAddListing:false}),5000)
                 }).catch(err => { })
             }).catch(err => { })
         }).catch(err => { })

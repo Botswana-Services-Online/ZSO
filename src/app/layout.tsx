@@ -32,6 +32,7 @@ export default function RootLayout({
    onAuthStateChanged(auth,(user:any)=>{
     console.log(user)
     if(user){
+    
       if(user.emailVerified===true){
       fetchData(user.email).then((data:any)=>{
         console.log(data.docs[0].id)
@@ -40,6 +41,11 @@ export default function RootLayout({
         console.log(access)
       }).catch(error=>{
         console.log(error)
+      })
+      fetch(user.photoUrl).then((res:any)=>{
+        localStorage.setItem("profilePicture",URL.createObjectURL(res))
+      }).catch(err=>{
+        localStorage.setItem("profilePicture","https://voideawn.sirv.com/website/person-circle.svg")
       })
     }else{
       sendEmailVerification(user).then(res=>{
