@@ -19,7 +19,7 @@ export default function DashboardLayout({
     children: React.ReactNode
   }) {
     const route = useRouter()
-    const profilePicture = getAuth(app).currentUser?.photoURL || ""
+    const profilePicture:any = localStorage.getItem("profilePicture")
     const {access,setAccess} = useContext(Authorized)
     const [headerImg,setHeaderImg] = useState<string>("")
     
@@ -52,8 +52,8 @@ export default function DashboardLayout({
                 </label>
             </div>
             <div className="d-flex justify-content-between  container" >
-                    <div className="position-relative " style={{ bottom: "40px" }}>
-                    <img className="rounded-pill text-white  placeholder-waver bg-success" src={profilePicture} alt="Profile pic" style={{ maxWidth: "100px" }} />
+                    <div className="position-relative  bg-success rounded-pill" style={{ bottom: "40px" }}>
+                    <img className="rounded-pill   placeholder-waver imgWhite" src={profilePicture} alt="Profile pic" style={{ maxWidth: "100px" }} />
 
                     </div>
                     <div className="mt-2">
