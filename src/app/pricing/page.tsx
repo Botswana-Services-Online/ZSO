@@ -44,7 +44,7 @@ export default function Pricing(){
                               
                             <Card.Header className="Bg text-white  ">
 
-                                <h3 className="text-center">Standard</h3>
+                                <h3 className="text-center ">Standard</h3>
                 
                             </Card.Header>
                             <Card.Body>
@@ -76,8 +76,8 @@ export default function Pricing(){
                        
                     <Card className="rounded shadow-lg ">
                             <Card.Img className="Sirv"   src="https://voideawn.sirv.com/website/price.jpg"/>
-                            <Card.Header className="Bg text-white">
-                                <h3 className="text-center">Premium</h3>
+                            <Card.Header className="Bg">
+                                <h3 className="text-center text-white" >Premium</h3>
                             </Card.Header>
                             <Card.Body>
                                 <Fade cascade={true} className="container text-center">
