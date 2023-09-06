@@ -100,7 +100,7 @@ export default function Listings(){
                                 </div>
                                 <div className="card-footer d-flex justify-content-between ">
                                     <button onClick={()=>{setSelected(item);setHide({...hide,showDetails:true})}} className="btn  btn-transparent">View</button>
-                                    <a target="_blank" href={`https://wa.me/${item.call.trim()}?text="Good day,can i get more details about ${item.name}. I saw the post on Zimbabwe Services Online!"`}><button className="btn  btn-transparent"><IonIcon color="success" icon={logoWhatsapp}/></button></a>
+                                    <a target="_blank" href={`https://wa.me/${item.call.split(" ").join("")}?text=Good day,can i get more details about ${item.name}. I saw the post on Zimbabwe Services Online!`}><button className="btn  btn-transparent"><IonIcon color="success" icon={logoWhatsapp}/></button></a>
                                 </div>
                               
                                
