@@ -113,7 +113,7 @@ export default function Listings(){
             <Modal show={hide.showFilterOptions} size="lg">
                 <Modal.Header>
                     <h3>Filter Options</h3>
-                    <button className={`${alignIcon} btn btn-outline-danger rounded-pill`}  onClick={()=>setHide({...hide,showFilterOptions:false})}><IonIcon icon={close}/></button>
+                    <button className={`${alignIcon} btn btn-transparent rounded-pill`}  onClick={()=>setHide({...hide,showFilterOptions:false})}><IonIcon color="danger" icon={closeCircleOutline}/></button>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="row">
