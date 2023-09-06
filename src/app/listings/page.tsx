@@ -1,11 +1,11 @@
 "use client"
-import { close, filterOutline, searchOutline } from "ionicons/icons";
+import { call, checkmarkCircleOutline, checkmarkDoneCircleOutline, close, closeCircleOutline, filterOutline, location, logoWhatsapp, mail, phoneLandscape, searchOutline, star } from "ionicons/icons";
 import { alignIcon,  mp, nomBtn, vp } from "../components/cssStyles";
 import { IonIcon } from "@ionic/react";
 import { Modal } from "react-bootstrap";
 import { cities,categories } from "../components/categories";
 import { useEffect, useState } from "react";
-import { listingsData } from "../components/schemes";
+import { listingsData, listingsDataDefault } from "../components/schemes";
 import { collection, query, getDocs, limit, startAfter } from "firebase/firestore";
 import { db } from "../api/firebase";
 export default function Listings(){
@@ -15,8 +15,10 @@ export default function Listings(){
     const [searchPrice,setSearchPrice] = useState<string>("")
     const [hide,setHide] = useState({
         showFilterOptions: false,
+        showDetails:false
     })
     const [data,setData] = useState<Array<listingsData>>([])
+    const [selected,setSelected] = useState<listingsData>(listingsDataDefault)
 
     let lastVisible:any = null;
     let hasMore = true;
@@ -70,26 +72,38 @@ export default function Listings(){
                
             </div>
             <div className={vp}>
-              <div className="row  ">
+              <div className="row ">
                 {data?.map((item:listingsData,index:number)=>{
                     return(
-                        <div className="col-sm " key={index}>
-                            <div className="card" style={{width:"18rem", height:"30rem"}}>
-                                <img src={item.image} className="card-img-top" height="50%" alt=""/>
+                        <div className="col-sm pointer mb-3 w-100 d-flex  justify-content-center" key={index}>
+                            <div className="card" style={{width:"18rem", height:"40rem"}} >
+                                <img src={item.image} className="card-img-top img-thumbnail h-50"   alt=""/>
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between ">
-                                    <h5 className="card-title">{item.name}</h5>
-                                    <h5 className="specialText">{item.price}</h5>
+                                    <p>< IonIcon color="warning" size="small" icon={star}/>< IonIcon color="warning" size="small" icon={star}/>< IonIcon color="warning" size="small" icon={star}/>< IonIcon color="warning" size="small" icon={star}/></p>
+                                    <IonIcon color="medium" icon={checkmarkDoneCircleOutline}/>
                                     </div>
-                                    <p>
-                                        {item.description}
+                                    <div className="d-flex justify-content-between ">
+                                    
+                                    
+                                    <h6 className="card-title">{item.name}</h6>
+                                    <h6 className="specialText">$ {item.price}</h6>
+                                    </div>
+                                    <p className=" text-truncate">
+                                    <small >{item.description}</small>
                                     </p>
-                                    <p><small>{item.serviceLocation}</small></p>
+                                       
+                                    
+                                    <p className=""><small><IonIcon size="small" icon={location}/> {item.serviceLocation}</small></p>
+                                    <p ><IonIcon  size="small" src={call}/><small> {item.call}</small></p>
+                                    <p className="d-flex align-items-center"><IonIcon size="small" icon={mail}/><small>&nbsp; {item.email}</small></p>
                                 </div>
-                                <div className="card-footer">
-                                <a href="" >View</a>
-
+                                <div className="card-footer d-flex justify-content-between ">
+                                    <button onClick={()=>{setSelected(item);setHide({...hide,showDetails:true})}} className="btn  btn-transparent">View</button>
+                                    <a target="_blank" href={`https://wa.me/${item.call.trim()}?text="Good day,can i get more details about ${item.name}. I saw the post on Zimbabwe Services Online!"`}><button className="btn  btn-transparent"><IonIcon color="success" icon={logoWhatsapp}/></button></a>
                                 </div>
+                              
+                               
                             </div>
                         </div>
                     )
@@ -136,6 +150,47 @@ export default function Listings(){
                 <Modal.Footer>
                     <button className={nomBtn}>Apply</button>
                 </Modal.Footer>
+            </Modal>
+            <Modal size="lg" show={hide.showDetails}>
+                <Modal.Header>
+                    <h3>View</h3>
+                    <button className="btn btn-transparent" onClick={()=>setHide({...hide,showDetails:false})}><IonIcon color="danger" icon={closeCircleOutline}/></button>
+                    </Modal.Header>
+                <Modal.Body>
+                    <div className="row d-flex align-items-center ">
+                        <div className="col-sm">
+                                <img src={selected.image} className="img-fluid" />
+                        </div>
+                        <div className="col-sm">
+                                <div className="row">
+                                    <div className="col-sm">
+                                        <p><b>Details</b></p>
+                                        <p>{selected.name}</p>
+                                    </div>
+                                    <div className="col-sm">
+                                        <p>${selected.price}</p>
+                                    </div>
+                            
+                                    
+                                </div>
+                                <div>
+                                    <p>{selected.category}</p>
+                                    <p>
+                                        {selected.description}
+                                    </p>
+                                    <p>
+                                       <b>Contact Details</b> 
+                                    </p>
+                                    <p><IonIcon size="small" icon={location}/> {selected.serviceLocation}</p>
+                                    <p><IonIcon size="small" icon={call}/> {selected.call}</p>
+                                    <p className="d-flex align-items-center">&nbsp;<IonIcon size="small" icon={mail}/> {selected.email}</p>
+                                    {/* <p>{selected.company}</p> */}
+
+
+                                </div>
+                        </div>
+                    </div>
+                </Modal.Body>
             </Modal>
         </div>
     )

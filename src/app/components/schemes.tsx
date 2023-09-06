@@ -43,3 +43,16 @@ export interface listingsData{
     whatsapp:string,
     email:string
 }
+
+export const listingsDataDefault:listingsData={
+    name:"",
+    description:"",
+    category:"",
+    userId:"",
+    price:0,
+    serviceLocation:"",
+    image:"",
+    call:"",
+    whatsapp:"",
+    email:""
+}
