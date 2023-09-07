@@ -44,7 +44,7 @@ export default function Profile() {
     //listing data
     const [name, setName] = useState<string>("")
     const [category, setCategory] = useState<string>("")
-    const [price, setPrice] = useState<number>(0)
+    const [price, setPrice] = useState<string>("")
     const [serviceLocation, setServiceLocation] = useState<string>("")
     const [descriptionNew, setDescriptionNew] = useState<string>("")
     const [imageListing, setImageListing] = useState<any>()
@@ -172,7 +172,9 @@ export default function Profile() {
             userId: access.id,
             call: access.phone,
             whatsapp: `https://wa.me/${access.phone}`,
-            email: access.email
+            email: access.email,
+            rating:0,
+            review:[]
         }
 
         uploadBytes(imageRef, imageListing).then(res => {
@@ -379,7 +381,7 @@ export default function Profile() {
                                             </div>
                                         </div>
                                         <div className="col-sm mb-3">
-                                            <input type="text" className={genFrm} placeholder="Price - Optional" />
+                                            <input type="number" className={genFrm} placeholder="Price - Optional" onChange={(e)=>setPrice(e.target.value)}/>
                                         </div>
                                     </div>
                                     <div className="row">

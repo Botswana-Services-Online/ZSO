@@ -36,12 +36,14 @@ export interface listingsData{
     description:string,
     category:string,
     userId:string,
-    price:number,
+    price:number|string,
     serviceLocation:string,
     image:string,
     call:string,
     whatsapp:string,
-    email:string
+    email:string,
+    rating:number,
+    review:{rating:number,message:string}[]
 }
 
 export const listingsDataDefault:listingsData={
@@ -54,5 +56,7 @@ export const listingsDataDefault:listingsData={
     image:"",
     call:"",
     whatsapp:"",
-    email:""
+    email:"",
+    rating:5,
+    review:[]
 }

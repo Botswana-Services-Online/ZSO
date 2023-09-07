@@ -1,6 +1,6 @@
 "use client"
-import { call, checkmarkCircleOutline, checkmarkDoneCircleOutline, close, closeCircleOutline, filterOutline, location, logoWhatsapp, mail, phoneLandscape, searchOutline, star } from "ionicons/icons";
-import { alignIcon,  mp, nomBtn, vp } from "../components/cssStyles";
+import { call,  checkmarkDoneCircleOutline,  closeCircleOutline, filterOutline, location, logoWhatsapp, mail,  searchOutline, star } from "ionicons/icons";
+import { alignIcon,  mp, nomBtn, transBtn, vp } from "../components/cssStyles";
 import { IonIcon } from "@ionic/react";
 import { Modal } from "react-bootstrap";
 import { cities,categories } from "../components/categories";
@@ -60,27 +60,44 @@ export default function Listings(){
         getData()
     },[])
 
+    const handleSearch=(e:FormDataEvent)=>{
+        e.preventDefault()
+        const q = query(collection(db,""))
+    }
+
     return(
         <div className={mp}>
+             <form onSubmit={(e:any)=>handleSearch(e)}>
             <div className=" d-flex justify-content-center p-3 mt-2 mb-3 position-fixed w-100  text-center bg-light z-1">
+                  
                 <div className="input-group">
-                    <input className="form-control rounded-pill me-2" placeholder="Looking for?" value={searchName} onChange={(e)=>setSearchName(e.target.value)}/>
-                    <button className={`${alignIcon} btn btn-outline-success rounded-pill me-1 btnHover`}  onClick={()=>setHide({...hide,showFilterOptions:true})}><IonIcon icon={filterOutline}/></button>
-                    <button className={`${alignIcon} btn btn-outline-success rounded-pill btnHover`}><IonIcon icon={searchOutline}/></button>
+                    <input className="form-control rounded-pill me-2" placeholder="Looking for?" value={searchName} onChange={(e)=>setSearchName(e.target.value)} required/>
+                    <button type="button" className={`${alignIcon} btn btn-outline-success rounded-pill me-1 btnHover`}  onClick={()=>setHide({...hide,showFilterOptions:true})}><IonIcon icon={filterOutline}/></button>
+                    <button type="submit" className={`${alignIcon} btn btn-outline-success rounded-pill btnHover`}><IonIcon icon={searchOutline}/></button>
                 </div>
+                
                 
                
             </div>
+              </form>
             <div className={vp}>
-              <div className="row ">
+              <div className="row d-flex">
                 {data?.map((item:listingsData,index:number)=>{
                     return(
-                        <div className="col-sm pointer mb-3 w-100 d-flex  justify-content-center" key={index}>
+                        <div className="col-sm  mb-3 w-100 d-flex  justify-content-center" key={index}>
                             <div className="card" style={{width:"18rem", height:"40rem"}} >
                                 <img src={item.image} className="card-img-top img-thumbnail h-50"   alt=""/>
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between ">
-                                    <p>< IonIcon color="warning" size="small" icon={star}/>< IonIcon color="warning" size="small" icon={star}/>< IonIcon color="warning" size="small" icon={star}/>< IonIcon color="warning" size="small" icon={star}/></p>
+                                    {item.review?.map((item:any,index:number)=>{
+                                       if(item.length===0){
+                                        return(
+                                            <p>< IonIcon color="medium" size="small" icon={star}/></p>
+                                        )
+                                       }else{
+
+                                       }
+                                    })}
                                     <IonIcon color="medium" icon={checkmarkDoneCircleOutline}/>
                                     </div>
                                     <div className="d-flex justify-content-between ">
@@ -99,7 +116,7 @@ export default function Listings(){
                                     <p className="d-flex align-items-center"><IonIcon size="small" icon={mail}/><small>&nbsp; {item.email}</small></p>
                                 </div>
                                 <div className="card-footer d-flex justify-content-between ">
-                                    <button onClick={()=>{setSelected(item);setHide({...hide,showDetails:true})}} className="btn  btn-transparent">View</button>
+                                    <button onClick={()=>{setSelected(item);setHide({...hide,showDetails:true})}} className="btn  btn-transparent text-success">View</button>
                                     <a target="_blank" href={`https://wa.me/${item.call.split(" ").join("")}?text=Good day,can i get more details about ${item.name}. I saw the post on Zimbabwe Services Online!`}><button className="btn  btn-transparent"><IonIcon color="success" icon={logoWhatsapp}/></button></a>
                                 </div>
                               
@@ -183,13 +200,48 @@ export default function Listings(){
                                     </p>
                                     <p><IonIcon size="small" icon={location}/> {selected.serviceLocation}</p>
                                     <p><IonIcon size="small" icon={call}/> {selected.call}</p>
-                                    <p className="d-flex align-items-center">&nbsp;<IonIcon size="small" icon={mail}/> {selected.email}</p>
+                                    <p className="d-flex align-items-center"><IonIcon size="small" icon={mail}/>&nbsp; {selected.email}</p>
                                     {/* <p>{selected.company}</p> */}
-
-
+                                    <button className={transBtn}><u>Leave a review</u></button>
                                 </div>
                         </div>
                     </div>
+                </Modal.Body>
+            </Modal>
+            <Modal>
+                <Modal.Header>
+                                <h3>Review</h3>
+                                <button className={transBtn}><IonIcon size="small" icon={closeCircleOutline}/></button>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>
+                        <div>
+                            <h4>Reviews</h4>
+                            <div style={{height:"20vh"}}>
+                            {
+                                selected.review?.map((item:any,index:number)=>{
+                                    return(
+                                        <div className="d-flex">
+                                            
+                                        </div>
+                                    )
+                                })
+                            }
+                            </div>
+                        </div>
+                        <div className="d-flex flex-row">
+                            <p>What do your rate them?</p>
+                            <select className="form-control">
+                                <option value={0}>0</option>
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </Modal.Body>
             </Modal>
         </div>
