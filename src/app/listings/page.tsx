@@ -1,5 +1,5 @@
 "use client"
-import { call,  checkmarkDoneCircleOutline,  closeCircleOutline, filterOutline, location, logoWhatsapp, mail,  searchOutline, star } from "ionicons/icons";
+import { businessOutline, call,  checkmarkDoneCircleOutline,  closeCircleOutline, filterOutline, location, logoWhatsapp, mail,  searchOutline, star } from "ionicons/icons";
 import { alignIcon,  mp, nomBtn, transBtn, vp } from "../components/cssStyles";
 import { IonIcon } from "@ionic/react";
 import { Modal } from "react-bootstrap";
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { listingsData, listingsDataDefault } from "../components/schemes";
 import { collection, query, getDocs, limit, startAfter } from "firebase/firestore";
 import { db } from "../api/firebase";
+import Link from "next/link";
 export default function Listings(){
     const [searchName,setSearchName] = useState<string>("")
     const [searchCategory,setSearchCategory] = useState<string>("")
@@ -67,8 +68,8 @@ export default function Listings(){
 
     return(
         <div className={mp}>
-             <form onSubmit={(e:any)=>handleSearch(e)}>
-            <div className=" d-flex justify-content-center p-3 mt-2 mb-3 position-fixed w-100  text-center bg-light z-1">
+             <form onSubmit={(e:any)=>handleSearch(e)} className="mb-5">
+            <div className=" d-flex justify-content-center p-3 mt-2 mb-5 position-fixed w-100  text-center bg-light z-1">
                   
                 <div className="input-group">
                     <input className="form-control rounded-pill me-2" placeholder="Looking for?" value={searchName} onChange={(e)=>setSearchName(e.target.value)} required/>
@@ -81,7 +82,10 @@ export default function Listings(){
             </div>
               </form>
             <div className={vp}>
-              <div className="row d-flex">
+                <div className="mt-5">
+
+                </div>
+              <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly ">
                 {data?.map((item:listingsData,index:number)=>{
                     return(
                         <div className="col-sm  mb-3 w-100 d-flex  justify-content-center" key={index}>
@@ -92,7 +96,7 @@ export default function Listings(){
                                     {item.review?.map((item:any,index:number)=>{
                                        if(item.length===0){
                                         return(
-                                            <p>< IonIcon color="medium" size="small" icon={star}/></p>
+                                            <p key={index}>< IonIcon color="medium" size="small" icon={star}/></p>
                                         )
                                        }else{
 
@@ -152,7 +156,7 @@ export default function Listings(){
                                 {
                                     cities.map((item:any,index:number)=>{
                                         return(
-                                            <option value={item.name} key={index}>{item.name}</option>
+                                            <option  value={item.name} key={index}>{item.name}</option>
                                         )
                                     })
                                 }
@@ -175,22 +179,27 @@ export default function Listings(){
                     </Modal.Header>
                 <Modal.Body>
                     <div className="row d-flex align-items-center ">
-                        <div className="col-sm">
+                        <div className="col-sm mb-3">
                                 <img src={selected.image} className="img-fluid" />
                         </div>
                         <div className="col-sm">
+                            <div>
+                                <p className="pointer"><Link href={{pathname:"/profile",query:{name:selected.userId}}}><IonIcon color="success" src={businessOutline}/> <u>{selected.company}</u></Link></p>
+                            </div>
                                 <div className="row">
+                                    <small>
                                     <div className="col-sm">
-                                        <p><b>Details</b></p>
+                                        <p><b>Listing Details</b></p>
                                         <p>{selected.name}</p>
                                     </div>
                                     <div className="col-sm">
                                         <p>${selected.price}</p>
                                     </div>
-                            
+                            </small>
                                     
                                 </div>
                                 <div>
+                                    <small>
                                     <p>{selected.category}</p>
                                     <p>
                                         {selected.description}
@@ -202,6 +211,7 @@ export default function Listings(){
                                     <p><IonIcon size="small" icon={call}/> {selected.call}</p>
                                     <p className="d-flex align-items-center"><IonIcon size="small" icon={mail}/>&nbsp; {selected.email}</p>
                                     {/* <p>{selected.company}</p> */}
+                                    </small>
                                     <button className={transBtn}><u>Leave a review</u></button>
                                 </div>
                         </div>
@@ -221,7 +231,7 @@ export default function Listings(){
                             {
                                 selected.review?.map((item:any,index:number)=>{
                                     return(
-                                        <div className="d-flex">
+                                        <div key={index} className="d-flex">
                                             
                                         </div>
                                     )

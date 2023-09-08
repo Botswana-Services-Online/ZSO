@@ -43,7 +43,9 @@ export interface listingsData{
     whatsapp:string,
     email:string,
     rating:number,
-    review:{rating:number,message:string}[]
+    review:{rating:number,message:string}[],
+    company:string,
+    type:string,
 }
 
 export const listingsDataDefault:listingsData={
@@ -58,5 +60,7 @@ export const listingsDataDefault:listingsData={
     whatsapp:"",
     email:"",
     rating:5,
-    review:[]
+    review:[],
+    company:"",
+    type:"listing"
 }

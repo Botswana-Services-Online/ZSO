@@ -174,7 +174,9 @@ export default function Profile() {
             whatsapp: `https://wa.me/${access.phone}`,
             email: access.email,
             rating:0,
-            review:[]
+            review:[],
+            company:access.name,
+            type:"listing"
         }
 
         uploadBytes(imageRef, imageListing).then(res => {
