@@ -184,7 +184,7 @@ export default function Listings(){
                         </div>
                         <div className="col-sm">
                             <div>
-                                <p className="pointer"><Link href={{pathname:"/profile",query:{name:selected.userId}}}><IonIcon color="success" src={businessOutline}/> <u>{selected.company}</u></Link></p>
+                                <p className="pointer"><Link className="text-success" href={{pathname:"/profile",query:{name:selected.userId}}}><IonIcon color="success" src={businessOutline}/><u>{selected.company}</u></Link></p>
                             </div>
                                 <div className="row">
                                     <small>
