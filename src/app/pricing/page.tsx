@@ -62,7 +62,7 @@ export default function Pricing(){
                                 <h1 className="text-center">
                                     $5
                                 </h1>
-                            <button className={genBtn}>1 Week Free trial</button>
+                            <button className={genBtn}>Coming Soon!</button>
 
                             </Fade>
                             </Card.Body>
@@ -86,13 +86,13 @@ export default function Pricing(){
                                     <li>Featured on all social platforms</li>
                                     <li>Daily Ad push</li>
                                     <li>Verified Premium badge</li>
-                                    <li>Valid for 1 year</li>
+                                    <li>Valid for 1 month</li>
                                     <li>24/7 Email & Call Support</li>
                                 </ul>
                                 <h1 className="text-center">
                                     $10
                                 </h1>
-                                <button className={genBtn}>1 Week Free trial</button>
+                                <button className={genBtn}>Coming Soon!</button>
                                 </Fade>
                             </Card.Body>
                            

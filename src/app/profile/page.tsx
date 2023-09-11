@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation"
 import { db } from "../api/firebase"
 import { listingsData, listingsDataDefault, userData, userDataDefault } from "../components/schemes"
 import { useEffect, useState } from "react"
-import { alignIcon, bgImg, mp, transBtn, vp } from "../components/cssStyles"
+import { alignIcon, bgImg, genBtn, mp, nomBtn, transBtn, vp } from "../components/cssStyles"
 import { businessOutline, call, callOutline,location, informationCircleOutline, logoWhatsapp, mail, mailOutline, closeCircleOutline } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
 import { whatsappLink } from "../components/linkFunctions"
@@ -83,7 +83,7 @@ export default function Profile() {
 
                                             </div>
                                         </div>
-                                        <button className="btn btn-success" onClick={() => {setSelected(listing);setHide({...hide,showDetails:true})}}>View</button>
+                                        <button className={nomBtn} onClick={() => {setSelected(listing);setHide({...hide,showDetails:true})}}>View</button>
                                     </div>
                                 )
                             })
@@ -121,7 +121,7 @@ export default function Profile() {
 
                                         </div>
                                     </div>
-                                    <button className="btn btn-success" >View</button>
+                                    <a href={data.Cert} target="_blank"><button className={nomBtn} >View</button></a>
                                 </div>
                                 
                                 <div className="d-flex align-items-center justify-content-between border-1 py-2">
@@ -133,7 +133,7 @@ export default function Profile() {
 
                                         </div>
                                     </div>
-                                    <button className="btn btn-success" >View</button>
+                                    <a href={data.Tax} target="_blank"><button className={nomBtn}>View</button></a>
                                 </div>
                         
                     </div>
