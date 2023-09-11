@@ -19,7 +19,7 @@ export default function DashboardLayout({
     children: React.ReactNode
   }) {
     const route = useRouter()
-    const profilePicture:any = localStorage.getItem("profilePicture")
+    const profilePicture:any = typeof window !== 'undefined'?localStorage.getItem("profilePicture"):""
     const {access,setAccess} = useContext(Authorized)
     const [headerImg,setHeaderImg] = useState<string>("")
     
