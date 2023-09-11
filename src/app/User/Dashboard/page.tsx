@@ -216,7 +216,7 @@ export default function Profile() {
                         {
                             listingData?.map((item: listingsData, index: number) => {
                                 return (
-                                    <div className="mb-3 me-2 pointer">
+                                    <div key={index} className="mb-3 me-2 pointer">
                                         <div className="card" style={{minWidth: "30vw",maxWidth:"30vw", height: "30vh"}}>
                                             <img src={item.image} loading="eager" style={{height:"20vh"}} className="rounded  m-2 img-fluid  fitImages" alt="..."/>
                                                 <div className=" text-center ">

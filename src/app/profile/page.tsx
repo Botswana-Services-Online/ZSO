@@ -73,9 +73,9 @@ export default function Profile() {
                     <div className=" border border-1 rounded p-3 mb-3">
                         <h5 className="mb-2">Listings</h5>
                         {
-                            listings.map((listing) => {
+                            listings.map((listing,index:number) => {
                                 return (
-                                    <div className="d-flex align-items-center justify-content-between border-bottom border-1 py-2">
+                                    <div key={index} className="d-flex align-items-center justify-content-between border-bottom border-1 py-2">
                                         <div className="d-flex align-items-center justify-content-between">
                                             <img src={listing.image} style={{ width: "50px", height: "50px", objectFit: "cover" }} className="rounded-circle" />
                                             <div className="ms-2">

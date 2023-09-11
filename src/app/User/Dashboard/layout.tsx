@@ -57,7 +57,7 @@ export default function DashboardLayout({
 
                     </div>
                     <div className="mt-2">
-                    <UserNavigation/>
+                    {UserNavigation(access.id)}
 
                     </div>
             </div>
