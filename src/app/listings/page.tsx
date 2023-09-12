@@ -5,7 +5,7 @@ import { IonIcon } from "@ionic/react";
 import { Modal } from "react-bootstrap";
 import { cities,categories } from "../components/categories";
 import { useEffect, useState } from "react";
-import { listingsData, listingsDataDefault } from "../components/schemes";
+import { listingsData, listingsDataDefault, userData } from "../components/schemes";
 import { collection, query, getDocs, limit, startAfter } from "firebase/firestore";
 import { db } from "../api/firebase";
 import Link from "next/link";
@@ -15,14 +15,14 @@ export default function Listings(){
     const [searchLocation,setSearchLocation] = useState<string>("")
     const [searchPrice,setSearchPrice] = useState<string>("")
     const [hideListings,setHideListings] = useState<boolean>(false)
-    const [hideCompanies,setHideCompanies] = useState<boolean>(true)
+ 
     const [hide,setHide] = useState({
         showFilterOptions: false,
         showDetails:false,
-        hideListings:false,
-        hideCompanies:true
+      
     })
     const [data,setData] = useState<Array<listingsData>>([])
+    const [compData,setCompData] = useState<Array<userData>>([])
     const [selected,setSelected] = useState<listingsData>(listingsDataDefault)
 
     let lastVisible:any = null;
@@ -81,8 +81,8 @@ export default function Listings(){
                     <button type="submit" className={`${alignIcon} btn btn-outline-success rounded-pill btnHover`}><IonIcon icon={searchOutline}/></button>
                 </div>
                 <div className="d-flex justify-content-center align-items-center   flex-row mt-3 rounded">
-                <button type="button" className={`me-3 ${transBtn}`} onClick={()=>{setHideListings(true);setHideCompanies(false)}}><IonIcon icon={cartOutline}/>&nbsp;Listings</button>
-                <button type="button" className={`ms-3 ${transBtn}`} onClick={()=>{setHideCompanies(true);setHideListings(false)}}><IonIcon icon={businessOutline}/>&nbsp;Companies</button>
+                <button type="button" className={`me-3 ${transBtn}`} onClick={()=>{setHideListings(true)}}><IonIcon icon={cartOutline}/>&nbsp;Listings</button>
+                <button type="button" className={`ms-3 ${transBtn}`} onClick={()=>{setHideListings(false)}}><IonIcon icon={businessOutline}/>&nbsp;Companies</button>
             </div>
                 
                 
@@ -94,7 +94,10 @@ export default function Listings(){
                 <div className="mt-5">
 
                 </div>
-              <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly " hidden={hideListings}>
+                {hideListings===true?
+                
+              <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly " >
+                
                 {data?.map((item:listingsData,index:number)=>{
                     return(
                         <div className="col-sm  mb-3 w-100 d-flex  justify-content-center" key={index}>
@@ -138,14 +141,24 @@ export default function Listings(){
                         </div>
                     )
                 })}
-              </div>
-              <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly " hidden={hideCompanies}>
-                {data?.map((item:listingsData,index:number)=>{
+              </div>:
+              <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly " >
+                {compData?.map((item:userData,index:number)=>{
                     return(
-                      <div></div>
+                      <div key={index} className="rounded shadow-lg">
+                        <div className="d-flex justify-content-between ">
+                            <p>{item.name}</p>
+                            <IonIcon color="medium" icon={checkmarkDoneCircleOutline}/>
+                        </div>
+                        <hr/>
+                        <div >
+                            <p>{item.Description}</p>
+                            <p><IonIcon color="warning" icon={star}/></p>
+                        </div>
+                      </div>
                     )
                 })}
-              </div>
+              </div>}
             </div>
             <Modal show={hide.showFilterOptions} size="lg">
                 <Modal.Header>
