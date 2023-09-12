@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
 import { userData } from "./schemes";
-import { genBtn, nomBtn, transBtn } from "./cssStyles";
+import { nomBtn, transBtn } from "./cssStyles";
 import { closeCircleOutline, star } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import {doc,updateDoc} from "firebase/firestore";
