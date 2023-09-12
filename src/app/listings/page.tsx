@@ -81,8 +81,8 @@ export default function Listings(){
                     <button type="submit" className={`${alignIcon} btn btn-outline-success rounded-pill btnHover`}><IonIcon icon={searchOutline}/></button>
                 </div>
                 <div className="d-flex justify-content-center align-items-center   flex-row mt-3 rounded">
-                <button type="button" className={`me-3 ${transBtn}`} onClick={()=>{setHideListings(true)}}><IonIcon icon={cartOutline}/>&nbsp;Listings</button>
-                <button type="button" className={`ms-3 ${transBtn}`} onClick={()=>{setHideListings(false)}}><IonIcon icon={businessOutline}/>&nbsp;Companies</button>
+                <button type="button" className={`me-3 ${transBtn} ${hideListings===true?"text-success":"text-dark"}`} onClick={()=>{setHideListings(true)}}><IonIcon icon={cartOutline}/>&nbsp;Listings</button>
+                <button type="button" className={`ms-3 ${transBtn} ${hideListings===false?"text-success":"text-dark"}`} onClick={()=>{setHideListings(false)}}><IonIcon icon={businessOutline}/>&nbsp;Companies</button>
             </div>
                 
                 
