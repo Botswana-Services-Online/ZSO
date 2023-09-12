@@ -5,7 +5,7 @@ import { db } from "../api/firebase"
 import { listingsData, listingsDataDefault, userData, userDataDefault } from "../components/schemes"
 import { useEffect, useState } from "react"
 import { alignIcon, bgImg, genBtn, mp, nomBtn, transBtn, vp } from "../components/cssStyles"
-import { businessOutline, call, callOutline,location, informationCircleOutline, logoWhatsapp, mail, mailOutline, closeCircleOutline } from "ionicons/icons"
+import { businessOutline, call, callOutline,location, informationCircleOutline, logoWhatsapp, mail, mailOutline, closeCircleOutline, star } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
 import { whatsappLink } from "../components/linkFunctions"
 import Link from "next/link"
@@ -22,8 +22,36 @@ export default function Profile() {
     const [viewSelected, setViewSelected] = useState<string>("")
     const [hide,setHide] = useState({showDetails:false,showGallery:false})
     const [showReview,setShowReview] = useState<boolean>(false)
+    const [rating,setRating] = useState<number>(0)
 
-
+    const calculateRating = (reviews:{rating:number,message:string}[]) => {
+        const oneRating = []
+        const twoRating = []
+        const threeRating = []
+        const fourRating = []
+        const fiveRating = []
+        reviews.forEach((review) => {
+            if (review.rating == 1) {
+                oneRating.push(review)
+            } else if (review.rating == 2) {
+                twoRating.push(review)
+            } else if (review.rating == 3) {
+                threeRating.push(review)
+            } else if (review.rating == 4) {
+                fourRating.push(review)
+            } else if (review.rating == 5) {
+                fiveRating.push(review)
+            }
+        })
+        const one = oneRating.length
+        const two = twoRating.length*2
+        const three = threeRating.length*3
+        const four = fourRating.length*4
+        const five = fiveRating.length*5
+        const total = one + two + three + four + five
+        const rating:number = Math.round(total / reviews.length)
+        setRating(rating)
+    }
     const getProfileData = () => {
         //get data from firebase
         const docRef = doc(db, "users", `${name}`)
@@ -38,6 +66,7 @@ export default function Profile() {
                     listingArray.push(doc.data())
                 })
                 setListings(listingArray)
+                calculateRating(doc.data().reviews)
             })
         }).catch((error) => {
             console.log(error)
@@ -63,6 +92,7 @@ export default function Profile() {
                 <div className="position-relative  bg-white rounded-pill p-3" >
                     <IonIcon size="large" icon={businessOutline} /> <p></p>
                     <h4>{data.name}</h4>
+                    <h5 className="d-flex align-items-center">{rating}&nbsp;<IonIcon size="small" color="warning" icon={star}/></h5>
                     <u className="pointer" onClick={()=>setShowReview(true)}><small>Leave a review!</small></u>
                 </div>
                 <div >
@@ -79,13 +109,13 @@ export default function Profile() {
                             listings.map((listing,index:number) => {
                                 return (
                                     <div key={index} className="d-flex align-items-center justify-content-between border-bottom border-1 py-2">
-                                        <div className="d-flex align-items-center justify-content-between">
+                                        <div className="d-flex align-items-center justify-content-between" onClick={() => {setSelected(listing);setHide({...hide,showDetails:true})}}>
                                             <img src={listing.image} style={{ width: "50px", height: "50px", objectFit: "cover" }} className="rounded-circle" />
                                             <div className="ms-2">
                                                 <p className="mb-0">{listing.name}</p>
                                             </div>
                                         </div>
-                                        <button className={nomBtn} onClick={() => {setSelected(listing);setHide({...hide,showDetails:true})}}>View</button>
+                                       
                                     </div>
                                 )
                             })
