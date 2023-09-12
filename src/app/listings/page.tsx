@@ -241,7 +241,6 @@ export default function Listings(){
                                     <p className="d-flex align-items-center"><IonIcon size="small" icon={mail}/>&nbsp; {selected.email}</p>
                                     {/* <p>{selected.company}</p> */}
                                     </small>
-                                    <button className={transBtn}><u>Leave a review</u></button>
                                 </div>
                         </div>
                     </div>

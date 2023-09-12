@@ -12,7 +12,8 @@ export interface userData{
     listings:Array<string>,
     log:boolean,
     id:string,
-    registered:false
+    registered:false,
+    reviews:Array<{rating:number,message:string}>,
 }
 
 export const userDataDefault:userData={
@@ -29,7 +30,8 @@ export const userDataDefault:userData={
     listings:[],
     log:false,
     id:"",
-    registered:false
+    registered:false,
+    reviews:[]
 }
 export interface listingsData{
     name:string,

@@ -10,6 +10,7 @@ import { IonIcon } from "@ionic/react"
 import { whatsappLink } from "../components/linkFunctions"
 import Link from "next/link"
 import { Modal } from "react-bootstrap"
+import Review from "../components/review"
 export default function Profile() {
     //get name from url
     const name = useSearchParams().get("name")
@@ -20,6 +21,7 @@ export default function Profile() {
     const [selected, setSelected] = useState<listingsData>(listingsDataDefault)
     const [viewSelected, setViewSelected] = useState<string>("")
     const [hide,setHide] = useState({showDetails:false,showGallery:false})
+    const [showReview,setShowReview] = useState<boolean>(false)
 
 
     const getProfileData = () => {
@@ -61,6 +63,7 @@ export default function Profile() {
                 <div className="position-relative  bg-white rounded-pill p-3" >
                     <IonIcon size="large" icon={businessOutline} /> <p></p>
                     <h4>{data.name}</h4>
+                    <u className="pointer" onClick={()=>setShowReview(true)}><small>Leave a review!</small></u>
                 </div>
                 <div >
                     <div className=" border border-1 rounded p-3 mb-3">
@@ -80,7 +83,6 @@ export default function Profile() {
                                             <img src={listing.image} style={{ width: "50px", height: "50px", objectFit: "cover" }} className="rounded-circle" />
                                             <div className="ms-2">
                                                 <p className="mb-0">{listing.name}</p>
-
                                             </div>
                                         </div>
                                         <button className={nomBtn} onClick={() => {setSelected(listing);setHide({...hide,showDetails:true})}}>View</button>
@@ -196,6 +198,7 @@ export default function Profile() {
                     </div>
                 </Modal.Body>
             </Modal>
+            <Review close={{showReview,setShowReview}} data={data}/>
 
 
         </div>
