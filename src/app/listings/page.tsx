@@ -1,5 +1,5 @@
 "use client"
-import { businessOutline, call,  checkmarkDoneCircleOutline,  closeCircleOutline, filterOutline, location, logoWhatsapp, mail,  searchOutline, star } from "ionicons/icons";
+import { businessOutline, call,  carOutline,  cartOutline,  checkmarkDoneCircleOutline,  closeCircleOutline, filterOutline, location, logoWhatsapp, mail,  searchOutline, star } from "ionicons/icons";
 import { alignIcon,  mp, nomBtn, transBtn, vp } from "../components/cssStyles";
 import { IonIcon } from "@ionic/react";
 import { Modal } from "react-bootstrap";
@@ -14,9 +14,13 @@ export default function Listings(){
     const [searchCategory,setSearchCategory] = useState<string>("")
     const [searchLocation,setSearchLocation] = useState<string>("")
     const [searchPrice,setSearchPrice] = useState<string>("")
+    const [hideListings,setHideListings] = useState<boolean>(false)
+    const [hideCompanies,setHideCompanies] = useState<boolean>(true)
     const [hide,setHide] = useState({
         showFilterOptions: false,
-        showDetails:false
+        showDetails:false,
+        hideListings:false,
+        hideCompanies:true
     })
     const [data,setData] = useState<Array<listingsData>>([])
     const [selected,setSelected] = useState<listingsData>(listingsDataDefault)
@@ -69,23 +73,28 @@ export default function Listings(){
     return(
         <div className={mp}>
              <form onSubmit={(e:any)=>handleSearch(e)} className="mb-5">
-            <div className=" d-flex justify-content-center p-3 mt-2 mb-5 position-fixed w-100  text-center bg-light z-1">
+            <div className=" d-flex flex-column justify-content-center p-3 mt-2 mb-5 position-fixed w-100  text-center bg-light z-1">
                   
                 <div className="input-group">
                     <input className="form-control rounded-pill me-2" placeholder="Looking for?" value={searchName} onChange={(e)=>setSearchName(e.target.value)} required/>
                     <button type="button" className={`${alignIcon} btn btn-outline-success rounded-pill me-1 btnHover`}  onClick={()=>setHide({...hide,showFilterOptions:true})}><IonIcon icon={filterOutline}/></button>
                     <button type="submit" className={`${alignIcon} btn btn-outline-success rounded-pill btnHover`}><IonIcon icon={searchOutline}/></button>
                 </div>
+                <div className="d-flex justify-content-center align-items-center   flex-row mt-3 rounded">
+                <button type="button" className={`me-3 ${transBtn}`} onClick={()=>{setHideListings(true);setHideCompanies(false)}}><IonIcon icon={cartOutline}/>&nbsp;Listings</button>
+                <button type="button" className={`ms-3 ${transBtn}`} onClick={()=>{setHideCompanies(true);setHideListings(false)}}><IonIcon icon={businessOutline}/>&nbsp;Companies</button>
+            </div>
                 
                 
                
             </div>
+           
               </form>
             <div className={vp}>
                 <div className="mt-5">
 
                 </div>
-              <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly ">
+              <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly " hidden={hideListings}>
                 {data?.map((item:listingsData,index:number)=>{
                     return(
                         <div className="col-sm  mb-3 w-100 d-flex  justify-content-center" key={index}>
@@ -127,6 +136,13 @@ export default function Listings(){
                                
                             </div>
                         </div>
+                    )
+                })}
+              </div>
+              <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly " hidden={hideCompanies}>
+                {data?.map((item:listingsData,index:number)=>{
+                    return(
+                      <div></div>
                     )
                 })}
               </div>
