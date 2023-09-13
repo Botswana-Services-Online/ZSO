@@ -12,6 +12,7 @@ import { db } from "../api/firebase";
 import Link from "next/link";
 import { ReviewCalc } from "../components/calculate";
 import { useRouter } from "next/navigation";
+import { get } from "http";
 export default function Listings(){
     const nav = useRouter()
     const name:any = useSearchParams().get("name")
@@ -84,7 +85,8 @@ export default function Listings(){
 
     const handleSearch=(e:FormDataEvent)=>{
         e.preventDefault()
-        const q = query(collection(db,""))
+        getData("listings",searchName)
+        getData("users",searchName)
     }
 
     return(
