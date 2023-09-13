@@ -7,9 +7,11 @@ import { cities,categories } from "../components/categories";
 import { useEffect, useState } from "react";
 import { listingsData, listingsDataDefault, userData } from "../components/schemes";
 import { collection, query, getDocs, limit, startAfter } from "firebase/firestore";
+import { useSearchParams } from "next/navigation";
 import { db } from "../api/firebase";
 import Link from "next/link";
 export default function Listings(){
+    const name = useSearchParams().get("name")
     const [searchName,setSearchName] = useState<string>("")
     const [searchCategory,setSearchCategory] = useState<string>("")
     const [searchLocation,setSearchLocation] = useState<string>("")
@@ -62,7 +64,12 @@ export default function Listings(){
 
 
     useEffect(()=>{
-        getData()
+        if(typeof(name)===null){
+            getData()
+        }else{
+            
+        }
+        
     },[])
 
     const handleSearch=(e:FormDataEvent)=>{
