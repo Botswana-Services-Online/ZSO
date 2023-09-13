@@ -1,18 +1,23 @@
 "use client"
 import { mp, vp, bgImg } from "@/app/components/cssStyles";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useContext } from "react";
 import Signup from "./signup";
 import Login from "./login";
+import { Authorized } from "@/app/components/contexts";
+import { useRouter } from "next/navigation";
 
 
 
 export default function Auth() {
+    const nav = useRouter()
+    const {access,setAcess} = useContext(Authorized)
     const [hide, setHide] = useState({
         hideLogin: true,
         hideSignup: false,
     })
 
     useEffect(()=>{
+        access.log?nav.push("/User/Dashboard"):null
         const result = localStorage.getItem("log");
         if(result==="0"){
             setHide({ ...hide, hideLogin: true, hideSignup: false })
