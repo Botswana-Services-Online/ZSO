@@ -11,7 +11,9 @@ import { useSearchParams } from "next/navigation";
 import { db } from "../api/firebase";
 import Link from "next/link";
 import { ReviewCalc } from "../components/calculate";
+import { useRouter } from "next/navigation";
 export default function Listings(){
+    const nav = useRouter()
     const name = useSearchParams().get("name")
     const [searchName,setSearchName] = useState<string>("")
     const [searchCategory,setSearchCategory] = useState<string>("")
@@ -151,10 +153,10 @@ export default function Listings(){
                     )
                 })}
               </div>:
-              <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly " >
+              <div className="d-flex flex-row flex-wrap  m-3  justify-content-evenly " >
                 {compData?.map((item:userData,index:number)=>{
                     return(
-                      <div key={index} className="rounded shadow-lg p-3 m-2" style={{width:"18rem",height:"30vh"}}>
+                      <div key={index} className="rounded shadow-lg p-3 m-2" style={{width:"18rem",height:"25vh"}} onClick={()=>nav.push(`/profile?name=${item.id}`)}>
                         <div className="d-flex justify-content-between ">
                             <p>{item.name}</p>
                             <IonIcon color="medium" icon={checkmarkDoneCircleOutline}/>
