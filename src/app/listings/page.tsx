@@ -6,7 +6,7 @@ import { Modal } from "react-bootstrap";
 import { cities,categories } from "../components/categories";
 import { useEffect, useState } from "react";
 import { listingsData, listingsDataDefault, userData } from "../components/schemes";
-import { collection, query, getDocs, limit, startAfter } from "firebase/firestore";
+import { collection, query, getDocs, limit, startAfter, where, or, and } from "firebase/firestore";
 import { useSearchParams } from "next/navigation";
 import { db } from "../api/firebase";
 import Link from "next/link";
@@ -14,7 +14,7 @@ import { ReviewCalc } from "../components/calculate";
 import { useRouter } from "next/navigation";
 export default function Listings(){
     const nav = useRouter()
-    const name = useSearchParams().get("name")
+    const name:any = useSearchParams().get("name")
     const [searchName,setSearchName] = useState<string>("")
     const [searchCategory,setSearchCategory] = useState<string>("")
     const [searchLocation,setSearchLocation] = useState<string>("")
@@ -34,12 +34,15 @@ export default function Listings(){
     let hasMore = true;
     
     // Function to retrieve data from Firestore with a limit of 20 documents at a time
-    async function getData(dbRef:string) {
+    async function getData(dbRef:string,searchString?:string) {
       // Get a reference to the collection
       const colRef = collection(db, dbRef);
     
       // Create a query with a limit of 20 documents
-      let q = query(colRef, limit(20));
+      const ss = where("name",">=",searchString)
+      
+      let q = searchString?query(colRef, ss, limit(20)):query(colRef, limit(20))
+      
     
       // If there is a last retrieved document, start the query after that document
       if (lastVisible) {
@@ -61,8 +64,11 @@ export default function Listings(){
       // Return the retrieved data
       let gotData:any = []
       querySnapshot.docs.map(doc =>gotData.push(doc.data()));
+      
       dbRef==="listings"?setData([...gotData]):setCompData([...gotData])
-      return gotData
+
+      console.log(querySnapshot)
+      console.log(gotData)
     }
 
 
@@ -70,8 +76,8 @@ export default function Listings(){
         if(typeof(name)===null){
             getData("listings")
         }else{
-            getData("users")
-            getData("listings")
+            getData("users",name)
+            getData("listings",name)
         }
         
     },[])
@@ -111,7 +117,7 @@ export default function Listings(){
                 
                 {data?.map((item:listingsData,index:number)=>{
                     return(
-                        <div className="col-sm  mb-3 w-100 d-flex  justify-content-center" key={index}>
+                        <div className="col-sm m-2  mb-3 w-100 d-flex  justify-content-center" key={index}>
                             <div className="card" style={{width:"18rem", height:"40rem"}} >
                                 <img src={item.image} className="card-img-top img-thumbnail h-50"   alt=""/>
                                 <div className="card-body">
