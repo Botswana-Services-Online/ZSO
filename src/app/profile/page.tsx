@@ -108,7 +108,7 @@ export default function Profile() {
                         {
                             listings.map((listing,index:number) => {
                                 return (
-                                    <div key={index} className="d-flex align-items-center justify-content-between border-bottom border-1 py-2">
+                                    <div key={index} className="d-flex align-items-center justify-content-between border-bottom border-1 py-2 pointer">
                                         <div className="d-flex align-items-center justify-content-between" onClick={() => {setSelected(listing);setHide({...hide,showDetails:true})}}>
                                             <img src={listing.image} style={{ width: "50px", height: "50px", objectFit: "cover" }} className="rounded-circle" />
                                             <div className="ms-2">
@@ -129,7 +129,7 @@ export default function Profile() {
                         {
                             data.images.map((image: string,index:number) => {
                                 return (
-                                    <div key={index} className="d-flex align-items-center justify-content-between border-bottom border-1 py-2">
+                                    <div key={index} className="d-flex align-items-center justify-content-between border-bottom border-1 py-2 pointer">
                                         <div className="d-flex align-items-center justify-content-between" onClick={()=>{setViewSelected(image);setHide({...hide,showGallery:true})}}>
                                             <img src={image} style={{height:"20vh"}} className="rounded me-2" />
                                            
