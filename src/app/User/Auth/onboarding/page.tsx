@@ -117,7 +117,8 @@ export default function Register() {
             phone,
             numEmployees: employees,
             email: owner,
-            createdAt: createdAt
+            createdAt: createdAt,
+            industry
         }
 
         addDoc(collection(db, "users"), data).then(res => {

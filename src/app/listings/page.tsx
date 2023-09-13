@@ -1,5 +1,5 @@
 "use client"
-import { businessOutline, call,  carOutline,  cartOutline,  checkmarkDoneCircleOutline,  closeCircleOutline, filterOutline, location, logoWhatsapp, mail,  searchOutline, star } from "ionicons/icons";
+import { businessOutline, call,    cartOutline,  checkmarkDoneCircleOutline,  closeCircleOutline, filterOutline, location, logoWhatsapp, mail,  searchOutline, star } from "ionicons/icons";
 import { alignIcon,  mp, nomBtn, transBtn, vp } from "../components/cssStyles";
 import { IonIcon } from "@ionic/react";
 import { Modal } from "react-bootstrap";
@@ -10,13 +10,14 @@ import { collection, query, getDocs, limit, startAfter } from "firebase/firestor
 import { useSearchParams } from "next/navigation";
 import { db } from "../api/firebase";
 import Link from "next/link";
+import { ReviewCalc } from "../components/calculate";
 export default function Listings(){
     const name = useSearchParams().get("name")
     const [searchName,setSearchName] = useState<string>("")
     const [searchCategory,setSearchCategory] = useState<string>("")
     const [searchLocation,setSearchLocation] = useState<string>("")
     const [searchPrice,setSearchPrice] = useState<string>("")
-    const [hideListings,setHideListings] = useState<boolean>(false)
+    const [hideListings,setHideListings] = useState<boolean>(true)
  
     const [hide,setHide] = useState({
         showFilterOptions: false,
@@ -31,9 +32,9 @@ export default function Listings(){
     let hasMore = true;
     
     // Function to retrieve data from Firestore with a limit of 20 documents at a time
-    async function getData() {
+    async function getData(dbRef:string) {
       // Get a reference to the collection
-      const colRef = collection(db, "listings");
+      const colRef = collection(db, dbRef);
     
       // Create a query with a limit of 20 documents
       let q = query(colRef, limit(20));
@@ -58,16 +59,17 @@ export default function Listings(){
       // Return the retrieved data
       let gotData:any = []
       querySnapshot.docs.map(doc =>gotData.push(doc.data()));
-      setData([...gotData])
+      dbRef==="listings"?setData([...gotData]):setCompData([...gotData])
       return gotData
     }
 
 
     useEffect(()=>{
         if(typeof(name)===null){
-            getData()
+            getData("listings")
         }else{
-            
+            getData("users")
+            getData("listings")
         }
         
     },[])
@@ -152,15 +154,15 @@ export default function Listings(){
               <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly " >
                 {compData?.map((item:userData,index:number)=>{
                     return(
-                      <div key={index} className="rounded shadow-lg">
+                      <div key={index} className="rounded shadow-lg p-3 m-2" style={{width:"18rem",height:"30vh"}}>
                         <div className="d-flex justify-content-between ">
                             <p>{item.name}</p>
                             <IonIcon color="medium" icon={checkmarkDoneCircleOutline}/>
                         </div>
                         <hr/>
                         <div >
-                            <p>{item.Description}</p>
-                            <p><IonIcon color="warning" icon={star}/></p>
+                            <p>{item.industry}</p>
+                            {ReviewCalc(item.reviews)}
                         </div>
                       </div>
                     )

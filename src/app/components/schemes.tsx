@@ -14,6 +14,7 @@ export interface userData{
     id:string,
     registered:false,
     reviews:Array<{rating:number,message:string}>,
+    industry:string
 }
 
 export const userDataDefault:userData={
@@ -31,7 +32,8 @@ export const userDataDefault:userData={
     log:false,
     id:"",
     registered:false,
-    reviews:[]
+    reviews:[],
+    industry:""
 }
 export interface listingsData{
     name:string,
