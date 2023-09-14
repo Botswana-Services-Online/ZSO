@@ -13,7 +13,7 @@ export  default function Legal(){
 
 <strong>Personal Data</strong>: While using our service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you.
 
-<strong>Usage Data</strong>: We may also collect information on how the website is accessed and used. This Usage Data may include information such as your computer's IP address, browser type, browser version, the pages of our website that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.
+<strong>Usage Data</strong>: We may also collect information on how the website is accessed and used. This Usage Data may include information such as your computer&apos;s IP address, browser type, browser version, the pages of our website that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.
 
 <h2>3. Use of Your Information</h2>
 <p>We use the information we collect in various ways, including to:</p>
