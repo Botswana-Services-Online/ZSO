@@ -13,7 +13,7 @@ export  default function Legal(){
 
 <strong>Personal Data</strong>: While using our service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you.
 
-<strong>Usage Data</strong>: We may also collect information on how the website is accessed and used. This Usage Data may include information such as your computer&apos;s IP address, browser type, browser version, the pages of our website that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.
+<strong>Usage Data</strong>: We may also collect information on how the website is accessed and used. This Usage Data may include information such as your computers IP address, browser type, browser version, the pages of our website that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.
 
 <h2>3. Use of Your Information</h2>
 <p>We use the information we collect in various ways, including to:</p>
@@ -54,10 +54,10 @@ export  default function Legal(){
 </ul>
 
 <h2>4. Your Content</h2>
-<p>In these Website Standard Terms and Conditions, "Your Content" shall mean any audio, video text, images or other material you choose to display on this Website. By displaying Your Content, you grant Zimbabwe Services Online a non-exclusive, worldwide irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.</p>
+<p>In these Website Standard Terms and Conditions, &apos;Your Content&apos; shall mean any audio, video text, images or other material you choose to display on this Website. By displaying Your Content, you grant Zimbabwe Services Online a non-exclusive, worldwide irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.</p>
 
 <h2>5. No warranties</h2>
-<p>This Website is provided "as is," with all faults, and Zimbabwe Services Online express no representations or warranties, of any kind related to this Website or the materials contained on this Website.</p>
+<p>This Website is provided &apos;as is,&apos; with all faults, and Zimbabwe Services Online express no representations or warranties, of any kind related to this Website or the materials contained on this Website.</p>
 
 <h2>6. Governing Law & Jurisdiction</h2>
 <p>These Terms will be governed by and interpreted in accordance with the laws of the State of Zimbabwe, and you submit to the non-exclusive jurisdiction of the state and federal courts located in Zimbabwe for the resolution of any disputes.</p>
