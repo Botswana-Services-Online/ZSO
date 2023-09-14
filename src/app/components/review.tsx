@@ -14,18 +14,21 @@ const Review=(props:{close:{showReview:boolean,setShowReview:(c:boolean)=>void},
     })
 
     const handleSubmit=(e:FormDataEvent)=>{
+        e.preventDefault()
         //update doc reviews
         //update doc in firebase
         updateDoc(doc(db,"users",props.data.id),{
             reviews:[...props.data.reviews,{rating:reviewData.rating,message:reviewData.message}]
         }).then(res=>{
             console.log(res)
+            props.close.setShowReview(false)
         }).catch(err=>{
             console.log(err)
+            props.close.setShowReview(false)
         })
     }
     return(
-        <Modal show={props.close.showReview}>
+        <Modal size="lg" show={props.close.showReview}>
             <Modal.Header>
                 <h3>Reviews</h3>
                 <button className={transBtn} onClick={()=>props.close.setShowReview(false)}><IonIcon color="danger" icon={closeCircleOutline}/></button>
@@ -52,12 +55,12 @@ const Review=(props:{close:{showReview:boolean,setShowReview:(c:boolean)=>void},
                     <button type="submit" className={nomBtn}>Submit</button>
                     </form>
                 </div>
-                <div>
+                <div className="d-block overflow-auto  mt-2" style={{height:"20vh"}}>
                     {
                         // map through reviews
                         props.data.reviews?.map((review:any,index:number)=>{
                             return(
-                                <div key={index}>
+                                <div key={index} className="shadow rounded p-2 m-2 mb-3">
                                     <p>{review.message}</p>
                                     <p>{review.rating} <IonIcon color="warning" icon={star}/></p>
                                 </div>
