@@ -169,7 +169,7 @@ export default function Register() {
                     <div className="row">
 
                         <div className="col-sm">
-                            <span >CR5 Document</span>
+                            <span >Certificate of Incoporation</span>
                             <input type="file" accept="application/pdf" className="form-control shadow-lg mb-3 rounded-pill" placeholder="Company Registration Document CR5*" onChange={(e: any) => setDoc(e.target.files[0])} required />
                         </div>
                         <div className="col-sm ">
