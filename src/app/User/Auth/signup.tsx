@@ -86,7 +86,7 @@ export default function Signup() {
                     <small className="m-1 text-danger" hidden={warn}>Password does not match with repeated one!</small>
                     <br />
                     <div className="m-3">
-                        <input type="checkbox" value="true" className="form-check-input me-1 mb-3" required /><span><small>By signing up you agree to our <a href="./legal">Terms and Conditions </a></small></span>
+                        <input type="checkbox" value="true" className="form-check-input me-1 mb-3" required /><span><small>By signing up you agree to our <a href="https://zimbabweservices.com/legal">Terms and Conditions </a></small></span>
                     </div>
 
 
