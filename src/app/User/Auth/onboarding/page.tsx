@@ -16,7 +16,7 @@ import { Alert } from "react-bootstrap";
 export default function Register() {
     const route = useRouter()
     const [name, setName] = useState("")
-    const [phone, setPhone] = useState("")
+    const [phone, setPhone] = useState("+263")
     const [doc, setDoc] = useState<any>()
     const [address, setAddress] = useState("")
     const [employees, setNumEmployees] = useState<any>(0)
@@ -154,7 +154,7 @@ export default function Register() {
                             <input type="text" className={genFrm} placeholder="Company Name*" onChange={(e) => setName(e.target.value)} required />
                         </div>
                         <div className="col-sm">
-                            <input type="text" className={genFrm} placeholder="Phone Number*" onChange={(e) => setPhone(e.target.value)} required />
+                            <input type="text" className={genFrm} placeholder="Phone Number*" value={phone} onChange={(e) => setPhone(e.target.value)} required />
                         </div>
                         <div className="col-sm">
                             <input type="text" className={genFrm} placeholder="Address*" onChange={(e) => setAddress(e.target.value)} required />

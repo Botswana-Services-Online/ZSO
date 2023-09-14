@@ -1,6 +1,6 @@
 "use client"
 import { businessOutline, call,    cartOutline,  checkmarkDoneCircleOutline,  closeCircleOutline, filterOutline, location, logoWhatsapp, mail,  searchOutline, star } from "ionicons/icons";
-import { alignIcon,  mp, nomBtn, transBtn, vp } from "../components/cssStyles";
+import { alignIcon,  bgImg,  mp, nomBtn, transBtn, vp } from "../components/cssStyles";
 import { IonIcon } from "@ionic/react";
 import { Modal } from "react-bootstrap";
 import { cities,categories } from "../components/categories";
@@ -121,7 +121,10 @@ export default function Listings(){
                     return(
                         <div className="col-sm m-2  mb-3 w-100 d-flex  justify-content-center" key={index}>
                             <div className="card" style={{width:"18rem", height:"40rem"}} >
-                                <img src={item.image} className="card-img-top img-thumbnail h-50"   alt=""/>
+                                {/* <img src={item.image} className="card-img-top img-thumbnail "    alt=""/> */}
+                                <div className="card-img-top" style={{...bgImg(item.image), height:"20rem",width:"100%"}}>
+
+                                </div>
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between ">
                                     {item.review?.map((item:any,index:number)=>{

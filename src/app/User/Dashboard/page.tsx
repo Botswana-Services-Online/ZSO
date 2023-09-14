@@ -40,7 +40,7 @@ export default function Profile() {
     const [numEmployees, setNumEmployees] = useState<number>(access.numEmployees)
     const [categoryList, setCategoryList] = useState<Array<any>>([])
     const [citiesList, setCitiesList] = useState<Array<any>>([])
-    const [listingData, setListingData] = useState<Array<listingsData>>()
+    const [listingData, setListingData] = useState<Array<listingsData>>([])
     const [selectedListing, setSelectedListing] = useState<listingsData>(listingsDataDefault)
     const[selectedId,setSelectedId]=useState<string>("")
 
@@ -224,7 +224,7 @@ export default function Profile() {
                     <div className="d-flex flex-column align-items-center justify-content-center border rounded me-2" style={{ minWidth: "30vw", maxWidth:"30vw",height: "30vh" }}>
                         <img className="imgGreen" src="https://voideawn.sirv.com/website/add-circle.svg" width="25" />
                         <br />
-                        <small className="text-success text-center text-decoration-underline pointer" onClick={() => setHide({ ...hide, showAddListing: true })}>New Listing</small>
+                        {listingData?.length>1?<a href="/pricing">Upgrade Account</a>:<small className="text-success text-center text-decoration-underline pointer" onClick={() => setHide({ ...hide, showAddListing: true })}>New Listing</small>}
                     </div>
                     
                     
