@@ -2,6 +2,7 @@
 import { Card } from "react-bootstrap";
 import { genBtn, mp, vp } from "../components/cssStyles";
 import {Fade} from "react-awesome-reveal"
+import Link from "next/link";
 export default function Pricing(){
     return(
         <div className={mp}>
@@ -29,7 +30,7 @@ export default function Pricing(){
                                     <li>No AI features, manual operation & validation</li>
                                 </ul>
                                 <h1 className="text-center">$0</h1>
-                            <button className={genBtn}>Register for Free</button>
+                            <Link href="/User/Auth"><button className={genBtn}>Register for Free</button></Link>
                             </Fade>
                             </Card.Body>
                            

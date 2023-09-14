@@ -5,6 +5,9 @@ import Marquee from "react-fast-marquee"
 import { Fade } from "react-awesome-reveal"
 import { useRouter } from "next/navigation"
 import { FormEvent, useState } from "react"
+import { checkmarkDoneCircleOutline } from "ionicons/icons"
+import { IonIcon } from "@ionic/react"
+import Link from "next/link"
 
 export default function Home() {
 
@@ -47,11 +50,32 @@ export default function Home() {
             <p>
               Selling online is not just an increase in revenue, but a way to further connect with your audiences and expand your name. By growing your online presence, your business is no longer limited to a local customer base.
             </p>
-            <button className={genBtn}>Create Your Free listing!</button>
+            <Link href="/User/Auth"><button className={genBtn}>Create Your Free listing!</button></Link>
           </div>
         </div>
         
       </div>
+      </Fade>
+      <Fade>
+          <div className="m-5">
+              <div className="row text-center">
+                <h1>Verified Badges</h1>
+                <br />
+                <div className="col-sm">
+                
+                  <IonIcon color="warning" size="large" icon={checkmarkDoneCircleOutline}/>
+                  <p>Premium</p>
+                </div>
+                <div className="col-sm">
+                  <IonIcon color="success" size="large" icon={checkmarkDoneCircleOutline}/>
+                  <p>Standard</p>
+                </div>
+                <div className="col-sm">
+                  <IonIcon color="medium" size="large" icon={checkmarkDoneCircleOutline}/>
+                  <p>Free</p>
+                </div>
+              </div>
+          </div>
       </Fade>
       <div>
         <Marquee>
@@ -164,7 +188,7 @@ export default function Home() {
               <li>Quality customer support</li>
               <li>Marketing is made easy</li>
             </ul>
-            <button className={genBtn}>Get your Free Listing</button>
+            <Link href="/User/Auth"><button className={genBtn}>Get your Free Listing</button></Link>
           </div>
           <div className="col-sm">
             <img className="Sirv rounded shadow-lg img-fluid" src="https://voideawn.sirv.com/website/home_three.jpg" alt="man painted with the Zimbabwean flag" />
