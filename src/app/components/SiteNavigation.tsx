@@ -12,6 +12,7 @@ import { Dropdown } from 'react-bootstrap';
 import { Authorized } from './contexts';
 import Link from 'next/link';
 import { userDataDefault } from './schemes';
+import { whatsappLink } from './linkFunctions';
 
 
 export const NavBar = () => {
@@ -107,26 +108,26 @@ export const FooterBar = () => {
             <div className="col-sm text-center">
                 <p><b>Support</b></p>
                 <br/>
-                <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/mail-outline.svg" width="30" />&nbsp;<a href="mailto:" className='text-white text-decoration-none '>support@zimservicesonline.co.zw</a></p>
-                <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/call-outline.svg" width="30" />&nbsp;<a href="tel:" className='text-white text-decoration-none '>+263 78 898 4320</a></p>
+                <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/mail-outline.svg" width="30" />&nbsp;<a href="mailto:" className='text-white text-decoration-none '>support@zimbabweservices.co.zw</a></p>
+                <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/call-outline.svg" width="30" />&nbsp;<a href="tel:" className='text-white text-decoration-none '>+267 73 400 400</a></p>
                <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/location-outline.svg" width="30" />&nbsp;Plot 22211 Phase 4 Gaborone</p>
                 
             </div>
             <div className="col-sm">
                 <p><b>Socials</b></p>
                 <br />
-                <p><a href="" className='text-white text-decoration-none ' target="_blank">Facebook</a></p>
-                <p><a href="" className='text-white text-decoration-none' target="_blank">Instagram</a></p>
-                <p><a href="" className='text-white text-decoration-none' target="_blank">LinkedIn</a></p>
-                <p><a href="" className='text-white text-decoration-none' target="_blank">Whatsapp</a></p>
+                <p><a href="https://www.facebook.com/profile.php?id=100094332136569" className='text-white text-decoration-none ' target="_blank">Facebook</a></p>
+                {/* <p><a href="" className='text-white text-decoration-none' target="_blank">Instagram</a></p> */}
+                <p><a href="https://www.linkedin.com/in/zso-undefined-805601291/" className='text-white text-decoration-none' target="_blank">LinkedIn</a></p>
+                <p><a href={whatsappLink("+26773400400")} className='text-white text-decoration-none' target="_blank">Whatsapp</a></p>
                <br/>
                <p>Love the site visit <a className='text-white' target="_blank" href='https://aurorasystems.co.zw'>Aurora</a></p>
             </div>
             <div className="col-sm">
                 <p><b>© {new Date().getFullYear()} Zimbabwe Services Online</b></p>
                 <br/>
-                <p>Privacy and Security</p>
-                <p>Terms and Conditions</p>
+                <p><a  className='text-white text-decoration-none' href="./Legal">Legal</a></p>
+                
             </div>
         </div>
        </footer>
