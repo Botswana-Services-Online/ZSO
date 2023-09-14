@@ -47,12 +47,6 @@ export default function RootLayout({
       }).catch(err=>{
         localStorage.setItem("profilePicture","https://voideawn.sirv.com/website/person-circle.svg")
       })
-    }else{
-      sendEmailVerification(user).then(res=>{
-       window.location.assign("/User/Auth/verify")
-      }).catch(err=>{
-        window.location.assign("/User/Auth/verify")
-      })
     }
     }
    })
