@@ -60,7 +60,7 @@ export const NavBar = () => {
                         <Link className="text-decoration-none text-white m-2" href="/">Home</Link>
                         <Link href="/listings" className="text-decoration-none text-white m-2">Listings</Link>
                         <Link className="text-decoration-none text-white m-2" href="/pricing">Pricing</Link>
-                        <Link className="text-decoration-none text-white m-2" href="/support">Blog</Link>
+                        {/* <Link className="text-decoration-none text-white m-2" href="/support">Blog</Link> */}
                         <Link className="text-decoration-none text-white m-2" href="/support">Support</Link>
                     </Nav>
                     <div className="d-flex flex-row flex-wrap justify-content-evenly ">

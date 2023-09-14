@@ -26,6 +26,7 @@ export default function Pricing(){
                                     <li>No verification badge</li>
                                     <li>Valid for 30 days</li>
                                     <li>Basic Email Support</li>
+                                    <li>No AI features, manual operation & validation</li>
                                 </ul>
                                 <h1 className="text-center">$0</h1>
                             <button className={genBtn}>Register for Free</button>
@@ -58,6 +59,7 @@ export default function Pricing(){
                                     <li>Verified badge</li>
                                     <li>Valid for 30 days</li>
                                     <li>24/7  Email Support</li>
+                                    <li>Basic AI support, write company description etc</li>
                                 </ul>
                                 <h1 className="text-center">
                                     $5
@@ -86,8 +88,9 @@ export default function Pricing(){
                                     <li>Featured on all social platforms</li>
                                     <li>Daily Ad push</li>
                                     <li>Verified Premium badge</li>
-                                    <li>Valid for 1 month</li>
+                                    <li>Valid for 30 days</li>
                                     <li>24/7 Email & Call Support</li>
+                                    <li>Full AI features, create intuitive listings</li>
                                 </ul>
                                 <h1 className="text-center">
                                     $10
