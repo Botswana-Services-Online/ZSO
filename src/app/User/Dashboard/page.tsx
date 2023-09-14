@@ -1,9 +1,9 @@
 "use client"
 import { db } from "@/app/api/firebase"
-import { useState, useLayoutEffect, useContext, useEffect } from "react"
+import { useState, useLayoutEffect, useContext, useEffect, FormEvent } from "react"
 import ViewDocs from "@/app/components/viewDocs"
 import { Authorized } from "@/app/components/contexts"
-import { addCircle, close, eye, images, informationCircle, trash } from "ionicons/icons"
+import { addCircle, close, closeCircleOutline, eye, images, informationCircle, trash } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
 import { storage } from "@/app/api/firebase"
 import { ref, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage"
@@ -11,8 +11,8 @@ import { v4 } from "uuid"
 import { updateUser } from "@/app/components/updateInfo"
 import { alignIcon, bgImg, genBtn, genFrm, loading, nomBtn, outlineBtn } from "@/app/components/cssStyles"
 import { Modal } from "react-bootstrap"
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore"
-import { listingsData } from "@/app/components/schemes"
+import { addDoc, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore"
+import { listingsData, listingsDataDefault } from "@/app/components/schemes"
 import { categories, cities } from "@/app/components/categories"
 import { search } from "ss-search"
 
@@ -29,6 +29,7 @@ export default function Profile() {
     const [hide, setHide] = useState({
         showGalleryView: false,
         showAddListing: false,
+        showSelected:false,
         hideCategories: true,
         hideCities: true
     })
@@ -40,6 +41,8 @@ export default function Profile() {
     const [categoryList, setCategoryList] = useState<Array<any>>([])
     const [citiesList, setCitiesList] = useState<Array<any>>([])
     const [listingData, setListingData] = useState<Array<listingsData>>()
+    const [selectedListing, setSelectedListing] = useState<listingsData>(listingsDataDefault)
+    const[selectedId,setSelectedId]=useState<string>("")
 
     //listing data
     const [name, setName] = useState<string>("")
@@ -53,6 +56,7 @@ export default function Profile() {
 
     //loaders
     const [addListingLoad, setAddListingLoad] = useState<any>(<button type="submit" className={genBtn}>Add Listing</button>)
+    const [updateListingLoad, setUpdateListingLoad] = useState<any>(<button type="submit" className={genBtn}>Update Listing</button>)
 
     const getListingData=()=>{
         const id = localStorage.getItem("user")
@@ -60,7 +64,8 @@ export default function Profile() {
         const q = query(dbRef, where("userId","==",`${id}`))
         getDocs(q).then(res=>{
             const resData:any = []
-            res.docs.forEach(doc=>resData.push(doc.data()))
+            // res.do
+            res.docs.forEach(doc=>resData.push(doc))
             setListingData(resData)
         }).catch(err=>{
             console.log(err)
@@ -194,6 +199,18 @@ export default function Profile() {
         return URL.createObjectURL(image)
     }
 
+    const handleUpdate=(e:FormEvent)=>{
+        e.preventDefault()
+        setUpdateListingLoad(loading)
+        updateDoc(doc(db,"listings",selectedId),{...selectedListing}).then(res=>{
+                getListingData()
+                setUpdateListingLoad(<button type="submit" className={genBtn}>Update Listing</button>)
+                setHide({...hide,showSelected:false})
+        }).catch(err=>{
+
+        })
+    }
+
 
 
     return (
@@ -214,13 +231,13 @@ export default function Profile() {
                     
                    
                         {
-                            listingData?.map((item: listingsData, index: number) => {
+                            listingData?.map((item: any, index: number) => {
                                 return (
-                                    <div key={index} className="mb-3 me-2 pointer">
+                                    <div key={index} className="mb-3 me-2 pointer" onClick={()=>{setSelectedListing(item.data());setSelectedId(item.id);setHide({...hide,showSelected:true})}}>
                                         <div className="card" style={{minWidth: "30vw",maxWidth:"30vw", height: "30vh"}}>
-                                            <img src={item.image} loading="eager" style={{height:"20vh"}} className="rounded  m-2 img-fluid  fitImages" alt="..."/>
+                                            <img src={item.data().image} loading="eager" style={{height:"20vh"}} className="rounded  m-2 img-fluid  fitImages" alt="..."/>
                                                 <div className=" text-center ">
-                                                    <p className="card-title"><small>{item.name}</small></p>
+                                                    <p className="card-title"><small>{item.data().name}</small></p>
                                                   
                                                     <div className="d-flex justify-content-between ">
                                                         
@@ -402,6 +419,80 @@ export default function Profile() {
                     </div>
                 </Modal.Body>
             </Modal>
+            <Modal show={hide.showSelected} size="lg">
+            <Modal.Header>
+                    <h3>Edit Listing</h3>
+                    <button className={`btn btn-transparent rounded-pill ${alignIcon}`} onClick={() => { setHide({ ...hide, showSelected: false }); setImagePreview("") }}> <IonIcon color="danger" icon={closeCircleOutline} /></button>
+                </Modal.Header>
+                <Modal.Body >
+                    <div >
+                        <form onSubmit={(e) => handleUpdate(e)}>
+                            <div className="row">
+                                <div className="col-sm">
+                                    <div className="row d-flex align-items-center  text-center" style={{ ...bgImg(selectedListing.image), height: "50vh" }}>
+
+                                        {/* <label htmlFor="newPicture" className="pointer">
+                                            <input type="file" id="newPicture" style={{ display: "none" }} accept="image/jpg image/png image/webp image/jpeg" onChange={(e: any) => { setImagePreview(previewImg(e.target.files[0])); setSelectedListing({...selectedListing,image:e.target.files[0]}) }} />
+                                            <p className=" btn bg-white btn-outline-success  outlineHover btn-white rounded-pill">Change Image</p>
+                                        </label> */}
+                                    </div>
+                                </div>
+                                <div className="col-sm">
+                                    <div className="row">
+                                        <div className="col-sm mb-3">
+                                            <input type="text" className={genFrm} placeholder="Product/Service Name" value={selectedListing.name} onChange={(e)=>setSelectedListing({...selectedListing,name:e.target.value})} required />
+                                        </div>
+                                        <div className="col-sm mb-3">
+                                            <input type="text" className={genFrm} placeholder="Category" value={selectedListing.category} onChange={(e) => { setSelectedListing({...selectedListing,category:e.target.value}); searchCategories(e.target.value); }} required />
+                                            <div className="shadow-lg p-2 me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCategories} >
+                                                {
+                                                    categoryList.map((item: { name: string }, index: number) => {
+                                                        return (
+                                                            <p key={index} className="pointer" onClick={() => { setSelectedListing({...selectedListing,category:item.name}); setHide({ ...hide, hideCategories: true }) }}>{item.name}</p>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-sm mb-3">
+                                            <input type="text" className={genFrm}  placeholder="Service Area" value={selectedListing.serviceLocation} onChange={(e) => { setSelectedListing({...selectedListing,serviceLocation:e.target.value}); searchCities(e.target.value); }} required />
+                                            <div className="shadow-lg p-2  me-5 rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideCities} >
+                                                {
+                                                    citiesList.map((item: { name: string }, index: number) => {
+                                                        return (
+                                                            <p key={index} className="pointer" onClick={() => { setSelectedListing({...selectedListing,serviceLocation:item.name}); setHide({ ...hide, hideCities: true }) }}>{item.name}</p>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="col-sm mb-3">
+                                            <input type="number" value={selectedListing.price} className={genFrm} placeholder="Price - Optional" onChange={(e)=>setSelectedListing({...selectedListing,price:e.target.value})}/>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-sm mb-3 m-2">
+                                            <textarea required className="form-control rounded shadow-lg" value={selectedListing.description} placeholder="Description" onChange={(e) => setSelectedListing({...selectedListing,description:e.target.value})}></textarea>
+                                        </div>
+                                    </div>
+                                    <div className="text-center">
+
+                                        <>{updateListingLoad}</>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <button className="btn btn-outline-danger  rounded-pill" onClick={()=>setHide({...hide,showSelected:false})}>Remove Listing</button>
+                </Modal.Footer>
+
+            </Modal>
+            
         </div>
     )
 }
