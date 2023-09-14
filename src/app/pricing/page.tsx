@@ -28,6 +28,7 @@ export default function Pricing(){
                                     <li>Valid for 30 days</li>
                                     <li>Basic Email Support</li>
                                     <li>No AI features, manual operation & validation</li>
+                                    <li>No Profile Flier</li>
                                 </ul>
                                 <h1 className="text-center">$0</h1>
                             <Link href="/User/Auth"><button className={genBtn}>Register for Free</button></Link>
@@ -61,6 +62,7 @@ export default function Pricing(){
                                     <li>Valid for 30 days</li>
                                     <li>24/7  Email Support</li>
                                     <li>Basic AI support, write company description etc</li>
+                                    <li>Profile Flier</li>
                                 </ul>
                                 <h1 className="text-center">
                                     $5
@@ -92,6 +94,7 @@ export default function Pricing(){
                                     <li>Valid for 30 days</li>
                                     <li>24/7 Email & Call Support</li>
                                     <li>Full AI features, create intuitive listings</li>
+                                    <li>Profile Flier</li>
                                 </ul>
                                 <h1 className="text-center">
                                     $10
