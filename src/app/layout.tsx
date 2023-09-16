@@ -55,6 +55,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
       <meta name="google-adsense-account" content="ca-pub-7691895735151663"/>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7691895735151663"
+     crossOrigin="anonymous"></script>
       {/* <link rel='shortcut icon' href='https://voideawn.sirv.com/website/favicon.jpg'/> */}
       <title>Zimbabwe Services Online</title>
       </head>
