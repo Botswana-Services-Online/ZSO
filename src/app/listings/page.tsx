@@ -13,6 +13,7 @@ import Link from "next/link";
 import { ReviewCalc } from "../components/calculate";
 import { useRouter } from "next/navigation";
 import { get } from "http";
+import algolia from "algoliasearch"
 export default function Listings(){
     const nav = useRouter()
     const name:any = useSearchParams().get("name")
@@ -21,7 +22,8 @@ export default function Listings(){
     const [searchLocation,setSearchLocation] = useState<string>("")
     const [searchPrice,setSearchPrice] = useState<string>("")
     const [hideListings,setHideListings] = useState<boolean>(true)
- 
+    const searchAll = algolia("WVEPWJXG9S","70781c8d8f715f97a5a55cb90ba3eccd") 
+    const listingIndex = searchAll.initIndex("listings")
     const [hide,setHide] = useState({
         showFilterOptions: false,
         showDetails:false,
@@ -72,20 +74,32 @@ export default function Listings(){
       console.log(gotData)
     }
 
+    const searchIndex=(value:string)=>{
+        listingIndex.search(value).then((res:any)=>{
+            console.log(res.hits)
+            setData(res.hits)
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+
 
     useEffect(()=>{
         if(typeof(name)===null){
+            getData("users")
             getData("listings")
         }else{
+           searchIndex(name)
             getData("users",name)
-            getData("listings",name)
+            // getData("listings",name)
         }
         
     },[])
 
     const handleSearch=(e:FormDataEvent)=>{
         e.preventDefault()
-        getData("listings",searchName)
+        searchIndex(searchName)
+        // getData("listings",searchName)
         getData("users",searchName)
     }
 
