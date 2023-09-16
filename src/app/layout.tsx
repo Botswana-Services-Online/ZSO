@@ -11,6 +11,7 @@ import { getAuth, onAuthStateChanged, sendEmailVerification } from 'firebase/aut
 import { app } from './api/firebase';
 import { fetchData } from './components/getData';
 import { userData, userDataDefault } from './components/schemes';
+import Script from 'next/script';
 
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -55,12 +56,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
       <meta name="google-adsense-account" content="ca-pub-7691895735151663"/>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7691895735151663"
-     crossOrigin="anonymous"></script>
-      {/* <link rel='shortcut icon' href='https://voideawn.sirv.com/website/favicon.jpg'/> */}
+      <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7691895735151663"
+     crossOrigin="anonymous"  strategy="lazyOnload"></Script>
       <title>Zimbabwe Services Online</title>
       </head>
-      {/* <body className={inter.className} > */}
       <body>
       <Authorized.Provider value={{access,setAccess}}>
         <NavBar/>
