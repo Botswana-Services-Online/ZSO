@@ -85,9 +85,10 @@ export default function Listings(){
 
 
     useEffect(()=>{
-        if(typeof(name)===null){
+        if(typeof(name)!=="string"){
             getData("users")
             getData("listings")
+            
         }else{
            searchIndex(name)
             getData("users",name)
@@ -110,7 +111,7 @@ export default function Listings(){
                   
                 <div className="input-group">
                     <input className="form-control rounded-pill me-2" placeholder="Looking for?" value={searchName} onChange={(e)=>setSearchName(e.target.value)} required/>
-                    <button type="button" className={`${alignIcon} btn btn-outline-success rounded-pill me-1 btnHover`}  onClick={()=>setHide({...hide,showFilterOptions:true})}><IonIcon icon={filterOutline}/></button>
+                    {/* <button type="button" className={`${alignIcon} btn btn-outline-success rounded-pill me-1 btnHover`}  onClick={()=>setHide({...hide,showFilterOptions:true})}><IonIcon icon={filterOutline}/></button> */}
                     <button type="submit" className={`${alignIcon} btn btn-outline-success rounded-pill btnHover`}><IonIcon icon={searchOutline}/></button>
                 </div>
                 <div className="d-flex justify-content-center align-items-center   flex-row mt-3 rounded">
