@@ -17,7 +17,7 @@ export default function Profile() {
     const name = useSearchParams().get("name")
 
     //store profile data 
-    const [data, setData] = useState<any>(userDataDefault)
+    const [data, setData] = useState<userData>(userDataDefault)
     const [listings, setListings] = useState<Array<listingsData>>([])
     const [selected, setSelected] = useState<listingsData>(listingsDataDefault)
     const [viewSelected, setViewSelected] = useState<string>("")

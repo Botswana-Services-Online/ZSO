@@ -17,8 +17,10 @@ const Review=(props:{close:{showReview:boolean,setShowReview:(c:boolean)=>void},
         e.preventDefault()
         //update doc reviews
         //update doc in firebase
+        const updated = [{rating:reviewData.rating,message:reviewData.message}]
+        props.data.reviews?.map((review:any)=>updated.push(review))
         updateDoc(doc(db,"users",props.data.id),{
-            reviews:[...props.data.reviews,{rating:reviewData.rating,message:reviewData.message}]
+            reviews:updated
         }).then(res=>{
             console.log(res)
             props.close.setShowReview(false)

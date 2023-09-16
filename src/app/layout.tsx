@@ -7,7 +7,7 @@ import { FooterBar, NavBar } from './components/SiteNavigation';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import { useState,useEffect } from 'react';
 import { Authorized } from './components/contexts';
-import { getAuth, onAuthStateChanged, sendEmailVerification } from 'firebase/auth';
+import { getAuth, onAuthStateChanged} from 'firebase/auth';
 import { app } from './api/firebase';
 import { fetchData } from './components/getData';
 import { userData, userDataDefault } from './components/schemes';
