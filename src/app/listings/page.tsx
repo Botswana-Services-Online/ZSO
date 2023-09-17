@@ -128,6 +128,9 @@ export default function Listings(){
                 
                
             </div>
+            <br/>
+            <br/>
+            <br/>
            
               </form>
             <div className={vp}>
@@ -138,7 +141,8 @@ export default function Listings(){
                 {hideListings===true?
                 
               <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly " >
-                
+               <div className="mt-5"></div>
+               <br/>
                 {data?.map((item:listingsData,index:number)=>{
                     return(
                         <div className="col-sm m-2  mb-3 w-100 d-flex  justify-content-center" key={index}>
