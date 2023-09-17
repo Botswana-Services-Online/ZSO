@@ -176,6 +176,18 @@ export default function Home() {
         </Marquee>
 
       </div>
+      <div className={vp}>
+        <div className="row container">
+          <div className="col-sm">
+            <h1>AI Neural Search</h1>
+            <p>No need to use search filters. Search for the location and price all on a single prompt!!</p>
+          </div>
+          <div className="col-sm">
+            <img src="" className="img-fluid"/>
+          </div>
+        </div>
+
+      </div>
       <Fade direction="down">
       <div className={vp}>
         <div className="row container">

@@ -6,17 +6,18 @@ import { Modal } from "react-bootstrap";
 import { cities,categories } from "../components/categories";
 import { useEffect, useState } from "react";
 import { listingsData, listingsDataDefault, userData } from "../components/schemes";
-import { collection, query, getDocs, limit, startAfter, where, or, and } from "firebase/firestore";
+import { collection, query, getDocs, limit, startAfter, where } from "firebase/firestore";
 import { useSearchParams } from "next/navigation";
 import { db } from "../api/firebase";
 import Link from "next/link";
 import { ReviewCalc } from "../components/calculate";
 import { useRouter } from "next/navigation";
-import { get } from "http";
 import algolia from "algoliasearch"
+import logo from "../media/color.jpg"
 export default function Listings(){
     const nav = useRouter()
     const name:any = useSearchParams().get("name")
+    const [hideLoad,setHideLoad] = useState<boolean>(true)
     const [searchName,setSearchName] = useState<string>("")
     const [searchCategory,setSearchCategory] = useState<string>("")
     const [searchLocation,setSearchLocation] = useState<string>("")
@@ -72,19 +73,24 @@ export default function Listings(){
 
       console.log(querySnapshot)
       console.log(gotData)
+      setHideLoad(true)
     }
 
     const searchIndex=(value:string)=>{
+        setHideLoad(false)
         listingIndex.search(value).then((res:any)=>{
+            setHideLoad(true)
             console.log(res.hits)
             setData(res.hits)
         }).catch(err=>{
+            setHideLoad(true)
             console.log(err)
         })
     }
 
 
     useEffect(()=>{
+        setHideLoad(false)
         if(typeof(name)!=="string"){
             getData("users")
             getData("listings")
@@ -128,6 +134,7 @@ export default function Listings(){
                 <div className="mt-5">
 
                 </div>
+                
                 {hideListings===true?
                 
               <div className="d-flex flex-row flex-wrap  m-3 mt-5 justify-content-evenly " >
@@ -321,6 +328,9 @@ export default function Listings(){
 
                 </Modal.Body>
             </Modal>
+            <div className="d-flex justify-content-center start-50 position-absolute text-center bottom-50" >
+                <img src="https://voideawn.sirv.com/website/color.jpg " hidden={hideLoad} width="100" className="img-fluid text-success spinner-border"/>
+            </div>
         </div>
     )
 }
