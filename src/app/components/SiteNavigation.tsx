@@ -47,39 +47,32 @@ export const NavBar = () => {
     }
 
     return (
-        <Navbar data-bs-theme="dark" expand="lg" className="Bg p-2 position-fixed " fixed="top" >
-            <Container fluid>
-                <Navbar.Brand className='text-white' href="#"><img src="https://voideawn.sirv.com/website/logo.png" width={40} alt="Zimbabwe Services Online"/> </Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll text-white bg-light" color='light'/>
+        <Navbar    expand="lg" className="p-2  navbarMain  position-fixed " fixed="top" >
+            <Container fluid className='navbarMain'>
+                <Navbar.Brand className='' href="#"><img src="https://voideawn.sirv.com/website/color.jpg" width={40} alt="Zimbabwe Services Online"/> </Navbar.Brand>
+                <Navbar.Toggle aria-controls="navbarScroll text-white bg-dark" color='dark'/>
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
-                        className="me-auto my-2 my-lg-0 text-white"
-                        style={{ maxHeight: '100px' }}
+                        className="me-auto my-2 my-lg-0 specialText"
+                        
                         navbarScroll
                     >
-                        <Link className="text-decoration-none text-white m-2" href="/">Home</Link>
-                        <Link href="/listings" className="text-decoration-none text-white m-2">Listings</Link>
-                        <Link className="text-decoration-none text-white m-2" href="/pricing">Pricing</Link>
+                        <Link className="text-decoration-none m-2" href="/">Home</Link>
+                        <Link href="/listings" className="text-decoration-none m-2">Listings</Link>
+                        <Link className="text-decoration-none  m-2" href="/pricing">Pricing</Link>
                         {/* <Link className="text-decoration-none text-white m-2" href="/support">Blog</Link> */}
-                        <Link className="text-decoration-none text-white m-2" href="/support">Support</Link>
+                        <Link className="text-decoration-none  m-2" href="/support">Support</Link>
                     </Nav>
                     <div className="d-flex flex-row flex-wrap justify-content-evenly ">
                         <div>
-                          <Button onClick={()=>{localStorage.setItem("log","0"); route.push("/User/Auth/")}} className="rounded-pill   border-light text-white  d-flex align-items-center me-2 bg-transparent" ><img className="imgWhite" src="https://voideawn.sirv.com/website/add-outline.svg" width="30" /><span>Add Listing</span></Button>
+                          <Button onClick={()=>{localStorage.setItem("log","0"); route.push("/User/Auth/")}} className=" specialText  d-flex align-items-center me-2 border-0 bg-transparent" ><span>Add Listing</span></Button>
                         </div>
                         <div hidden={hide.hideReg}>
-                            <Button onClick={()=>{localStorage.setItem("log","1"); route.push("/User/Auth/")}} className='rounded-pill  text-white  border-light d-flex align-items-center bg-transparent ' ><img className="imgWhite" src="https://voideawn.sirv.com/website/person-circle-outline.svg" width="30" /><span>Sign in</span></Button>
+                            <Button onClick={()=>{localStorage.setItem("log","1"); route.push("/User/Auth/")}} className='specialText   d-flex align-items-center border-0  bg-transparent ' ><span>Sign In | Register</span></Button>
                         </div>
                         <div  hidden={hide.hideHas} className=''>
-                        <Dropdown className='container'>
-                            <Dropdown.Toggle  className={`bg-transparent border-0 d-flex p-0 ${alignIcon}`}>
-                            <img className="rounded-pill mt-1 imgWhite" src={imgFile} width={30} alt="user " onClick={()=>{localStorage.setItem("log","1"); }}/>
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu className='Bg '>
-                                <Dropdown.Item  className='text-white' onClick={()=>route.push("/User/Dashboard/")}>Dashboard</Dropdown.Item>
-                                <Dropdown.Item  className='text-white' onClick={()=>logout()}>Logout</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                           <Button className='specialText   d-flex align-items-center border-0  bg-transparent ' onClick={()=>route.push("/User/Dashboard/")} ><span>Account</span></Button> 
+                    
                         
                     </div>
                     <div>

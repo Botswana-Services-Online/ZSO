@@ -148,49 +148,32 @@ export default function Register() {
                     <Alert show={warning}>Failed To save your information, please try again!</Alert>
                 </div>
                 <form onSubmit={(e: any) => submitFirst(e)} hidden={hide.hideOne}>
-                    <div className="row container" >
+                    <div className="row " >
 
-                        <div className="col-sm">
+                        <div className="col-sm mb-3">
+                            <p>Company  / Personal Name</p>
                             <input type="text" className={genFrm} placeholder="Company Name*" onChange={(e) => setName(e.target.value)} required />
                         </div>
-                        <div className="col-sm">
-                            <input type="text" className={genFrm} placeholder="Phone Number*" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+                        <div className="col-sm mb-3">
+                            <p>Mobile Phone</p>
+                            <input type="text" className={genFrm} placeholder="Mobile Number*" value={phone} onChange={(e) => setPhone(e.target.value)} required />
                         </div>
-                        <div className="col-sm">
-                            <input type="text" className={genFrm} placeholder="Address*" onChange={(e) => setAddress(e.target.value)} required />
+                        <div className="col-sm mb-3">
+                            <p>Telephone</p>
+                            <input type="text" className={genFrm} placeholder="Telephone Number" value={phone} onChange={(e) => setPhone(e.target.value)} required />
                         </div>
+                       
                     </div>
-                    <div className=" text-center d-flex justify-content-evenly w-100  m-3">
-                        <button type="submit" className="btn Bg rounded-pill text-white">Next</button>
-                    </div>
-                </form>
-
-                <form onSubmit={(e: any) => submitSecond(e)} hidden={hide.hideTwo}>
-                    <div className="row">
-
-                        <div className="col-sm">
-                            <span >Certificate of Incoporation</span>
-                            <input type="file" accept="application/pdf" className="form-control shadow-lg mb-3 rounded-pill" placeholder="Company Registration Document CR5*" onChange={(e: any) => setDoc(e.target.files[0])} required />
-                        </div>
-                        <div className="col-sm ">
-                            <span className="">Tax Clearence</span>
-                            <input type="file" accept="application/pdf" className="form-control shadow-lg mb-3 rounded-pill" placeholder="Tax Clearence Certificate*" onChange={(e: any) => setDoc(e.target.files[0])} required />
-                        </div>
-
-                    </div>
-                    <div className=" text-center d-flex justify-content-evenly w-100  m-3">
-                        <button type="button" value="cancel" className="btn Bg rounded-pill text-white" onClick={() => goBack()}>Back</button>
-
-                        <button type="submit" className="btn Bg rounded-pill text-white">Next</button>
-                    </div>
-                </form>
-                <form onSubmit={(e: any) => submitThird(e)} hidden={hide.hideThree}>
+                   
+                   
+                   
                     <div className="row" >
-                        <div className="col-sm">
-                            <input type="number" className={genFrm} placeholder="Number of Employees*" onChange={(e) => setNumEmployees(e.target.value)} required />
+                        <div className="col-sm mb-3">
+                            <p>Website</p>
+                            <input type="text" className={genFrm} placeholder="Number of Employees*" onChange={(e) => setNumEmployees(e.target.value)} required />
                         </div>
-                        <div className="col-sm ">
-
+                        <div className="col-sm mb-3">
+        <p>Industry</p>
                             <input type="text" value={industryPlace} className={genFrm} placeholder="Industry*" onChange={(e) => { setIndustryPlace(e.target.value); searchIndustry(e.target.value) }} />
                             <div className="shadow-lg  rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hideIndustry}>
                                 {
@@ -203,15 +186,31 @@ export default function Register() {
                                 }
                             </div>
                         </div>
+                        <div className="col-sm mb-3">
+                            <p>Register As A</p>
+                            <select className={genFrm} onChange={(e) => setIndustry(e.target.value)} required>
+                                <option value="Company">Company</option>
+                                <option value="Individual">Individual</option>
+                                </select>
+                        </div>
                     </div>
-                    <div className=" text-center d-flex justify-content-evenly w-100  m-3">
-                        <button type="button" className="btn Bg rounded-pill text-white" onClick={() => goBack()}>Back</button>
-
-                        <button type="submit" className="btn Bg rounded-pill text-white">{btnState}</button>
+                    <div className="row">
+                    <div className="col-sm mb-3">
+                        <p>Address</p>
+                            <textarea  className="form-control" placeholder="Address*" onChange={(e) => setAddress(e.target.value)} required ></textarea>
+                        </div>
                     </div>
+                    <div className="row">
+                        <div className="col-sm">
+                            p
+                            
+                            <input />
+                        </div>
+                    </div>
+                    
                 </form>
 
-                <progress className="Bg w-50 rounded-pill mt-5 text-white" value={progress} max={100}></progress>
+                {/* <progress className="Bg w-50 rounded-pill mt-5 text-white" value={progress} max={100}></progress> */}
             </div>
         </div>
     )

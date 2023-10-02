@@ -13,20 +13,26 @@ export default function Home() {
 
   const nav = useRouter()
   const [value,setValue] = useState<string>("")
+  const [location,setLocation] = useState<string>("") 
 
   const handleSubmit=(e:FormEvent)=>{
     e.preventDefault()
-    nav.push(`/listings?name=${value}`)
+    nav.push(`/listings?name=${value}?location=${location}`)
   }
   
   return (
     <div className={mp}>
       {/* home page */}
-      <div className={vp} style={bgImg("https://voideawn.sirv.com/website/home_one.jpg")}>
+      <div className={vp} style={bgImg("https://voideawn.sirv.com/website/young-woman-shopping-with-colorful-packs-black-wall.jpg")}>
+       
       <form onSubmit={(e)=>handleSubmit(e)} className="w-100">
+
+      <h3 className="display-1 text-center fw-bold specialText ">WELCOME TO ZIMBABWE SERVICES</h3>
+      <h4 className="text-center text-white fw-bold mt-5 mb-5 tshadow">Connecting People - Services</h4>
         <div className="input-group mb-3  container">
           
-          <input type="text" className="form-control shadow-lg rounded-pill  p-3 me-1" placeholder="looking for...." onChange={(e)=>setValue(e.target.value)}/>
+          <input type="text" className="form-control shadow-lg rounded-start-pill  p-3 " placeholder="looking for...." onChange={(e)=>setValue(e.target.value)}/>
+          <input type="text" className="form-control shadow-lg   rounded-end-pill p-3 me-2 " placeholder="location...." onChange={(e)=>setLocation(e.target.value)}/>
          
           <button type="submit" className="btn Bg text-white rounded-pill d-flex align-items-center"><img className="imgWhite" src="https://voideawn.sirv.com/website/search-circle-outline.svg" width="30" /></button>
          

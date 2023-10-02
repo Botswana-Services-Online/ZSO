@@ -13,10 +13,10 @@ import Link from "next/link";
 import { ReviewCalc } from "../components/calculate";
 import { useRouter } from "next/navigation";
 import algolia from "algoliasearch"
-import logo from "../media/color.jpg"
+
 export default function Listings(){
     const nav = useRouter()
-    const name:any = useSearchParams().get("name")
+    const name = useSearchParams()
     const [hideLoad,setHideLoad] = useState<boolean>(true)
     const [searchName,setSearchName] = useState<string>("")
     const [searchCategory,setSearchCategory] = useState<string>("")
@@ -90,14 +90,16 @@ export default function Listings(){
 
 
     useEffect(()=>{
+        //@ts-ignore
+        let p:any = name.get("name")
         setHideLoad(false)
-        if(typeof(name)!=="string"){
+        if(typeof(p)!=="string"){
             getData("users")
             getData("listings")
             
         }else{
-           searchIndex(name)
-            getData("users",name)
+           searchIndex(p)
+            getData("users",p)
             // getData("listings",name)
         }
         
@@ -115,12 +117,14 @@ export default function Listings(){
              <form onSubmit={(e:any)=>handleSearch(e)} className="mb-5">
             <div className=" d-flex flex-column justify-content-center p-3 mt-2 mb-5 position-fixed w-100  text-center bg-light z-1">
                   
-                <div className="input-group">
-                    <input className="form-control rounded-pill me-2" placeholder="Looking for?" value={searchName} onChange={(e)=>setSearchName(e.target.value)} required/>
-                    {/* <button type="button" className={`${alignIcon} btn btn-outline-success rounded-pill me-1 btnHover`}  onClick={()=>setHide({...hide,showFilterOptions:true})}><IonIcon icon={filterOutline}/></button> */}
+                <div className="input-group mb-3">
+                    <input className="form-control rounded-start-pill" placeholder="Looking for?" value={searchName} onChange={(e)=>setSearchName(e.target.value)} required/>
+                    <input className="form-control rounded-end-pill me-2" placeholder="Location" value={searchName} onChange={(e)=>setSearchName(e.target.value)} required/>
+                   
                     <button type="submit" className={`${alignIcon} btn btn-outline-success rounded-pill btnHover`}><IonIcon icon={searchOutline}/></button>
                 </div>
-                <small className="text-success mt-2">AI Nueral Search</small>
+                <button type="button" className={`${alignIcon} btn btn-outline-success rounded-pill me-1 btnHover`}  onClick={()=>setHide({...hide,showFilterOptions:true})}>Advanced Search</button>
+               
                 <div className="d-flex justify-content-center align-items-center   flex-row mt-3 rounded">
                 <button type="button" className={`me-3 ${transBtn} ${hideListings===true?"text-success":"text-dark"}`} onClick={()=>{setHideListings(true)}}><IonIcon icon={cartOutline}/>&nbsp;Listings</button>
                 <button type="button" className={`ms-3 ${transBtn} ${hideListings===false?"text-success":"text-dark"}`} onClick={()=>{setHideListings(false)}}><IonIcon icon={businessOutline}/>&nbsp;Companies</button>
@@ -213,12 +217,12 @@ export default function Listings(){
             </div>
             <Modal show={hide.showFilterOptions} size="lg">
                 <Modal.Header>
-                    <h3>Filter Options</h3>
+                    <h3>AI Powered Search</h3>
                     <button className={`${alignIcon} btn btn-transparent rounded-pill`}  onClick={()=>setHide({...hide,showFilterOptions:false})}><IonIcon color="danger" icon={closeCircleOutline}/></button>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="row">
-                        <div className="col-sm">
+                        <div className="col-sm mb-3">
                           <p>Category</p>
                             <select className="form-control" value={searchCategory} onChange={(e)=>setSearchCategory(e.target.value)}>
                                 {
@@ -230,7 +234,7 @@ export default function Listings(){
                                 }
                             </select>
                         </div>
-                        <div className="col-sm">
+                        <div className="col-sm mb-3">
                         <p>Location</p>
                             <select className="form-control" value={searchLocation} onChange={(e)=>setSearchLocation(e.target.value)}>
                                 {
@@ -242,9 +246,25 @@ export default function Listings(){
                                 }
                             </select>
                         </div>
-                        <div className="col-sm">
+                        <div className="col-sm mb-3">
                             <p>Price</p>
                             <input type="text" className="form-control" placeholder="Price" value={searchPrice} onChange={(e)=>setSearchPrice(e.target.value)} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm mb-3">
+                            <p>Currently Opened?</p>
+                            <select className="form-control">
+                                <option value="yes">Yes</option>
+                                <option value="any">Any</option>
+                            </select>
+                        </div>
+                        <div className="col-sm mb-3">
+                        <p>Search nearest to you ?</p>
+                            <select className="form-control">
+                                <option value="yes">Yes</option>
+                                <option value="any">No</option>
+                            </select>
                         </div>
                     </div>
                 </Modal.Body>

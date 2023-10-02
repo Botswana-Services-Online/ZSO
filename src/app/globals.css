@@ -142,3 +142,14 @@ img[src=""] {
   color: #fff !important;
   border: none;
 }
+
+
+.navbarMain{
+  background: #fff !important;
+  height: fit-content !important;
+  color: green !important;
+}
+
+.tshadow{
+  text-shadow: 0px 0px 30px green;
+}

@@ -1,0 +1,51 @@
+import React, { useState } from 'react';
+
+const HoursForm = () => {
+  const [formData, setFormData] = useState({
+    monday: { openingHours: '', closingHours: '' },
+    tuesday: { openingHours: '', closingHours: '' },
+    wednesday: { openingHours: '', closingHours: '' },
+    thursday: { openingHours: '', closingHours: '' },
+    friday: { openingHours: '', closingHours: '' },
+    saturday: { openingHours: '', closingHours: '' },
+    sunday: { openingHours: '', closingHours: '' },
+  });
+
+  const handleChange = (day, timeType, value) => {
+    setFormData({ ...formData, [day]: { ...formData[day], [timeType]: value } });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {Object.keys(formData).map((day) => (
+        <div key={day}>
+          <h2>{day.charAt(0).toUpperCase() + day.slice(1)}</h2>
+          <label>
+            Opening Hours:
+            <input
+              type="time"
+              value={formData[day].openingHours}
+              onChange={(e) => handleChange(day, 'openingHours', e.target.value)}
+            />
+          </label>
+          <label>
+            Closing Hours:
+            <input
+              type="time"
+              value={formData[day].closingHours}
+              onChange={(e) => handleChange(day, 'closingHours', e.target.value)}
+            />
+          </label>
+        </div>
+      ))}
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+
+export default HoursForm;

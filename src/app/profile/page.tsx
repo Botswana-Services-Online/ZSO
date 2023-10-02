@@ -14,7 +14,7 @@ import Review from "../components/review"
 import { ReviewCalc } from "../components/calculate"
 export default function Profile() {
     //get name from url
-    const name = useSearchParams().get("name")
+    const name = useSearchParams()
 
     //store profile data 
     const [data, setData] = useState<userData>(userDataDefault)
@@ -28,7 +28,8 @@ export default function Profile() {
 
     const getProfileData = () => {
         //get data from firebase
-        const docRef = doc(db, "users", `${name}`)
+        const p:any = name?.get("name")
+        const docRef = doc(db, "users", `${p}`)
         getDoc(docRef).then((doc: any) => {
             setData(doc.data())
             console.log(doc.data().id)
