@@ -1,8 +1,7 @@
-import { getAuth,onAuthStateChanged } from "firebase/auth";
-import { app } from "../api/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../api/firebase";
 
 const checkAuth=()=>{
-    const auth = getAuth(app)
     onAuthStateChanged(auth,(user)=>{
         if(!user){
            location.replace("/User/Auth")

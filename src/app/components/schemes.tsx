@@ -22,7 +22,8 @@ export interface userData{
     registerAs:string,
     mobilePhone:string,
     telephone:string
-    hours:{name:{openingHours: string, closingHours: string}}[]
+    hours:{name:{openingHours: string, closingHours: string}}[],
+    holiday:"Yes"|"No"
 }
 
 export const userDataDefault:userData={
@@ -49,7 +50,8 @@ export const userDataDefault:userData={
     mobilePhone:"",
     telephone:"",
     registerAs:"",
-    hours:[]
+    hours:[],
+    holiday:"Yes"
 }
 export interface listingsData{
     name:string,

@@ -43,6 +43,14 @@ export default function Profile() {
     const [listingData, setListingData] = useState<Array<listingsData>>([])
     const [selectedListing, setSelectedListing] = useState<listingsData>(listingsDataDefault)
     const[selectedId,setSelectedId]=useState<string>("")
+    const [linkedin,setLinkedIn] = useState<string>("")
+    const [twitter,setTwitter] = useState<string>("")
+    const [facebook,setFacebook] = useState<string>("")
+    const [website,setWebsite] = useState<string>("")
+    const [holiday,setHolidays] = useState<string>("")
+
+
+
 
     //listing data
     const [name, setName] = useState<string>("")
@@ -125,8 +133,20 @@ export default function Profile() {
         if (address.length > 0) {
             newData = { ...newData, address }
         }
-        if (numEmployees !== 0) {
-            newData = { ...newData, numEmployees }
+        if(linkedin.length>0){
+            newData = {...newData,linkedin}
+        }
+        if(twitter.length>0){
+            newData = {...newData,twitter}
+        }
+        if(facebook.length>0){
+            newData = {...newData,facebook}
+        }
+        if(website.length>0){
+            newData = {...newData,website}
+        }
+        if(holiday.length>0){
+            newData = {...newData,holiday}
         }
         updateUser(newData).then(res => {
             window.location.reload()
@@ -252,7 +272,7 @@ export default function Profile() {
                 </div>
             </div>
             <div>
-                <div className="mb-5 shadow-lg rounded p-2">
+                <div className="mb-5 border-1 rounded p-2">
 
                     <h3>
                         Description
@@ -269,7 +289,7 @@ export default function Profile() {
 
                     </div>
                 </div>
-                <div className="mb-5 shadow-lg rounded p-2">
+                <div className="mb-5 border-1 rounded p-2">
                     <h3>General Details</h3>
                     <form>
 
@@ -280,15 +300,42 @@ export default function Profile() {
                                 <input type="text" className="form-control rounded-pill  shadow-lg" placeholder={access.email} readOnly />
                             </div>
                             <div className="col-sm mb-3 ">
-                                <p className="m-2">Phone Number</p>
+                                <p className="m-2">Mobile Number</p>
                                 <input type="text" className="form-control rounded-pill  shadow-lg" placeholder={access.phone} onChange={(e) => setPhone(e.target.value)} />
                             </div>
                             <div className="col-sm mb-3">
-                                <p className="m-2 ">Number of Employees</p>
+                                <p className="m-2 ">Telephone Number</p>
                                 <input type="text" className="form-control rounded-pill  shadow-lg" placeholder={access.numEmployees} onChange={(e: any) => setNumEmployees(e.target.value)} />
                             </div>
 
 
+                        </div>
+                        <div className="row">
+                            <div className="col-sm">
+                                <p>LinkedIn</p>
+                                <input className="form-control rounded-pill" placeholder ={access.linkedin} onChange={(e)=>setLinkedIn(e.target.value)}/>
+                            </div>
+                            <div className="col-sm">
+                                <p>Twitter</p>
+                                <input className="form-control rounded-pill" placeholder ={access.twitter} onChange={(e)=>setTwitter(e.target.value)}/>
+                            </div>
+                            <div className="col-sm">
+                                <p>Facebook</p>
+                                <input className="form-control rounded-pill" placeholder ={access.facebook} onChange={(e)=>setFacebook(e.target.value)}/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-sm">
+                                <p>Website</p>
+                                <input className="form-control rounded-pill" placeholder ={access.website} onChange={(e)=>setWebsite(e.target.value)}/>
+                            </div>
+                            <div className="col-sm">
+                                <p>Open on Holidays : {access.holiday}</p>
+                                <select  onChange={(e)=>setHolidays(e.target.value)}>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
                         </div>
                         <div className="row">
                             <div className="col-sm mb-5">
@@ -301,8 +348,8 @@ export default function Profile() {
                         </div>
                     </form>
                 </div>
-                <div className="mb-5 shadow-lg rounded p-2">
-                    <h3>Company Documents</h3>
+                <div className="mb-5 border-1 rounded p-2">
+                    <h3>Documents</h3>
                     <div className="d-flex justify-content-center ">
                         <ViewDocs doc={[access.Cert, access.Tax]} />
                     </div>

@@ -158,12 +158,26 @@ export default function Register() {
                         </div>
                         <div className="row">
                             <div className="col-sm mb-3">
+                                <p>Will you be open during holidays</p>
+                            <select className="form-control "  required value={userData.holiday} onChange={(e:any)=>setUserData({...userData,holiday:e.target.value})}>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            </div>
+                           
+                        </div>
+                        <div className="row">
+                            <div className="col-sm mb-3">
                                 <p>Address</p>
                                 <textarea className="form-control" placeholder="Address*" value={userData.address} onChange={(e) => setUserData({ ...userData, address: e.target.value })} required ></textarea>
                             </div>
                         </div>
+                       
                         <div>
                             <h4>Working Hours</h4>
+                            <p>
+                                Once set your working hours cannot be changed!
+                            </p>
                         </div>
                         {Object.keys(formData).map((day) => (
                             <div key={day} className=" row">
