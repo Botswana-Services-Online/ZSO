@@ -7,7 +7,7 @@ import { getDownloadURL,ref,uploadBytes } from "firebase/storage";
 import {v4 } from "uuid";
 import { app, storage } from "@/app/api/firebase";
 import { updateUser } from "@/app/components/updateInfo";
-import { pencil } from "ionicons/icons";
+import { businessOutline, pencil } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import { useRouter } from "next/navigation";
 import { UserNavigation } from "./userNavigation";
@@ -48,12 +48,13 @@ export default function DashboardLayout({
             <div className="d-flex  align-items-end  justify-content-end placeholder-wave bg-success" style={{...bgImg(access.header), height:"40vh"}}>
                 <label htmlFor="fileUpload" className={`Bg rounded-pill shadow-lg pointer text-white m-2 p-2 ${alignIcon}`}>
                 <input type="file" accept="image/png image/jpeg" id="fileUpload" style={{display:"none"}} onChange={(e:any)=>{changeHeader(e.target.files[0])}}/>
-                <IonIcon  icon={pencil}/>
+                <IonIcon  icon={pencil}/> &nbsp;Change Banner
                 </label>
             </div>
             <div className="d-flex justify-content-between  container" >
                     <div className="position-relative  bg-success rounded-pill" style={{ bottom: "40px" }}>
-                    <img className="rounded-pill   placeholder-waver imgWhite" src={profilePicture} alt="Profile pic" style={{ maxWidth: "100px" }} />
+                        {/* <IonIcon size="large" color="success" icon={businessOutline}/> */}
+                    
 
                     </div>
                     <div className="mt-2">

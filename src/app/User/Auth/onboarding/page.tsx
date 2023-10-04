@@ -68,7 +68,7 @@ export default function Register() {
         }
 
 
-        addDoc(collection(db, "users",`${owner}`), data).then(res => {
+        addDoc(collection(db, "users"), data).then(res => {
             route.push("/User/Dashboard/")
         }).catch(err => {
             setLoading(false)

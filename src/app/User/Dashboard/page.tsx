@@ -272,7 +272,7 @@ export default function Profile() {
                 </div>
             </div>
             <div>
-                <div className="mb-5 border-1 rounded p-2">
+                <div className="mb-5 border border-1 rounded p-2">
 
                     <h3>
                         Description
@@ -289,7 +289,7 @@ export default function Profile() {
 
                     </div>
                 </div>
-                <div className="mb-5 border-1 rounded p-2">
+                <div className="mb-5 border border-1 rounded p-2">
                     <h3>General Details</h3>
                     <form>
 
@@ -297,41 +297,41 @@ export default function Profile() {
                         <div className="row">
                             <div className="col-sm mb-3  ">
                                 <p className={`m-2 `}>Email <IonIcon size="small" color="success" icon={informationCircle} /></p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" placeholder={access.email} readOnly />
+                                <input type="text" className="form-control rounded-pill  " placeholder={access.email} readOnly />
                             </div>
                             <div className="col-sm mb-3 ">
                                 <p className="m-2">Mobile Number</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" placeholder={access.phone} onChange={(e) => setPhone(e.target.value)} />
+                                <input type="text" className="form-control rounded-pill  " placeholder={access.mobilePhone} onChange={(e) => setPhone(e.target.value)} />
                             </div>
                             <div className="col-sm mb-3">
                                 <p className="m-2 ">Telephone Number</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" placeholder={access.numEmployees} onChange={(e: any) => setNumEmployees(e.target.value)} />
+                                <input type="text" className="form-control rounded-pill  " placeholder={access.telephone} onChange={(e: any) => setNumEmployees(e.target.value)} />
                             </div>
 
 
                         </div>
                         <div className="row">
-                            <div className="col-sm">
+                            <div className="col-sm mb-3">
                                 <p>LinkedIn</p>
                                 <input className="form-control rounded-pill" placeholder ={access.linkedin} onChange={(e)=>setLinkedIn(e.target.value)}/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-sm mb-3">
                                 <p>Twitter</p>
                                 <input className="form-control rounded-pill" placeholder ={access.twitter} onChange={(e)=>setTwitter(e.target.value)}/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-sm mb-3">
                                 <p>Facebook</p>
                                 <input className="form-control rounded-pill" placeholder ={access.facebook} onChange={(e)=>setFacebook(e.target.value)}/>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-sm">
+                            <div className="col-sm mb-3">
                                 <p>Website</p>
                                 <input className="form-control rounded-pill" placeholder ={access.website} onChange={(e)=>setWebsite(e.target.value)}/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-sm mb-3">
                                 <p>Open on Holidays : {access.holiday}</p>
-                                <select  onChange={(e)=>setHolidays(e.target.value)}>
+                                <select  onChange={(e)=>setHolidays(e.target.value)} className="form-control rounded-pill">
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </select>
@@ -340,7 +340,7 @@ export default function Profile() {
                         <div className="row">
                             <div className="col-sm mb-5">
                                 <p className="m-2">Address</p>
-                                <input type="text" className="form-control rounded-pill  shadow-lg" placeholder={access.address} onChange={(e) => setAddress(e.target.value)} />
+                                <textarea className="form-control   " placeholder={access.address} onChange={(e) => setAddress(e.target.value)} ></textarea>
                             </div>
                         </div>
                         <div className="mb-3">
