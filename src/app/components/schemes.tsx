@@ -14,7 +14,15 @@ export interface userData{
     id:string,
     registered:false,
     reviews:Array<{rating:number,message:string}>,
-    industry:string
+    industry:string,
+    linkedin:string,
+    twitter:string,
+    facebook:string,
+    website:string,
+    registerAs:string,
+    mobilePhone:string,
+    telephone:string
+    hours:{name:{openingHours: string, closingHours: string}}[]
 }
 
 export const userDataDefault:userData={
@@ -33,7 +41,15 @@ export const userDataDefault:userData={
     id:"",
     registered:false,
     reviews:[],
-    industry:""
+    industry:"",
+    linkedin:"",
+    twitter:"",
+    facebook:"",
+    website:"",
+    mobilePhone:"",
+    telephone:"",
+    registerAs:"",
+    hours:[]
 }
 export interface listingsData{
     name:string,

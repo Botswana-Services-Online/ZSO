@@ -103,7 +103,7 @@ export const FooterBar = () => {
                 <br/>
                 <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/mail-outline.svg" width="30" />&nbsp;<a href="mailto:" className='text-white text-decoration-none '>support@zimbabweservices.co.zw</a></p>
                 <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/call-outline.svg" width="30" />&nbsp;<a href="tel:" className='text-white text-decoration-none '>+267 73 400 400</a></p>
-               <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/location-outline.svg" width="30" />&nbsp;Plot 22211 Phase 4 Gaborone</p>
+               <p className={alignIcon}><img className="imgWhite" src="https://voideawn.sirv.com/website/location-outline.svg" width="30" />&nbsp;35 Coronation Avenue Greendale</p>
                 
             </div>
             <div className="col-sm">

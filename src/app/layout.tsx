@@ -8,7 +8,7 @@ import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import { useState,useEffect } from 'react';
 import { Authorized } from './components/contexts';
 import { getAuth, onAuthStateChanged} from 'firebase/auth';
-import { app } from './api/firebase';
+import { app, auth } from './api/firebase';
 import { fetchData } from './components/getData';
 import { userData, userDataDefault } from './components/schemes';
 import Script from 'next/script';
@@ -30,7 +30,7 @@ export default function RootLayout({
   // setupIonicReact();
   const [access,setAccess] = useState<userData>(userDataDefault)
   const [userlocation,setUserLocation] = useState<any>()
-  const auth =getAuth(app)
+ 
   useEffect(()=>{
     navigator.geolocation.getCurrentPosition((position)=>{
       setUserLocation(`${position.coords.latitude},${position.coords.longitude}`)
