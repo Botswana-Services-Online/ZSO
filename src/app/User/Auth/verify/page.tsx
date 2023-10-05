@@ -1,18 +1,19 @@
 "use client"
 import { auth } from "@/app/api/firebase";
-import { genBtn, mp, vp } from "@/app/components/cssStyles";
+import { genBtn, mp } from "@/app/components/cssStyles";
 import { sendEmailVerification } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 
 export default function Verify(){
+    const router = useRouter()
     const [message,setMessage]  = useState({
         show:false,
         msg:"",
         variant:"success"
     })
-    const router = useRouter()
+    
     const VerifyEmail=()=>{
         if (auth.currentUser) {
             sendEmailVerification(auth.currentUser).then(res => {
@@ -46,9 +47,9 @@ export default function Verify(){
                     Check Your Inbox For The Verification Link We Sent You!
                 </h1>
                 <Alert show={message.show} variant={message.variant}>{message.msg}</Alert>
-                <p className="mb-3">If you can&apos;t find us in your primary mail box check spam! or <b className="text-primary" onClick={()=>Verify()}>request one</b></p>
+                <p className="mb-3">If you can&apos;t find us in your primary mail box check spam! or <b className="text-primary pointer" onClick={()=>VerifyEmail()}>request one</b></p>
               
-                <button className={genBtn} onClick={()=>checkVerified()}>I verified My Email!</button>
+                <button className={genBtn} onClick={()=>{checkVerified()}}>I verified My Email!</button>
                 <p className="mt-3"><small>Please wait for 5 seconds before retrying</small></p>
             </div>
         </div>
