@@ -74,7 +74,7 @@ export default function Profile() {
                     <div className=" border border-1 rounded p-3 mb-3">
                         <h5 className="mb-2">Details</h5>
                         <p className=" "><IonIcon icon={informationCircleOutline} />&nbsp; {data.Description}</p>
-                        <p className="d-flex align-items-center "><IonIcon icon={callOutline} />&nbsp; {data.phone}</p>
+                        <p className="d-flex align-items-center "><IonIcon icon={callOutline} />&nbsp; {data.mobilePhone}</p>
                         <p className="d-flex align-items-center "><IonIcon icon={mailOutline} />&nbsp; {data.email}</p>
                         <a className="text-decoration-none " target="blank" href={whatsappLink(data.phone)}><button className="btn d-flex align-items-center btn-success"><IonIcon icon={logoWhatsapp} />&nbsp;Chat on Whatsapp</button></a>
                     </div>

@@ -3,7 +3,7 @@ import { star } from "ionicons/icons"
 
 
 export const ReviewCalc = (reviews:{rating:number,message:string}[])=>{
-    if(reviews){
+    if(reviews.length>0){
     const oneRating = []
     const twoRating = []
     const threeRating = []
