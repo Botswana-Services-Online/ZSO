@@ -68,6 +68,7 @@ export interface listingsData{
     review:{rating:number,message:string}[],
     company:string,
     type:string,
+    
 }
 
 export const listingsDataDefault:listingsData={

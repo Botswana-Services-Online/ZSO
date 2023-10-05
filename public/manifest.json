@@ -1,7 +1,8 @@
 {
+    "id":"/",
     "theme_color": "#056402",
     "background_color": "#056402",
-    "display": "browser",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/",
     "name": "Zimbabwe Services Online",
