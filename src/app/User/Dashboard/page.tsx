@@ -161,7 +161,7 @@ export default function Profile() {
             image: "",
             category,
             userId: access.id,
-            call: access.phone,
+            call: access.mobilePhone,
             whatsapp: `https://wa.me/${access.phone}`,
             email: access.email,
             rating: 0,
@@ -174,6 +174,7 @@ export default function Profile() {
             getDownloadURL(res.ref).then(url => {
                 const uploadData = { ...data, image: url }
                 addDoc(listingRef, uploadData).then(res => {
+                    setHide({ ...hide, showAddListing: false })
                     setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>)
                     getListingData()
                     setTimeout(() => setHide({ ...hide, showAddListing: false }), 5000)
