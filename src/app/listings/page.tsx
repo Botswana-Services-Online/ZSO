@@ -14,6 +14,7 @@ import { ReviewCalc } from "../components/calculate";
 import { useRouter } from "next/navigation";
 import algolia from "algoliasearch"
 import { search } from "ss-search";
+import { GetDistance, GetLocation } from "../components/calcDistance";
 
 export default function Listings(){
     const nav = useRouter()
@@ -86,6 +87,26 @@ export default function Listings(){
         }).catch(err=>{
             setHideLoad(true)
             console.log(err)
+        })
+    }
+
+    const advancedSearch = (value:string) =>{
+        let data = []
+
+        // get data from current city
+        listingIndex.search(value).then(res=>{
+            data = [...res.hits]
+            data.forEach((item:any)=>{
+                GetLocation(item.address).then(res=>{
+                    let toLocation = res.data.results[0].geometry.location
+                    // navigator.geolocation.getCurrentPosition()
+                    GetDistance({lat:1,lng:2},{lat:toLocation.lat,lng:toLocation.lng}).then(res=>{
+                        console.table(res.data.rows[0].elements)
+                        let result = res.data.rows[0].elements
+                        item = {...item,distanceDetails:result}
+                    }).catch(err=>console.log(err))
+                }).catch(err=>console.log(err))
+            })
         })
     }
 
