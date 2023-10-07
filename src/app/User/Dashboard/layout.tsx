@@ -5,21 +5,19 @@ import checkAuth from "@/app/components/checkAuth";
 import { Authorized } from "@/app/components/contexts";
 import { getDownloadURL,ref,uploadBytes } from "firebase/storage";
 import {v4 } from "uuid";
-import { app, storage } from "@/app/api/firebase";
+import { storage } from "@/app/api/firebase";
 import { updateUser } from "@/app/components/updateInfo";
-import { businessOutline, pencil } from "ionicons/icons";
+import {  pencil } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { useRouter } from "next/navigation";
 import { UserNavigation } from "./userNavigation";
-import { getAuth } from "firebase/auth";
+
 
 export default function DashboardLayout({
     children,
   }: {
     children: React.ReactNode
   }) {
-    const route = useRouter()
-    const profilePicture:any = typeof window !== 'undefined'?localStorage.getItem("profilePicture"):""
+
     const {access,setAccess} = useContext(Authorized)
     const [headerImg,setHeaderImg] = useState<string>("")
     
