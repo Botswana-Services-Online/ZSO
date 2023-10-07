@@ -13,6 +13,7 @@ import Link from "next/link";
 import { ReviewCalc } from "../components/calculate";
 import { useRouter } from "next/navigation";
 import algolia from "algoliasearch"
+import { search } from "ss-search";
 
 export default function Listings(){
     const nav = useRouter()
@@ -38,7 +39,7 @@ export default function Listings(){
     let hasMore = true;
     
     // Function to retrieve data from Firestore with a limit of 20 documents at a time
-    async function getData(dbRef:string,searchString?:string) {
+    async function getData(dbRef:string,searchString?:string,location?:string) {
       // Get a reference to the collection
       const colRef = collection(db, dbRef);
     
@@ -91,15 +92,16 @@ export default function Listings(){
 
     useEffect(()=>{
         //@ts-ignore
-        let p:any = name.get("name")
+        let searchValue:any = name.get("name")
+        // let searchLocation:any = name.get("location")
         setHideLoad(false)
-        if(typeof(p)!=="string"){
+        if(typeof(searchValue)!=="string"){
             getData("users")
             getData("listings")
             
         }else{
-           searchIndex(p)
-            getData("users",p)
+           searchIndex(searchValue)
+            getData("users",searchValue)
             // getData("listings",name)
         }
         
