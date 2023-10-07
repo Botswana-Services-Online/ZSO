@@ -47,8 +47,9 @@ export default function Security(){
 
     return(
         <div className="container">
+           
+            <div className="rounded border border-1 p-2 mb-5">
             <h3>Security</h3>
-            <div className="rounded shadow-lg p-2 mb-5">
                 <p>Change your password</p>
                 <form onSubmit={(e:any)=>handleSubmit(e)}>
                     <div className="alert alert-danger " hidden={warn.hide}>

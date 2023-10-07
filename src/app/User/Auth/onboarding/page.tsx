@@ -89,18 +89,18 @@ export default function Register() {
                 <div className="container d-flex flex-column  justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
                     <div className="text-center mb-3 mt-5">
                         <h1 >Onboarding</h1>
-                        <p>Please fill in the necessary details to complete account registration!</p>
+                        <p>Please fill in the necessary details to complete account registration! Fields marked with <b className="text-danger">*</b> are required</p>
                         <Alert show={warning}>Failed To save your information, please try again!</Alert>
                     </div>
                     <form onSubmit={(e) => handleSubmit(e)} >
                         <div className="row " >
 
                             <div className="col-sm mb-3">
-                                <p>Company  / Personal Name</p>
+                                <p>Company  / Personal Name <b className="text-danger">*</b></p>
                                 <input type="text" className={genFrm}  value={userData.name} onChange={(e) => setUserData({ ...userData, name: e.target.value })} required />
                             </div>
                             <div className="col-sm mb-3">
-                                <p>Mobile Phone</p>
+                                <p>Mobile Phone <b className="text-danger">*</b></p>
                                 <input type="text" className={genFrm} placeholder="Include country code +263..."  value={userData.mobilePhone} onChange={(e) => setUserData({ ...userData, mobilePhone: e.target.value })} required />
                             </div>
                             <div className="col-sm mb-3">
@@ -119,7 +119,7 @@ export default function Register() {
                                 <input type="text" className={genFrm} placeholder="https://site.com" value={userData.website} onChange={(e) => setUserData({ ...userData, website: e.target.value })} required />
                             </div>
                             <div className="col-sm mb-3">
-                                <p>Industry</p>
+                                <p>Industry <b className="text-danger">*</b></p>
                                 <input type="text" value={userData.industry} className={genFrm} placeholder="Industry*" onChange={(e) => { setUserData({...userData,industry:e.target.value}),searchIndustry(e.target.value) }} required/>
                                 <div className="shadow-lg  rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideIndustrySearch}>
                                     {
@@ -133,32 +133,36 @@ export default function Register() {
                                 </div>
                             </div>
                             <div className="col-sm mb-3">
-                                <p>Register As A</p>
+                                <p>Register As A <b className="text-danger">*</b> </p>
                                 <select className={genFrm} value={userData.registerAs} onChange={(e) => setUserData({ ...userData, registerAs: e.target.value })} required>
                                     <option value="Company">Company</option>
                                     <option value="Individual">Individual</option>
                                 </select>
                             </div>
                         </div>
+                        <div className="mb-3">
+                            <p className="fw-bold">Socials</p>
+                            <p>Please enter your usernames only, no links allowed</p>
+                        </div>
                         <div className="row " >
 
                             <div className="col-sm mb-3">
                                 <p>LinkedIn</p>
-                                <input type="text" className={genFrm}  value={userData.linkedin} onChange={(e) => setUserData({ ...userData, linkedin: e.target.value })} required />
+                                <input type="text" className={genFrm} placeholder="Username"  value={userData.linkedin} onChange={(e) => setUserData({ ...userData, linkedin: e.target.value })} required />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Twitter</p>
-                                <input type="text" className={genFrm}  value={userData.twitter} onChange={(e) => setUserData({ ...userData, twitter: e.target.value })} required />
+                                <input type="text" className={genFrm} placeholder="Username "  value={userData.twitter} onChange={(e) => setUserData({ ...userData, twitter: e.target.value })} required />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Facebook</p>
-                                <input type="text" className={genFrm}  value={userData.facebook} onChange={(e) => setUserData({ ...userData, facebook: e.target.value })} required />
+                                <input type="text" className={genFrm} placeholder="Username" value={userData.facebook} onChange={(e) => setUserData({ ...userData, facebook: e.target.value })} required />
                             </div>
 
                         </div>
                         <div className="row">
                             <div className="col-sm mb-3">
-                                <p>Will you be open during holidays</p>
+                                <p>Will you be open during holidays <b className="text-danger">*</b></p>
                             <select className="form-control "  required value={userData.holiday} onChange={(e:any)=>setUserData({...userData,holiday:e.target.value})}>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
@@ -168,16 +172,14 @@ export default function Register() {
                         </div>
                         <div className="row">
                             <div className="col-sm mb-3">
-                                <p>Address</p>
+                                <p>Address <b className="text-danger">*</b></p>
                                 <textarea className="form-control" placeholder="Address*" value={userData.address} onChange={(e) => setUserData({ ...userData, address: e.target.value })} required ></textarea>
                             </div>
                         </div>
                        
                         <div>
                             <h4>Working Hours</h4>
-                            <p>
-                                Once set your working hours cannot be changed!
-                            </p>
+                            <p>If you are not open on a particular day just leave blank, note if you leave all fields blank your shop will be marked as closed</p>
                         </div>
                         {Object.keys(formData).map((day) => (
                             <div key={day} className=" row">
@@ -189,7 +191,7 @@ export default function Register() {
                                         value={formData[day].openingHours}
                                         className="form-control mb-3"
                                         onChange={(e) => handleChange(day, 'openingHours', e.target.value)}
-                                        required
+                                        
                                     />
                                 </label>
                                 <label>
@@ -199,7 +201,7 @@ export default function Register() {
                                         value={formData[day].closingHours}
                                         className="form-control mb-3"
                                         onChange={(e) => handleChange(day, 'closingHours', e.target.value)}
-                                        required
+                                        
                                     />
                                 </label>
                             </div>

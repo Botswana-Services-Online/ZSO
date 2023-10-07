@@ -41,6 +41,15 @@ export default function Profile() {
     const [listingData, setListingData] = useState<Array<listingsData>>([])
     const [selectedListing, setSelectedListing] = useState<listingsData>(listingsDataDefault)
     const [selectedId, setSelectedId] = useState<string>("")
+    const [workingHours,setWorkingHours] = useState<any>({
+        monday: { openingHours: '', closingHours: '' },
+        tuesday: { openingHours: '', closingHours: '' },
+        wednesday: { openingHours: '', closingHours: '' },
+        thursday: { openingHours: '', closingHours: '' },
+        friday: { openingHours: '', closingHours: '' },
+        saturday: { openingHours: '', closingHours: '' },
+        sunday: { openingHours: '', closingHours: '' },
+    })
 
 
 
@@ -76,6 +85,15 @@ export default function Profile() {
         getDoc(doc(db, "users", `${access.id}`)).then((res: any) => {
             console.log(res.data())
             setGenDetails(res.data())
+            setWorkingHours({
+                monday:{...genDetails.hours.monday},
+                tuesday:{...genDetails.hours.tuesday},
+                wednesday:{...genDetails.hours.wednesday},
+                thursday:{...genDetails.hours.thursday},
+                friday:{...genDetails.hours.friday},
+                saturday:{...genDetails.hours.saturday},
+                sunday:{...genDetails.hours.sunday},
+            })
         }).catch(err => {
             console.log
         })
@@ -84,6 +102,7 @@ export default function Profile() {
     useEffect(() => {
         getUserDetails()
         getListingData()
+        
         console.log("check leackages")
     }, [])
 
@@ -218,6 +237,17 @@ export default function Profile() {
         })
     }
 
+    const handleHoursChange = (day: any, timeType: any, value: any) => {
+    
+        setWorkingHours({ ...workingHours, [day]: {...setWorkingHours, [timeType]: value } });
+        console.log(workingHours)
+    };
+    const handleHoursUpdate=(e:FormEvent)=>{
+        e.preventDefault()
+        updateUser({...genDetails,hours:workingHours}).then(res=>{
+            getUserDetails()
+        }).catch(err=>{console.log(err)})
+    }
 
 
     return (
@@ -314,6 +344,7 @@ export default function Profile() {
                                     <option value="No">No</option>
                                 </select>
                             </div>
+                            <div className="col-sm mb-3"></div>
                         </div>
                         <div className="row">
                             <div className="col-sm mb-5">
@@ -362,6 +393,39 @@ export default function Profile() {
                             })
                         }
                     </div>
+                </div>
+                <div className="border border-1 mb-5 p-2 rounded">
+                    <h3 className="mb-3">Working Hours</h3>
+                    <form onSubmit={(e)=>handleHoursUpdate(e)}>
+                    {Object.keys(workingHours).map((day) => (
+                            <div key={day} className=" row">
+                                <p className="fw-bold">{day.charAt(0).toUpperCase() + day.slice(1)}</p>
+                                <label>
+                                    Opening Hours:
+                                    <input
+                                        type="time"
+                                        value={workingHours[day].openingHours}
+                                        className="form-control mb-3"
+                                        onChange={(e) => handleHoursChange(day, 'openingHours', e.target.value)}
+                                        
+                                    />
+                                </label>
+                                <label>
+                                    Closing Hours:
+                                    <input
+                                        type="time"
+                                        value={workingHours[day].closingHours}
+                                        className="form-control mb-3"
+                                        onChange={(e) => handleHoursChange(day, 'closingHours', e.target.value)}
+                                        
+                                    />
+                                </label>
+                            </div>
+                        ))}
+                    <div>
+                        <button className={genBtn}>Update</button>
+                    </div>
+                    </form>
                 </div>
             </div>
             <Modal size="lg" show={hide.showGalleryView}>

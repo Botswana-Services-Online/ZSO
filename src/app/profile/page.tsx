@@ -4,14 +4,14 @@ import { useSearchParams } from "next/navigation"
 import { db } from "../api/firebase"
 import { listingsData, listingsDataDefault, userData, userDataDefault } from "../components/schemes"
 import { useEffect, useState } from "react"
-import { alignIcon, bgImg, genBtn, mp, nomBtn, transBtn, vp } from "../components/cssStyles"
-import { businessOutline, call, callOutline,location, informationCircleOutline, logoWhatsapp, mail, mailOutline, closeCircleOutline, star, calendar } from "ionicons/icons"
+import { alignIcon, bgImg,  mp, nomBtn, transBtn, vp } from "../components/cssStyles"
+import { businessOutline, call, callOutline,location, informationCircleOutline, logoWhatsapp, mail, mailOutline, closeCircleOutline, watchOutline, calendarOutline, timeOutline, logoLinkedin, logoTwitter, logoFacebook } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
 import { whatsappLink } from "../components/linkFunctions"
-import Link from "next/link"
 import { Modal } from "react-bootstrap"
 import Review from "../components/review"
 import { ReviewCalc } from "../components/calculate"
+import moment from "moment"
 export default function Profile() {
     //get name from url
     const name = useSearchParams()
@@ -24,6 +24,7 @@ export default function Profile() {
     const [hide,setHide] = useState({showDetails:false,showGallery:false})
     const [showReview,setShowReview] = useState<boolean>(false)
     const [rating,setRating] = useState<number>(0)
+    const [today,setToday] = useState<{openingHours:string,closingHours:string}>({openingHours:"",closingHours:""})
 
 
     const getProfileData = () => {
@@ -49,12 +50,19 @@ export default function Profile() {
 
     }
 
+    const getOpenHours=()=>{
+        const day = moment().format("dddd").toLowerCase()
+        const todaysHours:{openingHours:string,closingHours:string} = data.hours[day]
+        setToday(todaysHours)
 
+    }
 
     useEffect(() => {
         getProfileData()
+        getOpenHours()
     }, [])
 
+    
     return (
         <div className={mp}>
 
@@ -74,11 +82,19 @@ export default function Profile() {
                     <div className=" border border-1 rounded p-3 mb-3">
                         <h5 className="mb-2">Details</h5>
                         <p className=" "><IonIcon icon={informationCircleOutline} />&nbsp; {data.Description}</p>
-                        <p className="d-flex align-items-center "><IonIcon icon={callOutline} />&nbsp; {data.mobilePhone}</p>
+                        <p className="d-flex align-items-center "><IonIcon icon={callOutline} />&nbsp; {data.mobilePhone}  {data.telephone.length>0?` or ${data.telephone}`:null}</p>
                         <p className="d-flex align-items-center "><IonIcon icon={mailOutline} />&nbsp; {data.email}</p>
-                        <p className="d-flex align-items-center "><IonIcon icon={calendar} /> &nbsp;Open on holidays - {data.holiday}</p>
+                        <p className="d-flex align-items-center "><IonIcon icon={timeOutline} /> &nbsp;{today.openingHours.length>0?`Open from ${today.openingHours} - ${today.closingHours}`:"Closed"} </p>
+                        <p className="d-flex align-items-center "><IonIcon icon={calendarOutline} /> &nbsp;Open on holidays - {data.holiday}</p>
+
                         <a className="text-decoration-none " target="blank" href={whatsappLink(data.phone)}><button className="btn d-flex align-items-center btn-success"><IonIcon icon={logoWhatsapp} />&nbsp;Chat on Whatsapp</button></a>
 
+                    </div>
+                    <div className=" border border-1 rounded p-3 mb-3">
+                        <h5 className="mb-2">Socials</h5>
+                        {data.linkedin.length > 0 ? <p className="d-flex"><IonIcon icon={logoLinkedin}/>&nbsp;<a href={`https://www.linkedin.com/in/${data.linkedin}/`} target="_blank" className="d-flex align-items-center "> {data.linkedin}</a></p> : null}
+                        {data.twitter.length > 0 ? <p  className="d-flex"><IonIcon icon={logoTwitter}/>&nbsp; <a href={`https://twitter.com/${data.twitter}/`} target="_blank" className="d-flex align-items-center ">{data.twitter}</a></p> : null}
+                        {data.facebook.length > 0 ? <p  className="d-flex"><IonIcon icon={logoFacebook}/>&nbsp;<a href={`https://www.facebook.com/${data.facebook}/`} target="_blank" className="d-flex align-items-center "> {data.facebook}</a></p> : null}
                     </div>
                     <div className=" border border-1 rounded p-3 mb-3">
                         <h5 className="mb-2">Listings</h5>
@@ -118,7 +134,7 @@ export default function Profile() {
                         }
                         </div>
                     </div>
-                    <div className="border border-1 rounded p-3 mb-3">
+                    {/* <div className="border border-1 rounded p-3 mb-3">
                         <h5 className="mb-2">Company Documents</h5>
                        
                                 <div className="d-flex align-items-center justify-content-between border-bottom border-1 py-2">
@@ -145,7 +161,7 @@ export default function Profile() {
                                     <a href={data.Tax} target="_blank"><button className={nomBtn}>View</button></a>
                                 </div>
                         
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <Modal size="lg" show={hide.showDetails}>

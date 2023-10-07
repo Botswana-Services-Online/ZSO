@@ -21,8 +21,8 @@ export interface userData{
     website:string,
     registerAs:string,
     mobilePhone:string,
-    telephone:string
-    hours:{name:{openingHours: string, closingHours: string}}[],
+    telephone:string,
+    hours:any,
     holiday:"Yes"|"No"
 }
 
