@@ -10,7 +10,7 @@ import { ref, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage
 import { v4 } from "uuid"
 import { updateUser } from "@/app/components/updateInfo"
 import { alignIcon, bgImg, genBtn, genFrm, loading, nomBtn, outlineBtn } from "@/app/components/cssStyles"
-import { Modal } from "react-bootstrap"
+import { Alert, Modal, Toast } from "react-bootstrap"
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore"
 import { listingsData, listingsDataDefault, userData, userDataDefault } from "@/app/components/schemes"
 import { categories, cities } from "@/app/components/categories"
@@ -50,6 +50,21 @@ export default function Profile() {
         saturday: { openingHours: '', closingHours: '' },
         sunday: { openingHours: '', closingHours: '' },
     })
+    const success = {
+        show:true,
+        msg:"Changes Saved",
+        variant:"success"
+    }
+    const error = {
+        show:true,
+        msg:"Something Went Wrong",
+        variant:"danger"
+    }
+    const [showUserMsg,setShowUserMsg] = useState({
+        show:false,
+        msg:"",
+        variant:"success"
+    })
 
 
 
@@ -80,28 +95,34 @@ export default function Profile() {
             console.log(err)
         })
     }
+    const getUserHours=()=>{
+        setWorkingHours({
+            monday:{...genDetails.hours.monday},
+            tuesday:{...genDetails.hours.tuesday},
+            wednesday:{...genDetails.hours.wednesday},
+            thursday:{...genDetails.hours.thursday},
+            friday:{...genDetails.hours.friday},
+            saturday:{...genDetails.hours.saturday},
+            sunday:{...genDetails.hours.sunday},
+        })
+    }
 
     const getUserDetails = () => {
         getDoc(doc(db, "users", `${access.id}`)).then((res: any) => {
             console.log(res.data())
             setGenDetails(res.data())
-            setWorkingHours({
-                monday:{...genDetails.hours.monday},
-                tuesday:{...genDetails.hours.tuesday},
-                wednesday:{...genDetails.hours.wednesday},
-                thursday:{...genDetails.hours.thursday},
-                friday:{...genDetails.hours.friday},
-                saturday:{...genDetails.hours.saturday},
-                sunday:{...genDetails.hours.sunday},
-            })
+            
+        getUserHours()
         }).catch(err => {
-            console.log
+          setShowUserMsg(error)
         })
     }
 
     useEffect(() => {
         getUserDetails()
         getListingData()
+        getUserHours()
+        
         
         console.log("check leackages")
     }, [])
@@ -112,12 +133,13 @@ export default function Profile() {
             getDownloadURL(res.ref).then(url => {
                 const newImg = [...access.images, url]
                 const data = { ...access, images: newImg }
-                console.log(data)
+                
                 updateUser(data).then(res => {
                     getUserDetails()
-                }).catch(err => { })
-            }).catch(err => { })
-        }).catch(err => { })
+                    setShowUserMsg(success)
+                }).catch(err => { setShowUserMsg(error)})
+            }).catch(err => { setShowUserMsg(error)})
+        }).catch(err => { setShowUserMsg(error)})
     }
 
     const viewImage = (imageUrl: string) => {
@@ -132,8 +154,9 @@ export default function Profile() {
             const data = { ...access, images: newData }
             updateUser(data).then(res => {
                 getUserDetails()
-            }).catch(err => { })
-        }).catch(err => { })
+                setShowUserMsg(success)
+            }).catch(err => {setShowUserMsg(error) })
+        }).catch(err => { setShowUserMsg(error)})
     }
 
 
@@ -196,10 +219,11 @@ export default function Profile() {
                     setHide({ ...hide, showAddListing: false })
                     setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>)
                     getListingData()
+                    setShowUserMsg(success)
                     setTimeout(() => setHide({ ...hide, showAddListing: false }), 5000)
-                }).catch(err => { setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>)})
-            }).catch(err => {setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>) })
-        }).catch(err => {setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>) })
+                }).catch(err => {setShowUserMsg(error); setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>)})
+            }).catch(err => {setShowUserMsg(error);setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>) })
+        }).catch(err => {setShowUserMsg(error);setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>) })
     }
 
     const previewImg = (image: any) => {
@@ -213,7 +237,9 @@ export default function Profile() {
             getListingData()
             setUpdateListingLoad(<button type="submit" className={genBtn}>Update Listing</button>)
             setHide({ ...hide, showSelected: false })
+            setShowUserMsg(success)
         }).catch(err => {
+            setShowUserMsg(error)
             setUpdateListingLoad(<button type="submit" className={genBtn}>Update Listing</button>)
         })
     }
@@ -222,8 +248,9 @@ export default function Profile() {
         e.preventDefault()
         updateUser(genDetails).then(res => {
             getUserDetails()
+            setShowUserMsg(success)
         }).catch(err => {
-
+            setShowUserMsg(error)
         })
 
     }
@@ -232,8 +259,9 @@ export default function Profile() {
         deleteDoc(doc(db,"listings",selectedId)).then(res=>{
             getListingData()
             setHide({...hide,showSelected:false})
+            setShowUserMsg(success)
         }).catch(err=>{
-            console.log(err)
+            setShowUserMsg(error)
         })
     }
 
@@ -246,7 +274,8 @@ export default function Profile() {
         e.preventDefault()
         updateUser({...genDetails,hours:workingHours}).then(res=>{
             getUserDetails()
-        }).catch(err=>{console.log(err)})
+            setShowUserMsg(success)
+        }).catch(err=>{setShowUserMsg(error)})
     }
 
 
@@ -255,6 +284,11 @@ export default function Profile() {
             <div className="mb-3">
                 <h1>{access.name}</h1>
             </div>
+            <Alert show={showUserMsg.show} variant={showUserMsg.variant} dismissible={true} onClose={()=>setShowUserMsg({...showUserMsg,show:false})} >
+              
+                {showUserMsg.msg}
+            </Alert>
+
             <div className="mb-5 border border-1 rounded p-2">
                 <h3>Listings</h3>
                 <div className=" m-3 scrollHorizontal" >
@@ -581,7 +615,7 @@ export default function Profile() {
                 </Modal.Footer>
 
             </Modal>
-
+           
         </div>
     )
 }
