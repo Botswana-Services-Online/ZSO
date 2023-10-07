@@ -5,7 +5,7 @@ import { db } from "../api/firebase"
 import { listingsData, listingsDataDefault, userData, userDataDefault } from "../components/schemes"
 import { useEffect, useState } from "react"
 import { alignIcon, bgImg, genBtn, mp, nomBtn, transBtn, vp } from "../components/cssStyles"
-import { businessOutline, call, callOutline,location, informationCircleOutline, logoWhatsapp, mail, mailOutline, closeCircleOutline, star } from "ionicons/icons"
+import { businessOutline, call, callOutline,location, informationCircleOutline, logoWhatsapp, mail, mailOutline, closeCircleOutline, star, calendar } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
 import { whatsappLink } from "../components/linkFunctions"
 import Link from "next/link"
@@ -76,7 +76,9 @@ export default function Profile() {
                         <p className=" "><IonIcon icon={informationCircleOutline} />&nbsp; {data.Description}</p>
                         <p className="d-flex align-items-center "><IonIcon icon={callOutline} />&nbsp; {data.mobilePhone}</p>
                         <p className="d-flex align-items-center "><IonIcon icon={mailOutline} />&nbsp; {data.email}</p>
+                        <p className="d-flex align-items-center "><IonIcon icon={calendar} /> &nbsp;Open on holidays - {data.holiday}</p>
                         <a className="text-decoration-none " target="blank" href={whatsappLink(data.phone)}><button className="btn d-flex align-items-center btn-success"><IonIcon icon={logoWhatsapp} />&nbsp;Chat on Whatsapp</button></a>
+
                     </div>
                     <div className=" border border-1 rounded p-3 mb-3">
                         <h5 className="mb-2">Listings</h5>
