@@ -1,5 +1,5 @@
 "use client"
-import { businessOutline, call,    cartOutline,  checkmarkDoneCircleOutline,  closeCircleOutline, filterOutline, location, logoWhatsapp, mail,  searchOutline, star } from "ionicons/icons";
+import { businessOutline, call,    cartOutline,  checkmarkDoneCircleOutline,  closeCircleOutline,  location, logoWhatsapp, mail,  searchOutline, star } from "ionicons/icons";
 import { alignIcon,  bgImg,  mp, nomBtn, transBtn, vp } from "../components/cssStyles";
 import { IonIcon } from "@ionic/react";
 import { Modal } from "react-bootstrap";
