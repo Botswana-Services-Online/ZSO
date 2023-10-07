@@ -262,7 +262,7 @@ export default function Profile() {
 
     const handleHoursChange = (day: any, timeType: any, value: any) => {
 
-        setWorkingHours({ ...workingHours, [day]: { ...setWorkingHours, [timeType]: value } });
+        setWorkingHours({ ...workingHours, [day]: {...workingHours[day], [timeType]: value } });
         console.log(workingHours)
     };
     const handleHoursUpdate = (e: FormEvent) => {
