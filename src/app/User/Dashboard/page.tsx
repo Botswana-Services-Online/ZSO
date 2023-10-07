@@ -41,7 +41,7 @@ export default function Profile() {
     const [listingData, setListingData] = useState<Array<listingsData>>([])
     const [selectedListing, setSelectedListing] = useState<listingsData>(listingsDataDefault)
     const [selectedId, setSelectedId] = useState<string>("")
-    const [workingHours,setWorkingHours] = useState<any>({
+    const [workingHours, setWorkingHours] = useState<any>({
         monday: { openingHours: '', closingHours: '' },
         tuesday: { openingHours: '', closingHours: '' },
         wednesday: { openingHours: '', closingHours: '' },
@@ -51,19 +51,19 @@ export default function Profile() {
         sunday: { openingHours: '', closingHours: '' },
     })
     const success = {
-        show:true,
-        msg:"Changes Saved",
-        variant:"success"
+        show: true,
+        msg: "Changes Saved",
+        variant: "success"
     }
     const error = {
-        show:true,
-        msg:"Something Went Wrong",
-        variant:"danger"
+        show: true,
+        msg: "Something Went Wrong",
+        variant: "danger"
     }
-    const [showUserMsg,setShowUserMsg] = useState({
-        show:false,
-        msg:"",
-        variant:"success"
+    const [showUserMsg, setShowUserMsg] = useState({
+        show: false,
+        msg: "",
+        variant: "success"
     })
 
 
@@ -95,36 +95,31 @@ export default function Profile() {
             console.log(err)
         })
     }
-    const getUserHours=()=>{
-        setWorkingHours({
-            monday:{...genDetails.hours.monday},
-            tuesday:{...genDetails.hours.tuesday},
-            wednesday:{...genDetails.hours.wednesday},
-            thursday:{...genDetails.hours.thursday},
-            friday:{...genDetails.hours.friday},
-            saturday:{...genDetails.hours.saturday},
-            sunday:{...genDetails.hours.sunday},
-        })
-    }
+
 
     const getUserDetails = () => {
         getDoc(doc(db, "users", `${access.id}`)).then((res: any) => {
             console.log(res.data())
             setGenDetails(res.data())
-            
-        getUserHours()
+            setWorkingHours({
+                monday: { ...res.data().hours.monday },
+                tuesday: { ...res.data().hours.tuesday },
+                wednesday: { ...res.data().hours.wednesday },
+                thursday: { ...res.data().hours.thursday },
+                friday: { ...res.data().hours.friday },
+                saturday: { ...res.data().hours.saturday },
+                sunday: { ...res.data().hours.sunday },
+            })
+          
         }).catch(err => {
-          setShowUserMsg(error)
+            setShowUserMsg(error)
         })
     }
 
     useEffect(() => {
         getUserDetails()
         getListingData()
-        getUserHours()
-        
-        
-        console.log("check leackages")
+      
     }, [])
 
     const AddToGallery = (image: any) => {
@@ -133,13 +128,13 @@ export default function Profile() {
             getDownloadURL(res.ref).then(url => {
                 const newImg = [...access.images, url]
                 const data = { ...access, images: newImg }
-                
+
                 updateUser(data).then(res => {
                     getUserDetails()
                     setShowUserMsg(success)
-                }).catch(err => { setShowUserMsg(error)})
-            }).catch(err => { setShowUserMsg(error)})
-        }).catch(err => { setShowUserMsg(error)})
+                }).catch(err => { setShowUserMsg(error) })
+            }).catch(err => { setShowUserMsg(error) })
+        }).catch(err => { setShowUserMsg(error) })
     }
 
     const viewImage = (imageUrl: string) => {
@@ -155,8 +150,8 @@ export default function Profile() {
             updateUser(data).then(res => {
                 getUserDetails()
                 setShowUserMsg(success)
-            }).catch(err => {setShowUserMsg(error) })
-        }).catch(err => { setShowUserMsg(error)})
+            }).catch(err => { setShowUserMsg(error) })
+        }).catch(err => { setShowUserMsg(error) })
     }
 
 
@@ -221,9 +216,9 @@ export default function Profile() {
                     getListingData()
                     setShowUserMsg(success)
                     setTimeout(() => setHide({ ...hide, showAddListing: false }), 5000)
-                }).catch(err => {setShowUserMsg(error); setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>)})
-            }).catch(err => {setShowUserMsg(error);setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>) })
-        }).catch(err => {setShowUserMsg(error);setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>) })
+                }).catch(err => { setShowUserMsg(error); setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>) })
+            }).catch(err => { setShowUserMsg(error); setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>) })
+        }).catch(err => { setShowUserMsg(error); setAddListingLoad(<button type="submit" className={genBtn}>Add Listing</button>) })
     }
 
     const previewImg = (image: any) => {
@@ -255,27 +250,27 @@ export default function Profile() {
 
     }
 
-    const RemoveListing=()=>{
-        deleteDoc(doc(db,"listings",selectedId)).then(res=>{
+    const RemoveListing = () => {
+        deleteDoc(doc(db, "listings", selectedId)).then(res => {
             getListingData()
-            setHide({...hide,showSelected:false})
+            setHide({ ...hide, showSelected: false })
             setShowUserMsg(success)
-        }).catch(err=>{
+        }).catch(err => {
             setShowUserMsg(error)
         })
     }
 
     const handleHoursChange = (day: any, timeType: any, value: any) => {
-    
-        setWorkingHours({ ...workingHours, [day]: {...setWorkingHours, [timeType]: value } });
+
+        setWorkingHours({ ...workingHours, [day]: { ...setWorkingHours, [timeType]: value } });
         console.log(workingHours)
     };
-    const handleHoursUpdate=(e:FormEvent)=>{
+    const handleHoursUpdate = (e: FormEvent) => {
         e.preventDefault()
-        updateUser({...genDetails,hours:workingHours}).then(res=>{
+        updateUser({ ...genDetails, hours: workingHours }).then(res => {
             getUserDetails()
             setShowUserMsg(success)
-        }).catch(err=>{setShowUserMsg(error)})
+        }).catch(err => { setShowUserMsg(error) })
     }
 
 
@@ -284,8 +279,8 @@ export default function Profile() {
             <div className="mb-3">
                 <h1>{access.name}</h1>
             </div>
-            <Alert show={showUserMsg.show} variant={showUserMsg.variant} dismissible={true} onClose={()=>setShowUserMsg({...showUserMsg,show:false})} >
-              
+            <Alert show={showUserMsg.show} variant={showUserMsg.variant} dismissible={true} onClose={() => setShowUserMsg({ ...showUserMsg, show: false })} >
+
                 {showUserMsg.msg}
             </Alert>
 
@@ -430,8 +425,8 @@ export default function Profile() {
                 </div>
                 <div className="border border-1 mb-5 p-2 rounded">
                     <h3 className="mb-3">Working Hours</h3>
-                    <form onSubmit={(e)=>handleHoursUpdate(e)}>
-                    {Object.keys(workingHours).map((day) => (
+                    <form onSubmit={(e) => handleHoursUpdate(e)}>
+                        {Object.keys(workingHours).map((day) => (
                             <div key={day} className=" row">
                                 <p className="fw-bold">{day.charAt(0).toUpperCase() + day.slice(1)}</p>
                                 <label>
@@ -441,7 +436,7 @@ export default function Profile() {
                                         value={workingHours[day].openingHours}
                                         className="form-control mb-3"
                                         onChange={(e) => handleHoursChange(day, 'openingHours', e.target.value)}
-                                        
+
                                     />
                                 </label>
                                 <label>
@@ -451,14 +446,14 @@ export default function Profile() {
                                         value={workingHours[day].closingHours}
                                         className="form-control mb-3"
                                         onChange={(e) => handleHoursChange(day, 'closingHours', e.target.value)}
-                                        
+
                                     />
                                 </label>
                             </div>
                         ))}
-                    <div>
-                        <button className={genBtn}>Update</button>
-                    </div>
+                        <div>
+                            <button className={genBtn}>Update</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -611,11 +606,11 @@ export default function Profile() {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="btn btn-outline-danger  rounded-pill" onClick={() =>RemoveListing() }>Remove Listing</button>
+                    <button className="btn btn-outline-danger  rounded-pill" onClick={() => RemoveListing()}>Remove Listing</button>
                 </Modal.Footer>
 
             </Modal>
-           
+
         </div>
     )
 }
