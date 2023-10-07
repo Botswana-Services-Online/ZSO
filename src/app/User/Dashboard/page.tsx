@@ -1,21 +1,21 @@
 "use client"
 import { db } from "@/app/api/firebase"
-import { useState, useLayoutEffect, useContext, useEffect, FormEvent } from "react"
-import ViewDocs from "@/app/components/viewDocs"
+import { useState,  useContext, useEffect, FormEvent } from "react"
+// import ViewDocs from "@/app/components/viewDocs"
 import { Authorized } from "@/app/components/contexts"
-import { addCircle, close, closeCircleOutline, eye, images, informationCircle, trash } from "ionicons/icons"
+import {  closeCircleOutline } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
 import { storage } from "@/app/api/firebase"
 import { ref, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage"
 import { v4 } from "uuid"
 import { updateUser } from "@/app/components/updateInfo"
-import { alignIcon, bgImg, genBtn, genFrm, loading, nomBtn, outlineBtn } from "@/app/components/cssStyles"
-import { Alert, Modal, Toast } from "react-bootstrap"
+import { alignIcon, bgImg, genBtn, genFrm, loading,  outlineBtn } from "@/app/components/cssStyles"
+import { Alert, Modal,  } from "react-bootstrap"
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore"
 import { listingsData, listingsDataDefault, userData, userDataDefault } from "@/app/components/schemes"
 import { categories, cities } from "@/app/components/categories"
 import { search } from "ss-search"
-import { get } from "http"
+
 
 
 
