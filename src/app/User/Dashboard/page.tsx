@@ -292,10 +292,6 @@ export default function Profile() {
                         <br />
                         {listingData?.length > 1 ? <a href="/pricing">Upgrade Account</a> : <small className="text-success text-center text-decoration-underline pointer" onClick={() => setHide({ ...hide, showAddListing: true })}>New Listing</small>}
                     </div>
-
-
-
-
                     {
                         listingData?.map((item: any, index: number) => {
                             return (
