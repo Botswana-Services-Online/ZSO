@@ -18,8 +18,29 @@ export const GetLocation = (address:string)=>{
     })
 }
 
+
+
+export const havePosition=(position:any)=>{
+    return{
+        hasLocation:true,
+        position
+    }
+}
+
+export const noPosition=(position:any)=>{
+    return{
+        hasLocation:true,
+        position
+    }
+}
+
+
+
+
 export const GetDistance=(from:geometry,to:geometry)=>{
-    const client = new Client({})
+    const client = new Client({
+
+    })
 
     return client.distancematrix({
         params:{

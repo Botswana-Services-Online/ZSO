@@ -7,13 +7,13 @@ import { FooterBar, NavBar } from './components/SiteNavigation';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import { useState,useEffect } from 'react';
 import { Authorized } from './components/contexts';
-import { getAuth, onAuthStateChanged} from 'firebase/auth';
-import { app, auth } from './api/firebase';
+import {  onAuthStateChanged} from 'firebase/auth';
+import {  auth } from './api/firebase';
 import { fetchData } from './components/getData';
 import { userData, userDataDefault } from './components/schemes';
-import Script from 'next/script';
+
 import { Metadata } from 'next';
-import manifest from './manifest';
+
 
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -33,15 +33,10 @@ export default function RootLayout({
 }) {
   // setupIonicReact();
   const [access,setAccess] = useState<userData>(userDataDefault)
-  const [userlocation,setUserLocation] = useState<any>()
  
   useEffect(()=>{
-    navigator.geolocation.getCurrentPosition((position)=>{
-      setUserLocation(`${position.coords.latitude},${position.coords.longitude}`)
-      console.log(userlocation)
-    })
+    navigator.geolocation.getCurrentPosition((position)=>{},(error)=>{})
    onAuthStateChanged(auth,(user:any)=>{
-    console.log(user)
     if(user){
     
       if(user.emailVerified===true){
@@ -53,25 +48,16 @@ export default function RootLayout({
       }).catch(error=>{
         console.log(error)
       })
-      fetch(user.photoUrl).then((res:any)=>{
-        localStorage.setItem("profilePicture",URL.createObjectURL(res))
-      }).catch(err=>{
+     
         localStorage.setItem("profilePicture","https://voideawn.sirv.com/website/person-circle.svg")
-      })
+     
     }
     }
    })
   },[])
   return (
     <html lang="en">
-      {/* <head>
-      <meta name="google-adsense-account" content="ca-pub-7691895735151663"/>
-      <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7691895735151663"
-     crossOrigin="anonymous"  strategy="lazyOnload"></Script>
-      <title>Zimbabwe Services Online</title>
-      <link rel="manifest" href="/manifest.webmanifest"/>
-      </head> */}
-      <body>
+      <body suppressHydrationWarning={true}>
       <Authorized.Provider value={{access,setAccess}}>
         <NavBar/>
         {children}
