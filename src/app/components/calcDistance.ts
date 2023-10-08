@@ -1,15 +1,15 @@
 import { Client } from "@googlemaps/google-maps-services-js"
-
-const key = "AIzaSyB0N0WMrm6uUTJYlibyXdbGs7EXFnc6Yno"
-
-
+import { Loader } from "@googlemaps/js-api-loader";
 interface geometry{
     lat:number,
     lng:number
 }
+const key = "AIzaSyB0N0WMrm6uUTJYlibyXdbGs7EXFnc6Yno"
+
+const client  = new Client({})
+
 // get users address from string
 export const GetLocation = (address:string)=>{
-    const client = new Client({})
     return client.geocode({
         params: {
             address: address,
@@ -18,29 +18,7 @@ export const GetLocation = (address:string)=>{
     })
 }
 
-
-
-export const havePosition=(position:any)=>{
-    return{
-        hasLocation:true,
-        position
-    }
-}
-
-export const noPosition=(position:any)=>{
-    return{
-        hasLocation:true,
-        position
-    }
-}
-
-
-
-
 export const GetDistance=(from:geometry,to:geometry)=>{
-    const client = new Client({
-
-    })
 
     return client.distancematrix({
         params:{
@@ -50,6 +28,21 @@ export const GetDistance=(from:geometry,to:geometry)=>{
         }
     })
 }
+
+
+// export const gd = ()=>{
+//     const c = new Loader({
+//         apiKey:key
+//     })
+
+//     c.importLibrary("geocoding").then(({Geocoding})=>{
+//         new Geocoding().geocode({
+//             address:"52 malta rd braeside"
+//         }).then((res:any)=>{
+//             console.log(res.data.results[0].geometry.location)
+//         })
+//     })
+// }
 
 
 

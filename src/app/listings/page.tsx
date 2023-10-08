@@ -14,7 +14,7 @@ import { ReviewCalc } from "../components/calculate";
 import { useRouter } from "next/navigation";
 import algolia from "algoliasearch"
 import { search } from "ss-search";
-import { GetDistance, GetLocation, havePosition, noPosition } from "../components/calcDistance";
+import { GetDistance, GetLocation } from "../components/calcDistance";
 
 export default function Listings() {
     const nav = useRouter()
@@ -116,6 +116,10 @@ export default function Listings() {
         })
     }
 
+    // const test=()=>{
+    //     gd()
+    // }
+
 
     useEffect(() => {
         //@ts-ignore
@@ -131,8 +135,8 @@ export default function Listings() {
             getData("users", searchValue)
             // getData("listings",name)
         }
-
-        advancedSearch("Harare")
+        advancedSearch(searchValue)
+        // test()
 
     }, [])
 
