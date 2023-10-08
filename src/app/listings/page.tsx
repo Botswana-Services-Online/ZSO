@@ -14,7 +14,7 @@ import { ReviewCalc } from "../components/calculate";
 import { useRouter } from "next/navigation";
 import algolia from "algoliasearch"
 import { search } from "ss-search";
-import { GetDistance, GetLocation } from "../components/calcDistance";
+import { convertToGeometry, getDistance } from "../components/calcDistance";
 
 export default function Listings() {
     const nav = useRouter()
@@ -95,19 +95,22 @@ export default function Listings() {
         listingIndex.search(value).then(res => {
             data = [...res.hits]
             //check if we have user location
-            const getUserLocation = navigator.geolocation.getCurrentPosition((position) => {
+            navigator.geolocation.getCurrentPosition((position) => {
+                let userPositon = { lat: position.coords.latitude, lng: position.coords.longitude }
                 data.forEach((item: any) => {
-                    GetLocation(item.address).then(res => {
-                        let toLocation = res.data.results[0].geometry.location
-                        console.log(toLocation)
-
-                        GetDistance({ lat: position.coords.latitude, lng: position.coords.longitude }, { lat: toLocation.lat, lng: toLocation.lng }).then(res => {
-                            console.log(res.data.rows)
-                            console.table(res.data.rows[0].elements)
-                            let result = res.data.rows[0].elements
-                            item = { ...item, distanceDetails: result }
-                        }).catch(err => null)
-                    }).catch(err => null)
+                    let address = item.address
+                    convertToGeometry(address).then(res=>{
+                        console.log(res)
+                        let destination = res.geometry.location
+                        getDistance(userPositon,destination).then((res)=>{
+                            console.log(res)
+                            }).catch(err=>{
+                                console.log(err)
+                            })
+                    }).catch(err=>{
+                        console.log(err)
+                    })
+                 
                 })
             }, (err) => {
                 // alert user if we don't have access to location
@@ -116,10 +119,7 @@ export default function Listings() {
         })
     }
 
-    // const test=()=>{
-    //     gd()
-    // }
-
+    
 
     useEffect(() => {
         //@ts-ignore
@@ -135,6 +135,8 @@ export default function Listings() {
             getData("users", searchValue)
             // getData("listings",name)
         }
+
+        
         advancedSearch("desktops")
         // test()
 

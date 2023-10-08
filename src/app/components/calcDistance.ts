@@ -1,48 +1,36 @@
-import { Client } from "@googlemaps/google-maps-services-js"
-import { Loader } from "@googlemaps/js-api-loader";
-interface geometry{
+import axios from "axios";
+
+interface cordType{
     lat:number,
     lng:number
 }
 const key = "AIzaSyB0N0WMrm6uUTJYlibyXdbGs7EXFnc6Yno"
 
-const client  = new Client({})
-
-// get users address from string
-export const GetLocation = (address:string)=>{
-    return client.geocode({
+export const convertToGeometry = async (address: string) => {
+    const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
-            address: address,
-            key
+          address,
+          key
         }
-    })
+      });
+    return response.data
 }
 
-export const GetDistance=(from:geometry,to:geometry)=>{
+export  const getDistance=async(origin:cordType, destination:cordType)=> {
+  const response = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json`,{
+    params:{
+      units:'imperial',
+      origins:origin,
+      destinations:destination,
+      key:key
+    }
+  });
 
-    return client.distancematrix({
-        params:{
-            origins:[`${from.lat}`,`${from.lng}`],
-            destinations:[`${to.lat}`,`${to.lng}`],
-            key
-        }
-    })
+  return response.data;
 }
 
 
-// export const gd = ()=>{
-//     const c = new Loader({
-//         apiKey:key
-//     })
 
-//     c.importLibrary("geocoding").then(({Geocoding})=>{
-//         new Geocoding().geocode({
-//             address:"52 malta rd braeside"
-//         }).then((res:any)=>{
-//             console.log(res.data.results[0].geometry.location)
-//         })
-//     })
-// }
 
 
 
