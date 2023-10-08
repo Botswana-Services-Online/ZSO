@@ -135,7 +135,7 @@ export default function Listings() {
             getData("users", searchValue)
             // getData("listings",name)
         }
-        advancedSearch(searchValue)
+        advancedSearch("desktops")
         // test()
 
     }, [])
