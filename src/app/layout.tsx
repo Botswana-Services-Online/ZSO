@@ -2,7 +2,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import '@ionic/react/css/core.css';
 import './globals.css'
-//import { Inter } from 'next/font/google'
 import { FooterBar, NavBar } from './components/SiteNavigation';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import { useState,useEffect } from 'react';
@@ -11,12 +10,11 @@ import {  onAuthStateChanged} from 'firebase/auth';
 import {  auth } from './api/firebase';
 import { fetchData } from './components/getData';
 import { userData, userDataDefault } from './components/schemes';
-
 import { Metadata } from 'next';
 
 
 
-// const inter = Inter({ subsets: ['latin'] })
+
 
 export const metadata:Metadata = {
   title: 'Zimbabwe Services Online',
@@ -35,6 +33,7 @@ export default function RootLayout({
   const [access,setAccess] = useState<userData>(userDataDefault)
  
   useEffect(()=>{
+    //get user location
     navigator.geolocation.getCurrentPosition((position)=>{},(error)=>{})
    onAuthStateChanged(auth,(user:any)=>{
     if(user){
