@@ -40,12 +40,10 @@ export default function RootLayout({
     
       if(user.emailVerified===true){
       fetchData(user.email).then((data:any)=>{
-        console.log(data.docs[0].id)
         setAccess({...data.docs[0].data(),log:true,id:data.docs[0].id})
         localStorage.setItem("user",data.docs[0].id)
-        console.log(access)
       }).catch(error=>{
-        console.log(error)
+        null
       })
      
         localStorage.setItem("profilePicture","https://voideawn.sirv.com/website/person-circle.svg")

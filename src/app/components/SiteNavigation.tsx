@@ -26,11 +26,9 @@ export const NavBar = () => {
     })
     
     useLayoutEffect(()=>{
-        console.log(access)
        if(access.log){
         let data = authUser.currentUser
         setImgFile(localStorage.getItem("profilePicture"))
-        console.log(data?.photoURL)
         setHide({...hide,hideReg:true,hideHas:false})  
         }else{
             setHide({...hide,hideReg:false,hideHas:true})
@@ -42,7 +40,7 @@ export const NavBar = () => {
             setAccess(userDataDefault)
             route.push("/")
         }).catch(err=>{
-            console.log(err)
+            null
         })
     }
 
