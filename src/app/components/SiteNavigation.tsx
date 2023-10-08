@@ -27,7 +27,6 @@ export const NavBar = () => {
     
     useLayoutEffect(()=>{
        if(access.log){
-        let data = authUser.currentUser
         setImgFile(localStorage.getItem("profilePicture"))
         setHide({...hide,hideReg:true,hideHas:false})  
         }else{
