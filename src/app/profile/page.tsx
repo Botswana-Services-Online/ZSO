@@ -84,7 +84,7 @@ export default function Profile() {
                         <p className=" "><IonIcon icon={informationCircleOutline} />&nbsp; {data.Description}</p>
                         <p className="d-flex align-items-center "><IonIcon icon={callOutline} />&nbsp; {data.mobilePhone}  {data.telephone.length>0?` or ${data.telephone}`:null}</p>
                         <p className="d-flex align-items-center "><IonIcon icon={mailOutline} />&nbsp; {data.email}</p>
-                        <p className="d-flex align-items-center "><IonIcon icon={timeOutline} /> &nbsp;{today.openingHours.length>0?`Open from ${today.openingHours} - ${today.closingHours}`:"Closed"} </p>
+                        <p className="d-flex align-items-center "><IonIcon icon={timeOutline} /> &nbsp;{today?.openingHours?.length>0?`Open from ${today.openingHours} - ${today.closingHours}`:"Closed"} </p>
                         <p className="d-flex align-items-center "><IonIcon icon={calendarOutline} /> &nbsp;Open on holidays - {data.holiday}</p>
 
                         <a className="text-decoration-none " target="blank" href={whatsappLink(data.phone)}><button className="btn d-flex align-items-center btn-success"><IonIcon icon={logoWhatsapp} />&nbsp;Chat on Whatsapp</button></a>
