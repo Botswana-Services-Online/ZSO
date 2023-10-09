@@ -256,7 +256,7 @@ export default function Listings() {
                 <form onSubmit={(e) => advancedSearch(e)}>
                     <Modal.Body>
                         <div>
-                            <p><small>By default AI powered search is already in use to give you the best results, change values if you aren't satisfied</small></p>
+                            <p><small>By default AI powered search is already in use to give you the best results, change values if you arent satisfied</small></p>
 
                             <div className="row">
                                 <div className="col-sm mb-3">
