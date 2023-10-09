@@ -51,7 +51,7 @@
 
 export const categories = [
   {
-    "name": "All Categories"
+    "name": ""
   },
   {
     "name": "Accessories"
