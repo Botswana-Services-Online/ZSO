@@ -49,10 +49,8 @@ export default function Listings() {
         let data: any = []
 
         // get data from current city
-        listingIndex.search(searchName, {
+        listingIndex.search(`${searchName} ${searchLocation}`, {
             hitsPerPage: 50,
-
-
         }).then(res => {
             data = [...res.hits]
             console.log(data)
