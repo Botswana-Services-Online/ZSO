@@ -64,7 +64,7 @@ export default function Register() {
         const owner = getAuth(app).currentUser?.email
         const createdAt = moment().toLocaleString()
         const data = {
-            ...userData,email:owner,hours:formData,createdAt
+            ...userData,email:owner,hours:formData,log:true,createdAt
         }
 
 
