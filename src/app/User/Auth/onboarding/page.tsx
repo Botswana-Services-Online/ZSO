@@ -105,7 +105,7 @@ export default function Register() {
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Telephone</p>
-                                <input type="text" className={genFrm} placeholder="Include country code +263..." value={userData.telephone} onChange={(e) => setUserData({ ...userData, telephone: e.target.value })} required />
+                                <input type="text" className={genFrm} placeholder="Include country code +263..." value={userData.telephone} onChange={(e) => setUserData({ ...userData, telephone: e.target.value })}  />
                             </div>
 
                         </div>
@@ -148,15 +148,15 @@ export default function Register() {
 
                             <div className="col-sm mb-3">
                                 <p>LinkedIn</p>
-                                <input type="text" className={genFrm} placeholder="Username"  value={userData.linkedin} onChange={(e) => setUserData({ ...userData, linkedin: e.target.value })} required />
+                                <input type="text" className={genFrm} placeholder="Username"  value={userData.linkedin} onChange={(e) => setUserData({ ...userData, linkedin: e.target.value })}  />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Twitter</p>
-                                <input type="text" className={genFrm} placeholder="Username "  value={userData.twitter} onChange={(e) => setUserData({ ...userData, twitter: e.target.value })} required />
+                                <input type="text" className={genFrm} placeholder="Username "  value={userData.twitter} onChange={(e) => setUserData({ ...userData, twitter: e.target.value })}  />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Facebook</p>
-                                <input type="text" className={genFrm} placeholder="Username" value={userData.facebook} onChange={(e) => setUserData({ ...userData, facebook: e.target.value })} required />
+                                <input type="text" className={genFrm} placeholder="Username" value={userData.facebook} onChange={(e) => setUserData({ ...userData, facebook: e.target.value })}  />
                             </div>
 
                         </div>
