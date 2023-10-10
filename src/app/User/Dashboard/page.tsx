@@ -402,7 +402,7 @@ export default function Profile() {
                         </div>
 
                         {
-                            genDetails.images?.map((item: string, index: number) => {
+                            genDetails?.images?.map((item: string, index: number) => {
                                 return (
                                     <div className="m-2 d-flex flex-row justify-content-center align-items-center border rounded" key={index} style={{ ...bgImg(item), maxWidth: "30vh", minWidth: "30vh", height: "30vh" }}>
 
