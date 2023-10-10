@@ -14,6 +14,7 @@ import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, 
 import { listingsData, listingsDataDefault, userData, userDataDefault } from "@/app/components/schemes"
 import { categories, cities } from "@/app/components/categories"
 import { search } from "ss-search"
+import { onAuthStateChanged } from "firebase/auth"
 
 
 
@@ -96,9 +97,10 @@ export default function Profile() {
     }
 
 
-    const getUserDetails = () => {
+    const getUserDetails = (uid:string) => {
         console.log(auth.currentUser?.uid)
-        getDoc(doc(db, "users", `${auth.currentUser?.uid}`)).then((res) => {
+        getDoc(doc(db, "users", `${uid}`)).then((res) => {
+
             if(res.exists()){
             console.log(res.data())
             setGenDetails(res.data())
@@ -122,11 +124,27 @@ export default function Profile() {
     }
 
     useEffect(() => {
-        getUserDetails()
-        getListingData()
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, call getUserDetails()
+                console.log('User ID:', user.uid); // User ID
+                getUserDetails(user.uid);
+                getListingData()
+            } else {
+                // User is signed out
+                console.log('No user is signed in.');
+            }
+        });
+       
+    
+        // Cleanup subscription on unmount
+        return () => unsubscribe();
+    }, []);
+    
+        // getUserDetails()
       
-    }, [])
-
+      
+   
     const AddToGallery = (image: any) => {
         const galleryRef = ref(storage, `gallery/${v4()}`)
         uploadBytes(galleryRef, image).then(res => {
@@ -135,7 +153,7 @@ export default function Profile() {
                 const data = { ...genDetails, images: newImg }
 
                 updateUser(data).then(res => {
-                    getUserDetails()
+                    getUserDetails(`${auth.currentUser?.uid}`)
                     setShowUserMsg(success)
                 }).catch(err => { setShowUserMsg(error) })
             }).catch(err => { setShowUserMsg(error) })
@@ -153,7 +171,7 @@ export default function Profile() {
             const newData = genDetails.images.filter((item: string) => item !== imageUrl)
             const data = { ...genDetails, images: newData }
             updateUser(data).then(res => {
-                getUserDetails()
+                getUserDetails(`${auth.currentUser?.uid}`)
                 setShowUserMsg(success)
             }).catch(err => { setShowUserMsg(error) })
         }).catch(err => { setShowUserMsg(error) })
@@ -247,7 +265,7 @@ export default function Profile() {
     const updateGenDetails = (e: FormEvent) => {
         e.preventDefault()
         updateUser(genDetails).then(res => {
-            getUserDetails()
+            getUserDetails(`${auth.currentUser?.uid}`)
             setShowUserMsg(success)
         }).catch(err => {
             console.log(err)
@@ -274,7 +292,7 @@ export default function Profile() {
     const handleHoursUpdate = (e: FormEvent) => {
         e.preventDefault()
         updateUser({ ...genDetails, hours: workingHours }).then(res => {
-            getUserDetails()
+            getUserDetails(`${auth.currentUser?.uid}`)
             setShowUserMsg(success)
         }).catch(err => { setShowUserMsg(error) })
     }
