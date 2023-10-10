@@ -197,7 +197,7 @@ export default function Profile() {
             category,
             userId: `${auth.currentUser?.uid}`,
             call: genDetails.mobilePhone,
-            whatsapp: `https://wa.me/${genDetails.mobilePhone}`,
+            whatsapp: `https://wa.me/${genDetails?.mobilePhone}`,
             email: genDetails.email,
             rating: 0,
             review: [],
@@ -362,7 +362,7 @@ export default function Profile() {
                                 <input className="form-control rounded-pill" value={genDetails?.website} onChange={(e) => setGenDetails({ ...genDetails, website: e.target.value })} required />
                             </div>
                             <div className="col-sm mb-3">
-                                <p>Open on Holidays : {genDetails.holiday}</p>
+                                <p>Open on Holidays : {genDetails?.holiday}</p>
                                 <select onChange={(e: any) => setGenDetails({ ...genDetails, holiday: e.target.value })} className="form-control rounded-pill" required>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
