@@ -1,8 +1,7 @@
 "use client"
 import { auth, db } from "@/app/api/firebase"
-import { useState,  useContext, useEffect, FormEvent } from "react"
+import { useState,  useEffect, FormEvent } from "react"
 // import ViewDocs from "@/app/components/viewDocs"
-import { Authorized } from "@/app/components/contexts"
 import {  closeCircleOutline } from "ionicons/icons"
 import { IonIcon } from "@ionic/react"
 import { storage } from "@/app/api/firebase"
@@ -21,7 +20,6 @@ import { search } from "ss-search"
 
 
 export default function Profile() {
-    const { access, setAccess } = useContext(Authorized)
 
 
     const [genDetails, setGenDetails] = useState<userData>(userDataDefault)
@@ -85,7 +83,7 @@ export default function Profile() {
     const getListingData = () => {
         const id = localStorage.getItem("user")
         const dbRef = collection(db, "listings")
-        const q = query(dbRef, where("userId", "==", `${id}`))
+        const q = query(dbRef, where("userId", "==", `${auth.currentUser?.uid}`))
         getDocs(q).then(res => {
             const resData: any = []
             // res.do
@@ -126,8 +124,8 @@ export default function Profile() {
         const galleryRef = ref(storage, `gallery/${v4()}`)
         uploadBytes(galleryRef, image).then(res => {
             getDownloadURL(res.ref).then(url => {
-                const newImg = [...access.images, url]
-                const data = { ...access, images: newImg }
+                const newImg = [...genDetails.images, url]
+                const data = { ...genDetails, images: newImg }
 
                 updateUser(data).then(res => {
                     getUserDetails()
@@ -145,8 +143,8 @@ export default function Profile() {
     const deleteImage = (imageUrl: string) => {
         const imgRef = ref(storage, imageUrl)
         deleteObject(imgRef).then(res => {
-            const newData = access.images.filter((item: string) => item !== imageUrl)
-            const data = { ...access, images: newData }
+            const newData = genDetails.images.filter((item: string) => item !== imageUrl)
+            const data = { ...genDetails, images: newData }
             updateUser(data).then(res => {
                 getUserDetails()
                 setShowUserMsg(success)
@@ -197,13 +195,13 @@ export default function Profile() {
             serviceLocation,
             image: "",
             category,
-            userId: access.id,
-            call: access.mobilePhone,
-            whatsapp: `https://wa.me/${access.phone}`,
-            email: access.email,
+            userId: `${auth.currentUser?.uid}`,
+            call: genDetails.mobilePhone,
+            whatsapp: `https://wa.me/${genDetails.mobilePhone}`,
+            email: genDetails.email,
             rating: 0,
             review: [],
-            company: access.name,
+            company: genDetails.name,
             type: "listing"
         }
 
@@ -278,7 +276,7 @@ export default function Profile() {
     return (
         <div className="container">
             <div className="mb-3">
-                <h1>{access.name}</h1>
+                <h1>{genDetails.name}</h1>
             </div>
             <Alert show={showUserMsg.show} variant={showUserMsg.variant} dismissible={true} onClose={() => setShowUserMsg({ ...showUserMsg, show: false })} >
 

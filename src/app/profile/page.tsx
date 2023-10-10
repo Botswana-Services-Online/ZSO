@@ -17,6 +17,7 @@ export default function Profile() {
     const name = useSearchParams()
 
     //store profile data 
+    const [userId,setUserId] =useState<string>("")
     const [data, setData] = useState<userData>(userDataDefault)
     const [listings, setListings] = useState<Array<listingsData>>([])
     const [selected, setSelected] = useState<listingsData>(listingsDataDefault)
@@ -32,9 +33,8 @@ export default function Profile() {
         const p:any = name?.get("name")
         const docRef = doc(db, "users", `${p}`)
         getDoc(docRef).then((doc: any) => {
-            setData(doc.data())
-            console.log(doc.data().id)
-            const q = query(collection(db, "listings"), where("userId", "==", `${doc.data().id}`))
+            setData({...doc.data(),id:p})
+            const q = query(collection(db, "listings"), where("userId", "==", `${p}`))
             getDocs(q).then((querySnapshot) => {
                 console.log(querySnapshot)
                 const listingArray: any = []
