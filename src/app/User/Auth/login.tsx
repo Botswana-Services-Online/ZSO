@@ -1,16 +1,19 @@
 "use Client"
 import { alignIcon, genBtn, genFrm,loading } from "@/app/components/cssStyles";
-import { useState} from "react";
-import { GoogleAuthProvider,setPersistence,browserLocalPersistence, getAuth,signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
-import { app } from "@/app/api/firebase"
+import { useContext, useState} from "react";
+import { GoogleAuthProvider,setPersistence,browserLocalPersistence, getAuth,signInWithEmailAndPassword, signInWithPopup, sendEmailVerification } from "firebase/auth"
+import { app,auth, db } from "@/app/api/firebase"
 import { Alert } from "react-bootstrap";
 import { IonIcon } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
-
-import { checkBoarded } from "@/app/components/checkAcc";
+import { Authorized } from "@/app/components/contexts";
+import { doc, getDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 // import { loading } from "@/app/components/cssStyles";
 export default function Login() {
-    const auth:any = getAuth(app)
+    const route = useRouter()
+    const {access,setAccess} = useContext(Authorized)
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [hide, setHide] = useState(false)
@@ -20,14 +23,34 @@ export default function Login() {
 
     // }
 
+    const checkLoggedUser=(id:string)=>{
+        getDoc(doc(db,"users",id)).then(res=>{
+            if(res.exists()){
+                setAccess(res.data())
+                setAccess
+                route.push("/User/Dashboard")
+            }else{
+                route.push("/User/Auth/onboarding")
+            }
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+
     const handleSubmit = (e: FormDataEvent) => {
         e.preventDefault()
        
             setBtnTxt(loading)
             setPersistence(auth,browserLocalPersistence).then(()=>{
            signInWithEmailAndPassword(auth, email, password)
-                .then(() => {
-                    checkBoarded()
+                .then((res) => {
+                    if(res.user.emailVerified){
+                      checkLoggedUser(res.user.uid)
+                    }else{
+                        sendEmailVerification(res.user).then(()=>{
+                            route.push("/User/Auth/verify")
+                        })
+                    } 
                 })
                 .catch(() => {
                     setHide(true)
@@ -44,8 +67,13 @@ export default function Login() {
         const provider = new GoogleAuthProvider();
         setPersistence(auth,browserLocalPersistence).then((res)=>{
             signInWithPopup(auth,provider).then(res=>{
-                console.log(res)
-                 checkBoarded()
+                if(res.user.emailVerified){
+                    checkLoggedUser(res.user.uid)
+                }else{
+                    sendEmailVerification(res.user).then(()=>{
+                        route.push("/User/Auth/verify")
+                    })
+                }
             }).catch(err=>{
                 setHide(false)
             })

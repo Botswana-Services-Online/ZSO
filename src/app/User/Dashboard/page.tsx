@@ -245,6 +245,7 @@ export default function Profile() {
             getUserDetails()
             setShowUserMsg(success)
         }).catch(err => {
+            console.log(err)
             setShowUserMsg(error)
         })
 

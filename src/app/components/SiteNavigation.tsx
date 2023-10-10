@@ -19,7 +19,6 @@ export const NavBar = () => {
     const {access,setAccess} =useContext(Authorized)
     const route =  useRouter();
     const authUser = getAuth(app)
-    const [imgFile,setImgFile] = useState<any>("")
     const [hide,setHide]=useState({
         hideReg:false,
         hideHas:true
@@ -27,21 +26,12 @@ export const NavBar = () => {
     
     useLayoutEffect(()=>{
        if(access.log){
-        setImgFile(localStorage.getItem("profilePicture"))
         setHide({...hide,hideReg:true,hideHas:false})  
         }else{
             setHide({...hide,hideReg:false,hideHas:true})
         }
     },[access])
     
-    const logout=()=>{
-        authUser.signOut().then(res=>{
-            setAccess(userDataDefault)
-            route.push("/")
-        }).catch(err=>{
-            null
-        })
-    }
 
     return (
         <Navbar    expand="lg" className="p-2  navbarMain  position-fixed " fixed="top" >

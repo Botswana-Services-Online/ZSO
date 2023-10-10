@@ -1,14 +1,11 @@
 "use client"
 import { genBtn, genFrm, mp, vp } from "@/app/components/cssStyles";
-
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { industries } from "@/app/components/categories";
 import { search } from "ss-search";
-
 import { addDoc, collection} from "firebase/firestore"
-import { getAuth } from "firebase/auth";
-import { app, db, } from "@/app/api/firebase";
+import {  auth, db, } from "@/app/api/firebase";
 import moment from "moment";
 import { Alert, Spinner } from "react-bootstrap";
 import { userData, userDataDefault } from "@/app/components/schemes";
@@ -61,19 +58,18 @@ export default function Register() {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
         setLoading(true)
-        const owner = getAuth(app).currentUser?.email
+        const owner = auth.currentUser?.email
         const createdAt = moment().toLocaleString()
         const data = {
             ...userData,email:owner,hours:formData,log:true,createdAt
         }
 
 
-        addDoc(collection(db, "users"), data).then(res => {
-            route.push("/User/Dashboard/")
+        addDoc(collection(db, "users",`${auth.currentUser?.uid}`), data).then(res => {
+            route.push("/User/Dashboard")
         }).catch(err => {
             setLoading(false)
             setWarning(true)
-            setLoading(true)
         })
     }
 

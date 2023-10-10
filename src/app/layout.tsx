@@ -35,22 +35,7 @@ export default function RootLayout({
   useEffect(()=>{
     //get user location
     navigator.geolocation.getCurrentPosition((position)=>{},(error)=>{})
-   onAuthStateChanged(auth,(user:any)=>{
-    if(user){
-    
-      if(user.emailVerified===true){
-      fetchData(user.email).then((data:any)=>{
-        setAccess({...data.docs[0].data(),log:true,id:data.docs[0].id})
-        localStorage.setItem("user",data.docs[0].id)
-      }).catch(error=>{
-        null
-      })
-     
-        localStorage.setItem("profilePicture","https://voideawn.sirv.com/website/person-circle.svg")
-     
-    }
-    }
-   })
+   
   },[])
   return (
     <html lang="en">
