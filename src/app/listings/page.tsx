@@ -107,6 +107,7 @@ export default function Listings() {
            
 
         }).then((res: any) => {
+            console.log(res.hits)
             setCompData(res.hits)
             setHideLoad(true)
         }).catch(err =>   setHideLoad(true))
@@ -230,9 +231,9 @@ export default function Listings() {
                         <div className="d-flex flex-row flex-wrap  m-3  justify-content-evenly " >
                             <br />
 
-                            {compData?.map((item: userData, index: number) => {
+                            {compData?.map((item:any, index: number) => {
                                 return (
-                                    <div key={index} className="rounded pointer shadow-lg p-3 m-2 " style={{ width: "18rem", height: "27vh" }} onClick={() => nav.push(`/profile?name=${item.id}`)}>
+                                    <div key={index} className="rounded pointer shadow-lg p-3 m-2 " style={{ width: "18rem", height: "27vh" }} onClick={() => nav.push(`/profile?name=${item.objectID}`)}>
                                         <div className="d-flex justify-content-between ">
                                             <p>{item.name}</p>
                                             <IonIcon color="medium" icon={checkmarkDoneCircleOutline} />
