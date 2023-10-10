@@ -312,10 +312,10 @@ export default function Profile() {
             <div className="mb-5 border border-1 rounded p-2">
                 <h3>Listings</h3>
                 <div className=" m-3 scrollHorizontal" >
-                    <div className="d-flex flex-column align-items-center justify-content-center border rounded me-2" style={{ minWidth: "30vw", maxWidth: "30vw", height: "30vh" }}>
+                    <div className="d-flex flex-column align-items-center justify-content-center border rounded me-2 " style={{ minWidth: "30vw", maxWidth: "30vw", height: "30vh" }}>
                         <img className="imgGreen" src="https://voideawn.sirv.com/website/add-circle.svg" width="25" />
                         <br />
-                        {listingData?.length > 1 ? <a href="/pricing">Upgrade Account</a> : <small className="text-success text-center text-decoration-underline pointer" onClick={() => setHide({ ...hide, showAddListing: true })}>New Listing</small>}
+                        <p className="text-truncate">{listingData?.length >= 1 ? <small><a href="/pricing" >Upgrade</a></small> : <small className="text-success text-center text-decoration-underline pointer" onClick={() => setHide({ ...hide, showAddListing: true })}>New Listing</small>}</p>
                     </div>
                     {
                         listingData?.map((item: any, index: number) => {
@@ -324,7 +324,7 @@ export default function Profile() {
                                     <div className="card" style={{ minWidth: "30vw", maxWidth: "30vw", height: "30vh" }}>
                                         <img src={item.data().image} loading="eager" style={{ height: "20vh" }} className="rounded  m-2 img-fluid  fitImages" alt="..." />
                                         <div className=" text-center ">
-                                            <p className="card-title"><small>{item.data().name}</small></p>
+                                            <p className="card-title text-truncate m-1"><small>{item.data().name}</small></p>
 
                                             <div className="d-flex justify-content-between ">
 
