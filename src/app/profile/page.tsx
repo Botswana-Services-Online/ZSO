@@ -65,11 +65,7 @@ export default function Profile() {
     
     return (
         <div className={mp}>
-
-            <div className="d-flex mt-5  align-items-end  justify-content-end placeholder-wave bg-success" style={{ ...bgImg(data.header), height: "40vh" }}>
-
-
-
+            <div className="d-flex mt-5  align-items-end  justify-content-end placeholder-wave bg-success" style={{ ...bgImg(data.header.length>0?data.header:"https://firebasestorage.googleapis.com/v0/b/zimso-d10e9.appspot.com/o/plcaholder%2Fyoung-african-american-woman-shopping-with-colorful-packs-blue-background-attractive-female-model.jpg?alt=media&token=47f382c9-b859-4fe9-ba05-1bae7cb55c9d"), height: "40vh" }}>
             </div>
             <div className="  container pb-3" >
                 <div className="position-relative  bg-white rounded-pill p-3" >
