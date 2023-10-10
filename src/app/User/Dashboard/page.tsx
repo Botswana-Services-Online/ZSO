@@ -22,7 +22,7 @@ import { search } from "ss-search"
 export default function Profile() {
 
 
-    const [genDetails, setGenDetails] = useState<userData>(userDataDefault)
+    
     const [msg, setMsg] = useState({
         gallery: "Add Pictures"
     })
@@ -36,6 +36,7 @@ export default function Profile() {
     const [viewSelected, setViewSelected] = useState<string>("")
     const [categoryList, setCategoryList] = useState<Array<any>>([])
     const [citiesList, setCitiesList] = useState<Array<any>>([])
+    const [genDetails, setGenDetails] = useState<any>(userDataDefault)
     const [listingData, setListingData] = useState<Array<listingsData>>([])
     const [selectedListing, setSelectedListing] = useState<listingsData>(listingsDataDefault)
     const [selectedId, setSelectedId] = useState<string>("")
