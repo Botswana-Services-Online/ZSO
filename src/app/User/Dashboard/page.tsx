@@ -22,7 +22,34 @@ import { search } from "ss-search"
 export default function Profile() {
 
 
-    const [genDetails, setGenDetails] = useState<userData>({...userDataDefault})
+    const [genDetails, setGenDetails] = useState<userData>({
+        name:"",
+    address:"",
+    email:"",
+    numEmployees:0,
+    Cert:"",
+    Tax:"",
+    phone:"",
+    Description:"",
+    serviceLocation:"Harare",
+    header:"",
+    images:[],
+    listings:[],
+    log:false,
+    id:"",
+    registered:false,
+    reviews:[],
+    industry:"",
+    linkedin:"",
+    twitter:"",
+    facebook:"",
+    website:"",
+    mobilePhone:"",
+    telephone:"",
+    registerAs:"",
+    hours:[],
+    holiday:"Yes"
+    })
     const [msg, setMsg] = useState({
         gallery: "Add Pictures"
     })
