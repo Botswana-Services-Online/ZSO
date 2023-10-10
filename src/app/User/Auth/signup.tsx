@@ -58,14 +58,6 @@ export default function Signup() {
         })
     }
 
-    const FacebookAuth=()=>{
-        const provider = new FacebookAuthProvider();
-        signInWithPopup(auth,provider).then(res=>{
-            setTimeout(()=>router.push("/User/Auth/verify"),2000)
-        }).catch(err=>{
-            setWarn(false)
-        })
-    }
 
     return (
         <div className="container rounded shadow-lg p-3 bg-white text-center  " style={{ width: "350px" }}>
