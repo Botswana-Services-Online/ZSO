@@ -22,34 +22,7 @@ import { search } from "ss-search"
 export default function Profile() {
 
 
-    const [genDetails, setGenDetails] = useState<userData>({
-        name:"",
-    address:"",
-    email:"",
-    numEmployees:0,
-    Cert:"",
-    Tax:"",
-    phone:"",
-    Description:"",
-    serviceLocation:"Harare",
-    header:"",
-    images:[],
-    listings:[],
-    log:false,
-    id:"",
-    registered:false,
-    reviews:[],
-    industry:"",
-    linkedin:"",
-    twitter:"",
-    facebook:"",
-    website:"",
-    mobilePhone:"",
-    telephone:"",
-    registerAs:"",
-    hours:[],
-    holiday:"Yes"
-    })
+    const [genDetails, setGenDetails] = useState<userData>(userDataDefault)
     const [msg, setMsg] = useState({
         gallery: "Add Pictures"
     })
@@ -303,7 +276,7 @@ export default function Profile() {
     return (
         <div className="container">
             <div className="mb-3">
-                <h1>{genDetails.name}</h1>
+                <h1>{genDetails?.name}</h1>
             </div>
             <Alert show={showUserMsg.show} variant={showUserMsg.variant} dismissible={true} onClose={() => setShowUserMsg({ ...showUserMsg, show: false })} >
 
@@ -348,7 +321,7 @@ export default function Profile() {
                         <div className="row">
                             <p>Description</p>
                             <div className="col-sm mb-3">
-                                <textarea className="form-control" value={genDetails.Description} onChange={(e) => setGenDetails({ ...genDetails, Description: e.target.value })} required>
+                                <textarea className="form-control" value={genDetails?.Description} onChange={(e) => setGenDetails({ ...genDetails, Description: e.target.value })} required>
 
                                 </textarea>
                             </div>
@@ -356,15 +329,15 @@ export default function Profile() {
                         <div className="row">
                             <div className="col-sm mb-3  ">
                                 <p className={`m-2 `}>Email</p>
-                                <input type="text" className="form-control rounded-pill  " disabled value={genDetails.email} readOnly />
+                                <input type="text" className="form-control rounded-pill  " disabled value={genDetails?.email} readOnly />
                             </div>
                             <div className="col-sm mb-3 ">
                                 <p className="m-2">Mobile Number</p>
-                                <input type="text" className="form-control rounded-pill  " value={genDetails.mobilePhone} onChange={(e) => setGenDetails({ ...genDetails, mobilePhone: e.target.value })} required />
+                                <input type="text" className="form-control rounded-pill  " value={genDetails?.mobilePhone} onChange={(e) => setGenDetails({ ...genDetails, mobilePhone: e.target.value })} required />
                             </div>
                             <div className="col-sm mb-3">
                                 <p className="m-2 ">Telephone Number</p>
-                                <input type="text" className="form-control rounded-pill  " value={genDetails.telephone} onChange={(e: any) => setGenDetails({ ...genDetails, telephone: e.target.value })} required />
+                                <input type="text" className="form-control rounded-pill  " value={genDetails?.telephone} onChange={(e: any) => setGenDetails({ ...genDetails, telephone: e.target.value })} required />
                             </div>
 
 
@@ -372,21 +345,21 @@ export default function Profile() {
                         <div className="row">
                             <div className="col-sm mb-3">
                                 <p>LinkedIn</p>
-                                <input className="form-control rounded-pill" value={genDetails.linkedin} onChange={(e) => setGenDetails({ ...genDetails, linkedin: e.target.value })}  />
+                                <input className="form-control rounded-pill" value={genDetails?.linkedin} onChange={(e) => setGenDetails({ ...genDetails, linkedin: e.target.value })}  />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Twitter</p>
-                                <input className="form-control rounded-pill" value={genDetails.twitter} onChange={(e) => setGenDetails({ ...genDetails, twitter: e.target.value })}  />
+                                <input className="form-control rounded-pill" value={genDetails?.twitter} onChange={(e) => setGenDetails({ ...genDetails, twitter: e.target.value })}  />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Facebook</p>
-                                <input className="form-control rounded-pill" value={genDetails.facebook} onChange={(e) => setGenDetails({ ...genDetails, facebook: e.target.value })} />
+                                <input className="form-control rounded-pill" value={genDetails?.facebook} onChange={(e) => setGenDetails({ ...genDetails, facebook: e.target.value })} />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-sm mb-3">
                                 <p>Website</p>
-                                <input className="form-control rounded-pill" value={genDetails.website} onChange={(e) => setGenDetails({ ...genDetails, website: e.target.value })} required />
+                                <input className="form-control rounded-pill" value={genDetails?.website} onChange={(e) => setGenDetails({ ...genDetails, website: e.target.value })} required />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Open on Holidays : {genDetails.holiday}</p>
@@ -400,7 +373,7 @@ export default function Profile() {
                         <div className="row">
                             <div className="col-sm mb-5">
                                 <p className="m-2">Address</p>
-                                <textarea className="form-control   " value={genDetails.address} onChange={(e) => setGenDetails({ ...genDetails, address: e.target.value })} required></textarea>
+                                <textarea className="form-control   " value={genDetails?.address} onChange={(e) => setGenDetails({ ...genDetails, address: e.target.value })} required></textarea>
                             </div>
                         </div>
                         <div className="mb-3">
