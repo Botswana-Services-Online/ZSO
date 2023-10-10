@@ -97,7 +97,7 @@ export default function Profile() {
 
 
     const getUserDetails = () => {
-        getDoc(doc(db, "users", `${auth.currentUser?.uid}`)).then((res: any) => {
+        getDoc(doc(db, "users", `${auth.currentUser?.uid}`)).then((res) => {
             console.log(res.data())
             setGenDetails(res.data())
             // setWorkingHours({
