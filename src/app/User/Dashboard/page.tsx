@@ -125,7 +125,7 @@ export default function Profile() {
         getUserDetails()
         getListingData()
       
-    }, [])
+    }, [genDetails])
 
     const AddToGallery = (image: any) => {
         const galleryRef = ref(storage, `gallery/${v4()}`)
