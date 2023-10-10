@@ -34,6 +34,7 @@ export default function Profile() {
         hideCategories: true,
         hideCities: true
     })
+    const [userUid,setUserUid] =useState<string>("")
     const [viewSelected, setViewSelected] = useState<string>("")
     const [categoryList, setCategoryList] = useState<Array<any>>([])
     const [citiesList, setCitiesList] = useState<Array<any>>([])
@@ -127,7 +128,7 @@ export default function Profile() {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 // User is signed in, call getUserDetails()
-                console.log('User ID:', user.uid); // User ID
+                setUserUid( user.uid); // User ID
                 getUserDetails(user.uid);
                 getListingData()
             } else {
@@ -153,7 +154,7 @@ export default function Profile() {
                 const data = { ...genDetails, images: newImg }
 
                 updateUser(data).then(res => {
-                    getUserDetails(`${auth.currentUser?.uid}`)
+                    getUserDetails(userUid)
                     setShowUserMsg(success)
                 }).catch(err => { setShowUserMsg(error) })
             }).catch(err => { setShowUserMsg(error) })
@@ -171,7 +172,7 @@ export default function Profile() {
             const newData = genDetails.images.filter((item: string) => item !== imageUrl)
             const data = { ...genDetails, images: newData }
             updateUser(data).then(res => {
-                getUserDetails(`${auth.currentUser?.uid}`)
+                getUserDetails(userUid)
                 setShowUserMsg(success)
             }).catch(err => { setShowUserMsg(error) })
         }).catch(err => { setShowUserMsg(error) })
@@ -292,7 +293,7 @@ export default function Profile() {
     const handleHoursUpdate = (e: FormEvent) => {
         e.preventDefault()
         updateUser({ ...genDetails, hours: workingHours }).then(res => {
-            getUserDetails(`${auth.currentUser?.uid}`)
+            getUserDetails(userUid)
             setShowUserMsg(success)
         }).catch(err => { setShowUserMsg(error) })
     }
