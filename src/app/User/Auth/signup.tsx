@@ -52,7 +52,7 @@ export default function Signup() {
     const GoogleAuth=()=>{
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth,provider).then(res=>{
-            setTimeout(()=>router.push("/User/Auth/verify"),2000)
+            setTimeout(()=>router.push("/User/Auth/onboarding"),2000)
         }).catch(err=>{
             setWarn(false)
         })
