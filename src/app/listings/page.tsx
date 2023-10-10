@@ -88,6 +88,7 @@ export default function Listings() {
     }
 
     const basicSearch = (value: string, location: string) => {
+        setHideLoad(false)
         listingIndex.search(`${value} ${location}`, {
             hitsPerPage: 50,
             filters: "type:listing",
@@ -132,9 +133,7 @@ export default function Listings() {
 
 
 
-    // infinite scroll
-    // const { hits } = useInfiniteHits()
-    // const sentinelRef = useRef(null)
+ 
 
     return (
         <div className={mp}>
