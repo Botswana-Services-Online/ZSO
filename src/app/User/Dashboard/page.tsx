@@ -98,17 +98,21 @@ export default function Profile() {
 
     const getUserDetails = () => {
         getDoc(doc(db, "users", `${auth.currentUser?.uid}`)).then((res) => {
+            if(res.exists()){
             console.log(res.data())
             setGenDetails(res.data())
-            // setWorkingHours({
-            //     monday: { ...res.data().hours.monday },
-            //     tuesday: { ...res.data().hours.tuesday },
-            //     wednesday: { ...res.data().hours.wednesday },
-            //     thursday: { ...res.data().hours.thursday },
-            //     friday: { ...res.data().hours.friday },
-            //     saturday: { ...res.data().hours.saturday },
-            //     sunday: { ...res.data().hours.sunday },
-            // })
+            setWorkingHours({
+                monday: { ...res.data().hours.monday },
+                tuesday: { ...res.data().hours.tuesday },
+                wednesday: { ...res.data().hours.wednesday },
+                thursday: { ...res.data().hours.thursday },
+                friday: { ...res.data().hours.friday },
+                saturday: { ...res.data().hours.saturday },
+                sunday: { ...res.data().hours.sunday },
+            })
+        }else{
+            console.log("no data")
+        }
           
         }).catch(err => {
             console.log(err)
