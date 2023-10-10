@@ -22,7 +22,7 @@ import { search } from "ss-search"
 export default function Profile() {
 
 
-    const [genDetails, setGenDetails] = useState<userData>(userDataDefault)
+    const [genDetails, setGenDetails] = useState<userData>({...userDataDefault})
     const [msg, setMsg] = useState({
         gallery: "Add Pictures"
     })
@@ -276,7 +276,7 @@ export default function Profile() {
     return (
         <div className="container">
             <div className="mb-3">
-                <h1></h1>
+                <h1>{genDetails.name}</h1>
             </div>
             <Alert show={showUserMsg.show} variant={showUserMsg.variant} dismissible={true} onClose={() => setShowUserMsg({ ...showUserMsg, show: false })} >
 
