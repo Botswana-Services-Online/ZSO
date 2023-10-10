@@ -91,7 +91,6 @@ export default function Listings() {
         setHideLoad(false)
         listingIndex.search(`${value} ${location}`, {
             hitsPerPage: 50,
-            filters: "type:listing",
             getRankingInfo: true,
 
 
@@ -105,8 +104,6 @@ export default function Listings() {
 
         usersIndex.search(`${value} ${location}`, {
             hitsPerPage: 50,
-           
-
         }).then((res: any) => {
             console.log(res.hits)
             setCompData(res.hits)
