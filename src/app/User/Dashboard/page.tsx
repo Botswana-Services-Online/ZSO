@@ -276,7 +276,7 @@ export default function Profile() {
     return (
         <div className="container">
             <div className="mb-3">
-                <h1>{genDetails.name}</h1>
+                <h1></h1>
             </div>
             <Alert show={showUserMsg.show} variant={showUserMsg.variant} dismissible={true} onClose={() => setShowUserMsg({ ...showUserMsg, show: false })} >
 
