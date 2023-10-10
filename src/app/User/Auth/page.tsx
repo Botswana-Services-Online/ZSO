@@ -5,6 +5,9 @@ import Signup from "./signup";
 import Login from "./login";
 import { Authorized } from "@/app/components/contexts";
 import { useRouter } from "next/navigation";
+import { auth, db } from "@/app/api/firebase";
+import { getDoc, doc } from "firebase/firestore";
+
 
 
 
@@ -17,7 +20,13 @@ export default function Auth() {
     })
 
     useEffect(()=>{
-        access.log?nav.push("/User/Dashboard"):null
+        if(auth.currentUser){
+            getDoc(doc(db,"users",`${auth.currentUser.uid}`)).then(res=>{
+                if(res.exists()){
+                    nav.push("/User/Dashboard")
+                }
+            })
+        }
         const result = localStorage.getItem("log");
         if(result==="0"){
             setHide({ ...hide, hideLogin: true, hideSignup: false })
