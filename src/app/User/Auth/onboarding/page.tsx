@@ -2,9 +2,9 @@
 import { genBtn, genFrm, mp, vp } from "@/app/components/cssStyles";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { industries } from "@/app/components/categories";
+import { cities, industries } from "@/app/components/categories";
 import { search } from "ss-search";
-import { addDoc, collection} from "firebase/firestore"
+import { addDoc, collection, doc, setDoc} from "firebase/firestore"
 import {  auth, db, } from "@/app/api/firebase";
 import moment from "moment";
 import { Alert, Spinner } from "react-bootstrap";
@@ -65,7 +65,7 @@ export default function Register() {
         }
 
 
-        addDoc(collection(db, "users",`${auth.currentUser?.uid}`), data).then(res => {
+        setDoc(doc(db, "users",`${auth.currentUser?.uid}`), data).then(res => {
             route.push("/User/Dashboard")
         }).catch(err => {
             setLoading(false)
@@ -93,15 +93,15 @@ export default function Register() {
 
                             <div className="col-sm mb-3">
                                 <p>Company  / Personal Name <b className="text-danger">*</b></p>
-                                <input type="text" className={genFrm}  value={userData.name} onChange={(e) => setUserData({ ...userData, name: e.target.value })} required />
+                                <input type="text" className="form-control"  value={userData.name} onChange={(e) => setUserData({ ...userData, name: e.target.value })} required />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Mobile Phone <b className="text-danger">*</b></p>
-                                <input type="text" className={genFrm} placeholder="Include country code +263..."  value={userData.mobilePhone} onChange={(e) => setUserData({ ...userData, mobilePhone: e.target.value })} required />
+                                <input type="text" className="form-control" placeholder="Include country code +263..."  value={userData.mobilePhone} onChange={(e) => setUserData({ ...userData, mobilePhone: e.target.value })} required />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Telephone</p>
-                                <input type="text" className={genFrm} placeholder="Include country code +263..." value={userData.telephone} onChange={(e) => setUserData({ ...userData, telephone: e.target.value })}  />
+                                <input type="text" className="form-control" placeholder="Include country code +263..." value={userData.telephone} onChange={(e) => setUserData({ ...userData, telephone: e.target.value })}  />
                             </div>
 
                         </div>
@@ -112,11 +112,11 @@ export default function Register() {
                         <div className="row" >
                             <div className="col-sm mb-3">
                                 <p>Website</p>
-                                <input type="text" className={genFrm} placeholder="https://site.com" value={userData.website} onChange={(e) => setUserData({ ...userData, website: e.target.value })} required />
+                                <input type="text" className="form-control" placeholder="https://site.com" value={userData.website} onChange={(e) => setUserData({ ...userData, website: e.target.value })} required />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Industry <b className="text-danger">*</b></p>
-                                <input type="text" value={userData.industry} className={genFrm} placeholder="Industry*" onChange={(e) => { setUserData({...userData,industry:e.target.value}),searchIndustry(e.target.value) }} required/>
+                                <input type="text" value={userData.industry} className="form-control" placeholder="Industry*" onChange={(e) => { setUserData({...userData,industry:e.target.value}),searchIndustry(e.target.value) }} required/>
                                 <div className="shadow-lg  rounded m-1 z-0 position-absolute bg-white overflow-auto " style={{ maxHeight: "20vh", width: "50vh" }} hidden={hide.hideIndustrySearch}>
                                     {
                                         industryData?.map((item: any, index: number) => {
@@ -130,7 +130,7 @@ export default function Register() {
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Register As A <b className="text-danger">*</b> </p>
-                                <select className={genFrm} value={userData.registerAs} onChange={(e) => setUserData({ ...userData, registerAs: e.target.value })} required>
+                                <select className="form-control" value={userData.registerAs} onChange={(e) => setUserData({ ...userData, registerAs: e.target.value })} required>
                                     <option value="Company">Company</option>
                                     <option value="Individual">Individual</option>
                                 </select>
@@ -144,18 +144,19 @@ export default function Register() {
 
                             <div className="col-sm mb-3">
                                 <p>LinkedIn</p>
-                                <input type="text" className={genFrm} placeholder="Username"  value={userData.linkedin} onChange={(e) => setUserData({ ...userData, linkedin: e.target.value })}  />
+                                <input type="text" className="form-control" placeholder="Username"  value={userData.linkedin} onChange={(e) => setUserData({ ...userData, linkedin: e.target.value })}  />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Twitter</p>
-                                <input type="text" className={genFrm} placeholder="Username "  value={userData.twitter} onChange={(e) => setUserData({ ...userData, twitter: e.target.value })}  />
+                                <input type="text" className="form-control" placeholder="Username "  value={userData.twitter} onChange={(e) => setUserData({ ...userData, twitter: e.target.value })}  />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Facebook</p>
-                                <input type="text" className={genFrm} placeholder="Username" value={userData.facebook} onChange={(e) => setUserData({ ...userData, facebook: e.target.value })}  />
+                                <input type="text" className="form-control" placeholder="Username" value={userData.facebook} onChange={(e) => setUserData({ ...userData, facebook: e.target.value })}  />
                             </div>
 
                         </div>
+                      
                         <div className="row">
                             <div className="col-sm mb-3">
                                 <p>Will you be open during holidays <b className="text-danger">*</b></p>
@@ -165,6 +166,20 @@ export default function Register() {
                             </select>
                             </div>
                            
+                        </div>
+                        <div className="row">
+                            <div className="col-sm mb-3">
+                                <p>Service Location <b className="text-danger">*</b></p>
+                                <select className="form-control" value={userData.serviceLocation} onChange={(e)=>setUserData({...userData,serviceLocation:e.target.value})}>
+                                    {
+                                        cities.map((item,index)=>{
+                                            return(
+                                                <option key={index} value={item.name}>{item.name}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
                         </div>
                         <div className="row">
                             <div className="col-sm mb-3">

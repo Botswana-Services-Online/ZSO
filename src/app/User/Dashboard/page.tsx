@@ -1,5 +1,5 @@
 "use client"
-import { db } from "@/app/api/firebase"
+import { auth, db } from "@/app/api/firebase"
 import { useState,  useContext, useEffect, FormEvent } from "react"
 // import ViewDocs from "@/app/components/viewDocs"
 import { Authorized } from "@/app/components/contexts"
@@ -98,7 +98,7 @@ export default function Profile() {
 
 
     const getUserDetails = () => {
-        getDoc(doc(db, "users", `${access.id}`)).then((res: any) => {
+        getDoc(doc(db, "users", `${auth.currentUser?.uid}`)).then((res: any) => {
             console.log(res.data())
             setGenDetails(res.data())
             setWorkingHours({
@@ -347,15 +347,15 @@ export default function Profile() {
                         <div className="row">
                             <div className="col-sm mb-3">
                                 <p>LinkedIn</p>
-                                <input className="form-control rounded-pill" value={genDetails.linkedin} onChange={(e) => setGenDetails({ ...genDetails, linkedin: e.target.value })} required />
+                                <input className="form-control rounded-pill" value={genDetails.linkedin} onChange={(e) => setGenDetails({ ...genDetails, linkedin: e.target.value })}  />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Twitter</p>
-                                <input className="form-control rounded-pill" value={genDetails.twitter} onChange={(e) => setGenDetails({ ...genDetails, twitter: e.target.value })} required />
+                                <input className="form-control rounded-pill" value={genDetails.twitter} onChange={(e) => setGenDetails({ ...genDetails, twitter: e.target.value })}  />
                             </div>
                             <div className="col-sm mb-3">
                                 <p>Facebook</p>
-                                <input className="form-control rounded-pill" value={genDetails.facebook} onChange={(e) => setGenDetails({ ...genDetails, facebook: e.target.value })} required />
+                                <input className="form-control rounded-pill" value={genDetails.facebook} onChange={(e) => setGenDetails({ ...genDetails, facebook: e.target.value })} />
                             </div>
                         </div>
                         <div className="row">
