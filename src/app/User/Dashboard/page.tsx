@@ -97,8 +97,8 @@ export default function Profile() {
 
 
     const getUserDetails = () => {
+        console.log(auth.currentUser?.uid)
         getDoc(doc(db, "users", `${auth.currentUser?.uid}`)).then((res) => {
-            console.log(auth.currentUser?.uid)
             if(res.exists()){
             console.log(res.data())
             setGenDetails(res.data())
@@ -125,7 +125,7 @@ export default function Profile() {
         getUserDetails()
         getListingData()
       
-    }, [genDetails])
+    }, [])
 
     const AddToGallery = (image: any) => {
         const galleryRef = ref(storage, `gallery/${v4()}`)
