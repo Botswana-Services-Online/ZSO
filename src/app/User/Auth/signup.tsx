@@ -1,11 +1,11 @@
 "use Client"
 import { alignIcon, genBtn, genFrm,loading } from "@/app/components/cssStyles";
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword,sendEmailVerification,signInWithPopup,GoogleAuthProvider,FacebookAuthProvider } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword,sendEmailVerification,signInWithPopup,GoogleAuthProvider } from "firebase/auth"
 import { useRouter } from "next/navigation";
 import { app } from "@/app/api/firebase"
 import { Alert } from "react-bootstrap";
-import { logoFacebook, logoGoogle } from "ionicons/icons";
+import {  logoGoogle } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 // import { loading } from "@/app/components/cssStyles";
 export default function Signup() {
@@ -14,7 +14,6 @@ export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("")
-    const [disableBtn, setDisableBtn] = useState(true)
     const [warn, setWarn] = useState(true)
     const [hide, setHide] = useState(false)
     const [btnTxt,setBtnTxt] = useState<any>("Sign Up")
