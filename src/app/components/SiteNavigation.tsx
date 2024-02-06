@@ -101,7 +101,7 @@ export const FooterBar = () => {
                 <p><a href="https://www.linkedin.com/in/zso-undefined-805601291/" className='text-white text-decoration-none' target="_blank">LinkedIn</a></p>
                 <p><a href={whatsappLink("+26773400400")} className='text-white text-decoration-none' target="_blank">Whatsapp</a></p>
                <br/>
-               <p>Love the site visit <a className='text-white' target="_blank" href='https://aurorasystems.co.zw'>Aurora</a></p>
+               {/*<p>Love the site visit <a className='text-white' target="_blank" href='https://aurorasystems.co.zw'>Aurora</a></p>*/}
             </div>
             <div className="col-sm">
                 <p><b>© {new Date().getFullYear()} Zimbabwe Services Online</b></p>
