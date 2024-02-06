@@ -11,6 +11,7 @@ import {  auth } from './api/firebase';
 import { fetchData } from './components/getData';
 import { userData, userDataDefault } from './components/schemes';
 import { Metadata } from 'next';
+import Script from 'next/script';
 
 
 
@@ -46,6 +47,7 @@ export default function RootLayout({
         <FloatingWhatsApp statusMessage='Typically replies in 2 minutes' phoneNumber='+263788984320' accountName='Zim Services Online' avatar="https://voideawn.sirv.com/website/home_three.jpg"/>
         <FooterBar/>
         </Authorized.Provider>
+        <Script type="text/javascript" src="//pl22407793.toprevenuegate.com/95/72/06/957206293fa29f1a999b116f638aa200.js"></Script>
         </body>
     </html>
   )
